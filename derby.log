@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Mon Apr 01 20:17:14 BST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-013d-c708-29d0-0000008ba4a0 
+on database directory C:\Users\Anthony\unicentaopos-database  with class loader sun.misc.Launcher$AppClassLoader@1ac04e8 
+Loaded from file:/C:/Users/Anthony/Documents/NetBeansProjects/TJCrafts.ePOS/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_17-b02
+user.dir=C:\Users\Anthony\Documents\NetBeansProjects\TJCrafts.ePOS
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
