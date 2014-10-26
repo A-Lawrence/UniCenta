@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,10 +31,25 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTimePanel extends javax.swing.JPanel {
     
+    /**
+     *
+     */
     public final static int BUTTONS_ALL = 3;
+
+    /**
+     *
+     */
     public final static int BUTTONS_HOUR = 1;
+
+    /**
+     *
+     */
     public final static int BUTTONS_MINUTE = 2;
     
     private DateFormat fmtTime = DateFormat.getTimeInstance(DateFormat.SHORT);
@@ -54,9 +69,20 @@ public class JTimePanel extends javax.swing.JPanel {
     public JTimePanel() {
         this(null, BUTTONS_ALL);
     }    
+
+    /**
+     *
+     * @param dDate
+     */
     public JTimePanel(Date dDate) {
         this(dDate, BUTTONS_ALL);
     }
+
+    /**
+     *
+     * @param dDate
+     * @param iButtons
+     */
     public JTimePanel(Date dDate, int iButtons) {
         super();
         
@@ -73,19 +99,19 @@ public class JTimePanel extends javax.swing.JPanel {
         
         if ((iButtons & BUTTONS_HOUR) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 1, 0);
-            m_jbtnplushour = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/2uparrow.png")), dateclick);
+            m_jbtnplushour = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/2rightarrow.png")), dateclick);
             m_jactions.add(m_jbtnplushour);
         }
         
         if ((iButtons & BUTTONS_MINUTE) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 0, 15);
-            m_jbtnplusfifteen = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1uparrow.png")), dateclick);
+            m_jbtnplusfifteen = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1rightarrow.png")), dateclick);
             m_jactions.add(m_jbtnplusfifteen);
         }
         
         if ((iButtons & BUTTONS_MINUTE) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 0, 1);
-            m_jbtnplusminute = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1uparrow.png")), dateclick);
+            m_jbtnplusminute = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1rightarrow.png")), dateclick);
             m_jactions.add(m_jbtnplusminute);
         }
 //        c = new GregorianCalendar(1900, 0, 0, 0, 0);
@@ -94,19 +120,19 @@ public class JTimePanel extends javax.swing.JPanel {
 
         if ((iButtons & BUTTONS_MINUTE) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 0, 1);
-            m_jbtnminusminute = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png")), dateclick);
+            m_jbtnminusminute = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1leftarrow.png")), dateclick);
             m_jactions.add(m_jbtnminusminute);
         }
         
         if ((iButtons & BUTTONS_MINUTE) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 0, 15);
-            m_jbtnminusfifteen = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png")), dateclick);
+            m_jbtnminusfifteen = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/1leftarrow.png")), dateclick);
             m_jactions.add(m_jbtnminusfifteen);
         }
         
         if ((iButtons & BUTTONS_HOUR) > 0) {
             c = new GregorianCalendar(1900, 0, 0, 1, 0);
-            m_jbtnminushour = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/2downarrow.png")), dateclick);
+            m_jbtnminushour = new JButtonDate(f.format(c.getTime()), new ImageIcon(getClass().getResource("/com/openbravo/images/2leftarrow.png")), dateclick);
             m_jactions.add(m_jbtnminushour);
         }
         
@@ -116,10 +142,17 @@ public class JTimePanel extends javax.swing.JPanel {
         renderTime();
     }
     
+    /**
+     *
+     */
     public void setDateMidNight() {
         setDate(new GregorianCalendar(1900, 0, 0, 0, 0).getTime());
     }
     
+    /**
+     *
+     * @param dNewDate
+     */
     public void setDate(Date dNewDate) {        
          
         Date dOldDate = m_jclock.getTime();
@@ -135,10 +168,19 @@ public class JTimePanel extends javax.swing.JPanel {
         return dDate == null || (m_dMaxDate == null || m_dMaxDate.compareTo(dDate) > 0) && (m_dMinDate == null || m_dMinDate.compareTo(dDate) <= 0);
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return m_jclock.getTime();
-    }    
-    
+    }
+
+    /**
+     *
+     * @param dMinDate
+     * @param dMaxDate
+     */
     public void setCheckDates(Date dMinDate, Date dMaxDate) {
         
         m_dMinDate = dMinDate;
@@ -154,6 +196,10 @@ public class JTimePanel extends javax.swing.JPanel {
         renderTime();
     }
     
+    /**
+     *
+     * @param period
+     */
     public void setPeriod(long period) {
         m_jclock.setPeriod(period);
         renderTime();
@@ -313,7 +359,7 @@ public class JTimePanel extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.LINE_END);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         m_jtime.add(m_jlblTime);

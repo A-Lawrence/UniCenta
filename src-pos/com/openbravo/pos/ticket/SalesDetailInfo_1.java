@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2010 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -37,43 +37,77 @@ public class SalesDetailInfo_1 implements IKeyed {
     private String productName;
     private int lineNO;
 
+    /**
+     *
+     * @return
+     */
     public int getLineNO() {
         return lineNO;
     }
 
+    /**
+     *
+     * @param lineNO
+     */
     public void setLineNO(int lineNO) {
         this.lineNO = lineNO;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getPrice() {
         return price;
     }
     
+    /**
+     *
+     * @return
+     */
     public String printPrice() {
         return Formats.CURRENCY.formatValue(price);
     }
 
+    /**
+     *
+     * @param price
+     */
     public void setPrice(double price) {
         this.price = price;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProductName() {
         return productName;
     }
 
+    /**
+     *
+     * @param productName
+     */
     public void setProductName(String productName) {
         this.productName = productName;
     }
     private double price;
 
-    /** Creates new CategoryInfo */
+    /** Creates new CategoryInfo
+     * @param lineNo
+     * @param productName
+     * @param price */
     public SalesDetailInfo_1(int lineNo, String productName, double price) {
         this.lineNO = lineNo;
         this.productName = productName;
         this.price = price;
     }
 
-   
+    /**
+     *
+     * @return
+     */
     public static SerializerRead getSerializerRead() {
         return new SerializerRead() {@Override
  public Object readValues(DataRead dr) throws BasicException {
@@ -81,6 +115,10 @@ public class SalesDetailInfo_1 implements IKeyed {
         }};
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
        return getLineNO();

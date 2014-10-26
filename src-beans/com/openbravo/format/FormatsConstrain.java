@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,12 +21,26 @@ package com.openbravo.format;
 
 import java.text.ParseException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class FormatsConstrain {
    
 //    public final static FormatsConstrain NOTNULL = new FormatsConstrainNOTNULL();
     
-    public abstract Object check(Object value) throws ParseException;  
-    
+    /**
+     *
+     * @param value
+     * @return
+     * @throws ParseException
+     */
+        
+    public abstract Object check(Object value) throws ParseException;
+
+    /**
+     *
+     */
     public FormatsConstrain() {
     }
     

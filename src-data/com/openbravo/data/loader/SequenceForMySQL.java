@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,27 +21,50 @@ package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
 
-
+/**
+ *
+ * @author JG uniCenta
+ */
 public class SequenceForMySQL extends BaseSentence {
     
     private BaseSentence sent1;
     private BaseSentence sent2;
     
-    /** Creates a new instance of SequenceForMySQL */
+    /** Creates a new instance of SequenceForMySQL
+     * @param s
+     * @param sSeqTable */
     public SequenceForMySQL(Session s, String sSeqTable) {
         
         sent1 = new StaticSentence(s, "UPDATE " + sSeqTable + " SET ID = LAST_INSERT_ID(ID + 1)");
         sent2 = new StaticSentence(s, "SELECT LAST_INSERT_ID()", null, SerializerReadInteger.INSTANCE);
     }
     
-    // Funciones de bajo nivel    
-    public DataResultSet openExec(Object params) throws BasicException {        
+    // Funciones de bajo nivel
+        
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
+        public DataResultSet openExec(Object params) throws BasicException {        
         sent1.exec();
         return sent2.openExec(null);
     }   
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public DataResultSet moreResults() throws BasicException {
         return sent2.moreResults();
     }
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void closeExec() throws BasicException {
         sent2.closeExec();
     }

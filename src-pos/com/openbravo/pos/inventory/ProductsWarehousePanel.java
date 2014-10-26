@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -48,6 +48,9 @@ public class ProductsWarehousePanel extends JPanelTable2 {
     public ProductsWarehousePanel() {
     }
 
+    /**
+     *
+     */
     @Override
     protected void init() {   
                
@@ -103,24 +106,39 @@ public class ProductsWarehousePanel extends JPanelTable2 {
         jeditor = new ProductsWarehouseEditor(dirty);   
     }
 
-       
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getFilter() {
         return m_paramslocation.getComponent();
-    }  
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
-    }  
-    
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         
         m_paramslocation.activate(); 
         super.activate();
-    }     
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.ProductsWarehouse");

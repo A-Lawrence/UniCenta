@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,6 +28,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import com.openbravo.pos.util.OSValidator;
 
 /**
  *
@@ -41,14 +42,21 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
     private JRootApp m_rootapp;
     private AppProperties m_props;
     
+    private OSValidator m_OS;
+    
     /** Creates new form JRootFrame */
     public JRootFrame() {
         
         initComponents();    
     }
     
+    /**
+     *
+     * @param props
+     */
     public void initFrame(AppProperties props) {
         
+        m_OS = new OSValidator();
         m_props = props;
         
         m_rootapp = new JRootApp();
@@ -72,7 +80,10 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
                 this.setIconImage(ImageIO.read(JRootFrame.class.getResourceAsStream("/com/openbravo/images/favicon.png")));
             } catch (IOException e) {
             }   
-            setTitle(AppLocal.APP_NAME + " - " + AppLocal.APP_VERSION);
+// Title with John L's sub[dot] updates commented out by JG 23 Jul 13
+//            setTitle(AppLocal.APP_NAME + " - " + AppLocal.APP_VERSION+ " - " + AppLocal.APP_VERSIONJL + "-" + AppLocal.APP_VERSIONJLCORE);
+
+            setTitle(AppLocal.APP_NAME + " - " + AppLocal.APP_VERSION);       
             pack();
             setLocationRelativeTo(null);        
             
@@ -82,6 +93,10 @@ public class JRootFrame extends javax.swing.JFrame implements AppMessage {
         }
     }
     
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void restoreWindow() throws RemoteException {
         java.awt.EventQueue.invokeLater(new Runnable() {

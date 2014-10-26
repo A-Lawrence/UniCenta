@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,11 +29,19 @@ public class SimpleBuilder implements ISQLBuilderStatic {
     
     private String m_sSentence;
     
-    /** Creates a new instance of SimpleBuilder */
+    /** Creates a new instance of SimpleBuilder
+     * @param sSentence */
     public SimpleBuilder(String sSentence) {
         m_sSentence = sSentence;
     }
     
+    /**
+     *
+     * @param sw
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public String getSQL(SerializerWrite sw, Object params) throws BasicException {
         return m_sSentence;
     }

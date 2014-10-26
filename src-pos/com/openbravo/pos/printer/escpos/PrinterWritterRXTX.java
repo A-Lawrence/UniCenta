@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,6 +25,10 @@ import gnu.io.*;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PrinterWritterRXTX extends PrinterWritter /* implements SerialPortEventListener */ {
     
     private CommPortIdentifier m_PortIdPrinter;
@@ -33,12 +37,18 @@ public class PrinterWritterRXTX extends PrinterWritter /* implements SerialPortE
     private String m_sPortPrinter;
     private OutputStream m_out;
     
-    /** Creates a new instance of PrinterWritterComm */
+    /** Creates a new instance of PrinterWritterComm
+     * @param sPortPrinter
+     * @throws com.openbravo.pos.printer.TicketPrinterException */
     public PrinterWritterRXTX(String sPortPrinter) throws TicketPrinterException {
         m_sPortPrinter = sPortPrinter;
         m_out = null; 
     }
     
+    /**
+     *
+     * @param data
+     */
     @Override
     protected void internalWrite(byte[] data) {
         try {  
@@ -67,6 +77,9 @@ public class PrinterWritterRXTX extends PrinterWritter /* implements SerialPortE
         }      
     }
     
+    /**
+     *
+     */
     @Override
     protected void internalFlush() {
         try {  
@@ -78,6 +91,9 @@ public class PrinterWritterRXTX extends PrinterWritter /* implements SerialPortE
         }    
     }
     
+    /**
+     *
+     */
     @Override
     protected void internalClose() {
         try {  

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -26,13 +26,23 @@ import java.util.List;
 /**
  *
  * @author adrianromero
+ * @param <K>
  */
 public class ListKeyed<K extends IKeyed> extends ArrayList<K> {
     
+    /**
+     *
+     * @param list
+     */
     public ListKeyed(List<K> list) {
         this.addAll(list);
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public K get(Object key) {
 
         for (K elem : this) {

@@ -1,5 +1,5 @@
 --    uniCenta oPOS - Touch Friendly Point Of Sale
---    Copyright (C) 2009-2012 uniCenta
+--    Copyright (C) 2009-2014 uniCenta
 --    http://www.unicenta.net
 --
 --    This file is part of uniCenta oPOS.
@@ -29,6 +29,5 @@ UPDATE RESOURCES SET CONTENT = $FILE{/com/openbravo/pos/templates/script.Receipt
 
 -- PRODUCT
 ALTER TABLE PRODUCTS ADD COLUMN DISPLAY VARCHAR(255);
-UPDATE PRODUCTS SET DISPLAY = concat('<html>', NAME);
 
 UPDATE APPLICATIONS SET NAME = $APP_NAME{}, VERSION = $APP_VERSION{} WHERE ID = $APP_ID{};

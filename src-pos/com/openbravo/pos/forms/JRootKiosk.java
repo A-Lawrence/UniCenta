@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,6 +22,7 @@ package com.openbravo.pos.forms;
 import com.openbravo.pos.config.JFrmConfig;
 import com.openbravo.pos.instance.AppMessage;
 import com.openbravo.pos.instance.InstanceManager;
+import com.openbravo.pos.util.OSValidator;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -39,6 +40,7 @@ public class JRootKiosk extends javax.swing.JFrame implements AppMessage {
     
     private JRootApp m_rootapp;
     private AppProperties m_props;
+    private OSValidator m_OS;    
     
     /** Creates new form JRootKiosk */
     public JRootKiosk() {
@@ -48,10 +50,14 @@ public class JRootKiosk extends javax.swing.JFrame implements AppMessage {
         
         initComponents();
     }
-    
-    
+
+    /**
+     *
+     * @param props
+     */
     public void initFrame(AppProperties props) {
         
+        m_OS = new OSValidator();
         m_props = props;
         
         m_rootapp = new JRootApp();
@@ -70,6 +76,9 @@ public class JRootKiosk extends javax.swing.JFrame implements AppMessage {
             // Show the application
             add(m_rootapp, BorderLayout.CENTER);            
     
+// With John L's sub[dot] updates
+//            setTitle(AppLocal.APP_NAME + " - " + AppLocal.APP_VERSION+ " - " + AppLocal.APP_VERSIONJL + "-" + AppLocal.APP_VERSIONJLCORE);
+
             setTitle(AppLocal.APP_NAME + " - " + AppLocal.APP_VERSION);
             
             Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -81,6 +90,10 @@ public class JRootKiosk extends javax.swing.JFrame implements AppMessage {
         }        
     }
     
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void restoreWindow() throws RemoteException {
         java.awt.EventQueue.invokeLater(new Runnable() {

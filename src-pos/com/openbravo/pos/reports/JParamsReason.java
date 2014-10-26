@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,6 +30,10 @@ import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.inventory.MovementReason;
 import java.awt.Component;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JParamsReason extends javax.swing.JPanel implements ReportEditorCreator {
     
     private ComboBoxValModel m_ReasonModel;
@@ -52,24 +56,45 @@ public class JParamsReason extends javax.swing.JPanel implements ReportEditorCre
         // m_jreason.setSelectedItem(null);
     }
     
+    /**
+     *
+     * @param app
+     */
     @Override
     public void init(AppView app) {
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public SerializerWrite getSerializerWrite() {
         return new SerializerWriteBasic(new Datas[] {Datas.OBJECT, Datas.INT});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -93,12 +118,12 @@ public class JParamsReason extends javax.swing.JPanel implements ReportEditorCre
         setPreferredSize(new java.awt.Dimension(400, 60));
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.stockreason")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(20, 20, 100, 25);
 
-        m_jreason.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jreason.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         add(m_jreason);
         m_jreason.setBounds(150, 20, 220, 25);
     }// </editor-fold>//GEN-END:initComponents

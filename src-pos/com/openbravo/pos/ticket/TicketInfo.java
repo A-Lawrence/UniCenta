@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,6 +24,8 @@ import com.openbravo.data.loader.LocalRes;
 import com.openbravo.data.loader.SerializableRead;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
+import com.openbravo.pos.forms.AppConfig;
+import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.payment.PaymentInfo;
 import com.openbravo.pos.payment.PaymentInfoMagcard;
 import com.openbravo.pos.util.StringUtils;
@@ -40,15 +42,32 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
     private static final long serialVersionUID = 2765650092387265178L;
 
+    /**
+     *
+     */
     public static final int RECEIPT_NORMAL = 0;
+
+    /**
+     *
+     */
     public static final int RECEIPT_REFUND = 1;
+
+    /**
+     *
+     */
     public static final int RECEIPT_PAYMENT = 2;
 
-    private static DateFormat m_dateformat = new SimpleDateFormat("hh:mm");
+    /**
+     *
+     */
+    public static final int RECEIPT_NOSALE = 3;
+
+    private static final DateFormat m_dateformat = new SimpleDateFormat("hh:mm");
 
     private String m_sId;
     private int tickettype;
     private int m_iTicketId;
+    private int m_iPickupId;
     private java.util.Date m_dDate;
     private Properties attributes;
     private UserInfo m_User;
@@ -57,8 +76,11 @@ public class TicketInfo implements SerializableRead, Externalizable {
     private List<TicketLineInfo> m_aLines;
     private List<PaymentInfo> payments;
     private List<TicketTaxInfo> taxes;
-    private String m_sResponse;
+    private final String m_sResponse;
+    private String loyaltyCardNumber;
+    private Boolean oldTicket;
 
+    
     /** Creates new TicketModel */
     public TicketInfo() {
         m_sId = UUID.randomUUID().toString();
@@ -74,6 +96,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
         payments = new ArrayList<>(); // JG June 2102 diamond inference
         taxes = null;
         m_sResponse = null;
+        oldTicket=false;
+        
     }
 
     @Override
@@ -103,13 +127,19 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
         payments = new ArrayList<>(); // JG June 2102 diamond inference
         taxes = null;
+      
     }
 
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     @Override
     public void readValues(DataRead dr) throws BasicException {
         m_sId = dr.getString(1);
-        tickettype = dr.getInt(2).intValue();
-        m_iTicketId = dr.getInt(3).intValue();
+        tickettype = dr.getInt(2);
+        m_iTicketId = dr.getInt(3);
         m_dDate = dr.getTimestamp(4);
         m_sActiveCash = dr.getString(5);
         try {
@@ -125,8 +155,13 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
         payments = new ArrayList<>(); // JG June 2102 diamond inference
         taxes = null;
+        
     }
 
+    /**
+     *
+     * @return
+     */
     public TicketInfo copyTicket() {
         TicketInfo t = new TicketInfo();
 
@@ -148,33 +183,74 @@ public class TicketInfo implements SerializableRead, Externalizable {
         for (PaymentInfo p : payments) {
             t.payments.add(p.copyPayment());
         }
-
+        t.oldTicket=oldTicket;
         // taxes are not copied, must be calculated again.
 
         return t;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return m_sId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTicketType() {
         return tickettype;
     }
 
+    /**
+     *
+     * @param tickettype
+     */
     public void setTicketType(int tickettype) {
         this.tickettype = tickettype;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTicketId() {
         return m_iTicketId;
     }
 
+    /**
+     *
+     * @param iTicketId
+     */
     public void setTicketId(int iTicketId) {
         m_iTicketId = iTicketId;
     // refreshLines();
     }
 
+    /**
+     *
+     * @param iTicketId
+     */
+    public void setPickupId(int iTicketId) {
+        m_iPickupId = iTicketId;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getPickupId() {
+        return m_iPickupId;
+    }
+    
+    /**
+     *
+     * @param info
+     * @return
+     */
     public String getName(Object info) {
 
         StringBuilder name = new StringBuilder();
@@ -196,35 +272,67 @@ public class TicketInfo implements SerializableRead, Externalizable {
         
         return name.toString();
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return getName(null);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.util.Date getDate() {
         return m_dDate;
     }
 
+    /**
+     *
+     * @param dDate
+     */
     public void setDate(java.util.Date dDate) {
         m_dDate = dDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserInfo getUser() {
         return m_User;
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setUser(UserInfo value) {
         m_User = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public CustomerInfoExt getCustomer() {
         return m_Customer;
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setCustomer(CustomerInfoExt value) {
         m_Customer = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCustomerId() {
         if (m_Customer == null) {
             return null;
@@ -233,62 +341,122 @@ public class TicketInfo implements SerializableRead, Externalizable {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String getTransactionID(){
         return (getPayments().size()>0)
             ? ( getPayments().get(getPayments().size()-1) ).getTransactionID()
             : StringUtils.getCardNumber(); //random transaction ID
     }
     
+    /**
+     *
+     * @return
+     */
     public String getReturnMessage(){
         return ( (getPayments().get(getPayments().size()-1)) instanceof PaymentInfoMagcard )
             ? ((PaymentInfoMagcard)(getPayments().get(getPayments().size()-1))).getReturnMessage()
             : LocalRes.getIntString("button.ok");
+
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setActiveCash(String value) {
         m_sActiveCash = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getActiveCash() {
         return m_sActiveCash;
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public String getProperty(String key) {
         return attributes.getProperty(key);
     }
 
+    /**
+     *
+     * @param key
+     * @param defaultvalue
+     * @return
+     */
     public String getProperty(String key, String defaultvalue) {
         return attributes.getProperty(key, defaultvalue);
     }
 
+    /**
+     *
+     * @param key
+     * @param value
+     */
     public void setProperty(String key, String value) {
         attributes.setProperty(key, value);
     }
 
+    /**
+     *
+     * @return
+     */
     public Properties getProperties() {
         return attributes;
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public TicketLineInfo getLine(int index) {
         return m_aLines.get(index);
     }
 
+    /**
+     *
+     * @param oLine
+     */
     public void addLine(TicketLineInfo oLine) {
 
         oLine.setTicket(m_sId, m_aLines.size());
         m_aLines.add(oLine);
     }
 
+    /**
+     *
+     * @param index
+     * @param oLine
+     */
     public void insertLine(int index, TicketLineInfo oLine) {
         m_aLines.add(index, oLine);
         refreshLines();
     }
 
+    /**
+     *
+     * @param index
+     * @param oLine
+     */
     public void setLine(int index, TicketLineInfo oLine) {
         oLine.setTicket(m_sId, index);
         m_aLines.set(index, oLine);
     }
 
+    /**
+     *
+     * @param index
+     */
     public void removeLine(int index) {
         m_aLines.remove(index);
         refreshLines();
@@ -300,10 +468,18 @@ public class TicketInfo implements SerializableRead, Externalizable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLinesCount() {
         return m_aLines.size();
     }
     
+    /**
+     *
+     * @return
+     */
     public double getArticlesCount() {
         double dArticles = 0.0;
         TicketLineInfo oLine;
@@ -316,6 +492,10 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return dArticles;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getSubTotal() {
         double sum = 0.0;
         for (TicketLineInfo line : m_aLines) {
@@ -324,6 +504,10 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return sum;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTax() {
 
         double sum = 0.0;
@@ -339,13 +523,19 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return sum;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTotal() {
-        
         return getSubTotal() + getTax();
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public double getTotalPaid() {
-
         double sum = 0.0;
         for (PaymentInfo p : payments) {
             if (!"debtpaid".equals(p.getName())) {
@@ -353,44 +543,91 @@ public class TicketInfo implements SerializableRead, Externalizable {
             }
         }
         return sum;
-    }
+          }
 
+    /**
+     *
+     * @return
+     */
+    public double getTendered() {
+        return getTotalPaid();
+    }    
+
+    /**
+     *
+     * @return
+     */
     public List<TicketLineInfo> getLines() {
         return m_aLines;
     }
 
+    /**
+     *
+     * @param l
+     */
     public void setLines(List<TicketLineInfo> l) {
         m_aLines = l;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<PaymentInfo> getPayments() {
         return payments;
     }
 
+    /**
+     *
+     * @param l
+     */
     public void setPayments(List<PaymentInfo> l) {
         payments = l;
     }
 
+    /**
+     *
+     */
     public void resetPayments() {
         payments = new ArrayList<>(); // JG June 2102 diamond inference
     }
 
+    /**
+     *
+     * @return
+     */
     public List<TicketTaxInfo> getTaxes() {
         return taxes;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean hasTaxesCalculated() {
         return taxes != null;
     }
 
+    /**
+     *
+     * @param l
+     */
     public void setTaxes(List<TicketTaxInfo> l) {
         taxes = l;
     }
 
+    /**
+     *
+     */
     public void resetTaxes() {
         taxes = null;
     }
 
+    /**
+     *
+     * @param tax
+     * @return
+     */
     public TicketTaxInfo getTaxLine(TaxInfo tax) {
 
         for (TicketTaxInfo taxline : taxes) {
@@ -402,6 +639,10 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return new TicketTaxInfo(tax);
     }
 
+    /**
+     *
+     * @return
+     */
     public TicketTaxInfo[] getTaxLines() {
 
         Map<String, TicketTaxInfo> m = new HashMap<>(); // JG June 2102 diamond inference
@@ -423,44 +664,162 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return avalues.toArray(new TicketTaxInfo[avalues.size()]);
     }
 
+    /**
+     *
+     * @return
+     */
     public String printId() {
+// We need acces to the config file        
+      AppConfig m_config =  new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));        
+      m_config.load();
+      String receiptSize =(m_config.getProperty("till.receiptsize"));
+      String receiptPrefix =(m_config.getProperty("till.receiptprefix"));
+// we have finished with m_config so unload it      
+      m_config =null;
+
+
         if (m_iTicketId > 0) {
-            // valid ticket id
-            return Formats.INT.formatValue(new Integer(m_iTicketId));
+            String tmpTicketId=Integer.toString(m_iTicketId);
+            if (receiptSize == null || (Integer.parseInt(receiptSize) <= tmpTicketId.length())){
+                if (receiptPrefix != null){
+                    tmpTicketId=receiptPrefix+tmpTicketId;
+                } 
+                return tmpTicketId;
+            }            
+            while (tmpTicketId.length()<Integer.parseInt(receiptSize)){
+                tmpTicketId="0"+tmpTicketId;
+            }
+            if (receiptPrefix != null){
+                    tmpTicketId=receiptPrefix+tmpTicketId;
+            }             
+            return tmpTicketId;
         } else {
             return "";
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String printDate() {
         return Formats.TIMESTAMP.formatValue(m_dDate);
     }
 
+    /**
+     *
+     * @return
+     */
     public String printUser() {
         return m_User == null ? "" : m_User.getName();
     }
+    
+    
+// Added JDL 28.05.13 for loyalty card functions
 
+    /**
+     *
+     */
+        public void clearCardNumber(){
+        loyaltyCardNumber=null;
+    }
+    
+    /**
+     *
+     * @param cardNumber
+     */
+    public void setLoyaltyCardNumber(String cardNumber){
+        loyaltyCardNumber=cardNumber;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getLoyaltyCardNumber(){
+        return (loyaltyCardNumber);
+    }
+// Loyalty card functions added
+         
+    /**
+     *
+     * @return
+     */
     public String printCustomer() {
         return m_Customer == null ? "" : m_Customer.getName();
     }
 
+    /**
+     *
+     * @return
+     */
     public String printArticlesCount() {
-        return Formats.DOUBLE.formatValue(new Double(getArticlesCount()));
+        return Formats.DOUBLE.formatValue(getArticlesCount());
     }
 
+    /**
+     *
+     * @return
+     */
     public String printSubTotal() {
-        return Formats.CURRENCY.formatValue(new Double(getSubTotal()));
+        return Formats.CURRENCY.formatValue(getSubTotal());
     }
 
+    /**
+     *
+     * @return
+     */
     public String printTax() {
-        return Formats.CURRENCY.formatValue(new Double(getTax()));
+        return Formats.CURRENCY.formatValue(getTax());
     }
 
+    /**
+     *
+     * @return
+     */
     public String printTotal() {
-        return Formats.CURRENCY.formatValue(new Double(getTotal()));
+        return Formats.CURRENCY.formatValue(getTotal());
     }
 
+    /**
+     *
+     * @return
+     */
     public String printTotalPaid() {
-        return Formats.CURRENCY.formatValue(new Double(getTotalPaid()));
+        return Formats.CURRENCY.formatValue(getTotalPaid());
     }
+
+    /**
+     *
+     * @return
+     */
+    public String printTendered() {
+        return Formats.CURRENCY.formatValue(getTendered());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String VoucherReturned(){
+        return Formats.CURRENCY.formatValue(getTotalPaid()- getTotal());
+    }
+//Added JDl 03.07.13
+
+    /**
+     *
+     * @return
+     */
+    public boolean getOldTicket() {
+	return (oldTicket);
+}
+
+    /**
+     *
+     * @param otState
+     */
+    public void setOldTicket(Boolean otState) {
+	oldTicket = otState;
+}
+    
 }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,19 +19,68 @@
 
 package com.openbravo.pos.payment;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface MagCardReader {
  
+    /**
+     *
+     * @return
+     */
     public String getReaderName();
     
+    /**
+     *
+     */
     public void reset();
+
+    /**
+     *
+     * @param c
+     */
     public void appendChar(char c);
+
+    /**
+     *
+     * @return
+     */
     public boolean isComplete();
     
+    /**
+     *
+     * @return
+     */
     public String getHolderName();
+
+    /**
+     *
+     * @return
+     */
     public String getCardNumber();
+
+    /**
+     *
+     * @return
+     */
     public String getExpirationDate();
     
+    /**
+     *
+     * @return
+     */
     public String getTrack1();
+
+    /**
+     *
+     * @return
+     */
     public String getTrack2();
+
+    /**
+     *
+     * @return
+     */
     public String getTrack3();
 }

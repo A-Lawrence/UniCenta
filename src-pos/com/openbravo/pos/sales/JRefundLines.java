@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,12 +19,16 @@
 
 package com.openbravo.pos.sales;
 
-import java.awt.BorderLayout;
-import java.util.List;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.ticket.TicketLineInfo;
+import java.awt.BorderLayout;
+import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JRefundLines extends javax.swing.JPanel {
     
     private JTicketLines ticketlines;
@@ -32,7 +36,9 @@ public class JRefundLines extends javax.swing.JPanel {
 
     private JPanelTicketEdits m_jTicketEdit;
     
-    /** Creates new form JRefundLines */
+    /** Creates new form JRefundLines
+     * @param dlSystem
+     * @param jTicketEdit */
 public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
         
         m_jTicketEdit = jTicketEdit;
@@ -44,6 +50,10 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
         jPanel3.add(ticketlines, BorderLayout.CENTER);
     }
     
+    /**
+     *
+     * @param aRefundLines
+     */
     public void setLines(List aRefundLines) {
         
         m_aLines = aRefundLines;
@@ -71,6 +81,7 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
         m_jbtnAddLine = new javax.swing.JButton();
         m_jbtnAddAll = new javax.swing.JButton();
 
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setPreferredSize(new java.awt.Dimension(15, 200));
         setLayout(new java.awt.BorderLayout());
 
@@ -81,6 +92,7 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
 
         jPanel2.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
+        m_jbtnAddOne.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jbtnAddOne.setText(AppLocal.getIntString("button.refundone")); // NOI18N
         m_jbtnAddOne.setToolTipText("Refund An Item");
         m_jbtnAddOne.setFocusPainted(false);
@@ -95,6 +107,7 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
         });
         jPanel2.add(m_jbtnAddOne);
 
+        m_jbtnAddLine.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jbtnAddLine.setText(AppLocal.getIntString("button.refundline")); // NOI18N
         m_jbtnAddLine.setToolTipText("Refund A Line");
         m_jbtnAddLine.setFocusPainted(false);
@@ -109,6 +122,7 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
         });
         jPanel2.add(m_jbtnAddLine);
 
+        m_jbtnAddAll.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jbtnAddAll.setText(AppLocal.getIntString("button.refundall")); // NOI18N
         m_jbtnAddAll.setToolTipText("Refund Everything");
         m_jbtnAddAll.setFocusPainted(false);

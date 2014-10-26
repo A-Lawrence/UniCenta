@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (C) 2008-2014 Openbravo, S.L.
+//    http://www.unicenta.com - additional amends by Walter Wojick for Blue Pay
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,12 +21,21 @@ package com.openbravo.pos.payment;
 
 import com.openbravo.pos.forms.AppProperties;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PaymentGatewayFac {
     
     /** Creates a new instance of PaymentGatewayFac */
     private PaymentGatewayFac() {
     }
     
+    /**
+     *
+     * @param props
+     * @return
+     */
     public static PaymentGateway getPaymentGateway(AppProperties props) {
         
         String sReader = props.getProperty("payment.gateway");
@@ -38,6 +47,10 @@ public class PaymentGatewayFac {
                 return new PaymentGatewayPayPoint(props);
             case "AuthorizeNet":
                 return new PaymentGatewayAuthorizeNet(props);
+            case "BluePay AUTH.NET EMU":
+                return new PaymentGatewayBluePayAUTHNETEMU(props);
+            case "BluePay 2.0 POST":
+                return new PaymentGatewayBluePay20POST(props);
             case "La Caixa (Spain)":
                 return new PaymentGatewayCaixa(props);
             case "Planetauthorize":

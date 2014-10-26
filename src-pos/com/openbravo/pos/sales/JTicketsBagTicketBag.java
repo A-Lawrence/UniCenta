@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,24 +19,35 @@
 
 package com.openbravo.pos.sales;
 
+import com.openbravo.pos.forms.AppLocal;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
-import com.openbravo.pos.forms.AppLocal;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTicketsBagTicketBag extends javax.swing.JPanel {
     
     private JTicketsBagTicket m_ticketsbagticket;
     
-    /** Creates new form JTicketsBagTicketBag */
+    /** Creates new form JTicketsBagTicketBag
+     * @param ticketsbagticket */
     public JTicketsBagTicketBag(JTicketsBagTicket ticketsbagticket) {
         m_ticketsbagticket = ticketsbagticket;
         initComponents();
     }
     
+    /**
+     *
+     */
     public void showEdit() {
         showView("edit");
     }
     
+    /**
+     *
+     */
     public void showRefund() {
         showView("refund");
     }
@@ -64,12 +75,16 @@ public class JTicketsBagTicketBag extends javax.swing.JPanel {
 
         jPanEdit.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
+        m_jBtnDelete.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         m_jBtnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_delete.png"))); // NOI18N
         m_jBtnDelete.setText(AppLocal.getIntString("Button.DeleteTicket")); // NOI18N
         m_jBtnDelete.setToolTipText("Delete current Ticket");
         m_jBtnDelete.setFocusPainted(false);
         m_jBtnDelete.setFocusable(false);
-        m_jBtnDelete.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jBtnDelete.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jBtnDelete.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jBtnDelete.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jBtnDelete.setPreferredSize(new java.awt.Dimension(50, 40));
         m_jBtnDelete.setRequestFocusEnabled(false);
         m_jBtnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,12 +93,16 @@ public class JTicketsBagTicketBag extends javax.swing.JPanel {
         });
         jPanEdit.add(m_jBtnDelete);
 
+        m_jBtnCancel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         m_jBtnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         m_jBtnCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         m_jBtnCancel.setToolTipText("Cancel Action");
         m_jBtnCancel.setFocusPainted(false);
         m_jBtnCancel.setFocusable(false);
-        m_jBtnCancel.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jBtnCancel.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jBtnCancel.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jBtnCancel.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jBtnCancel.setPreferredSize(new java.awt.Dimension(50, 40));
         m_jBtnCancel.setRequestFocusEnabled(false);
         m_jBtnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,9 +141,10 @@ public class JTicketsBagTicketBag extends javax.swing.JPanel {
         
         int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannadelete"), AppLocal.getIntString("title.editor"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (res == JOptionPane.YES_OPTION) {
-            m_ticketsbagticket.deleteTicket();
+            m_ticketsbagticket.deleteTicket(); 
+             
         }
-        
+      
     }//GEN-LAST:event_m_jBtnDeleteActionPerformed
 
     private void m_jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnCancelActionPerformed

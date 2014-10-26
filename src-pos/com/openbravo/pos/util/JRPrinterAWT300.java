@@ -28,8 +28,8 @@
 
 //    Portions:
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //    author Jack Gerrard
 // This class is a copy of net.sf.jasperreports.engine.print.JRPrinterAWT
 // The modifications are:
@@ -68,6 +68,10 @@ public class JRPrinterAWT300 implements Printable
 
 	/**
 	 *
+     * @param jrPrint
+     * @param jrPrint
+     * @throws net.sf.jasperreports.engine.JRException
+     * @throws JRException
 	 */
 	protected JRPrinterAWT300(JasperPrint jrPrint) throws JRException
 	{
@@ -79,6 +83,15 @@ public class JRPrinterAWT300 implements Printable
 
 	/**
 	 *
+     * @param jrPrint
+     * @param firstPageIndex
+     * @param lastPageIndex
+     * @param firstPageIndex
+     * @param lastPageIndex
+     * @param service
+     * @return
+     * @return 
+     * @throws JRException
 	 */
 	public static boolean printPages(
 		JasperPrint jrPrint,
@@ -98,6 +111,14 @@ public class JRPrinterAWT300 implements Printable
 
 	/**
 	 *
+     * @param jrPrint
+     * @param pageIndex
+     * @param zoom
+     * @param jrPrint
+     * @param pageIndex
+     * @param zoom
+     * @return 
+     * @throws JRException 
 	 */
 	public static Image printPageToImage(
 		JasperPrint jrPrint,
@@ -271,9 +292,14 @@ public class JRPrinterAWT300 implements Printable
 		{
 		}
 	}
-	
-	
-	public static long getImageSize(JasperPrint jasperPrint, float zoom)
+
+    /**
+     *
+     * @param jasperPrint
+     * @param zoom
+     * @return
+     */
+    public static long getImageSize(JasperPrint jasperPrint, float zoom)
 	{
 		int width = (int) (jasperPrint.getPageWidth() * zoom) + 1;
 		int height = (int) (jasperPrint.getPageHeight() * zoom) + 1;

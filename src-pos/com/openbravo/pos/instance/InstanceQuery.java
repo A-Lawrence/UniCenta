@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,15 +30,21 @@ import java.rmi.registry.Registry;
  */
 public class InstanceQuery {
     
-    private AppMessage m_appstub;
+    private final AppMessage m_appstub;
     
-    /** Creates a new instance of InstanceQuery */
+    /** Creates a new instance of InstanceQuery
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.NotBoundException */
     public InstanceQuery() throws RemoteException, NotBoundException {
         
         Registry registry = LocateRegistry.getRegistry();           
         m_appstub = (AppMessage) registry.lookup("AppMessage");
     }
     
+    /**
+     *
+     * @return
+     */
     public AppMessage getAppMessage() {
         return m_appstub;
     }

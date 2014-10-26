@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,14 +22,29 @@ package com.openbravo.data.loader;
 import java.util.*;
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class VectorerBuilder implements Vectorer {
     
     /** Creates a new instance of VectorerBuilder */
     public VectorerBuilder() {
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public abstract String[] getHeaders() throws BasicException;
     
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws BasicException
+     */
     public String[] getValues(Object obj) throws BasicException {
         
         SerializableToArray s2a = new SerializableToArray(); 

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,15 +29,42 @@ import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.output.java2d.Java2DCanvasProvider;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PrintItemBarcode implements PrintItem {
 
+    /**
+     *
+     */
     protected AbstractBarcodeBean m_barcode;
+
+    /**
+     *
+     */
     protected String m_sCode;
+
+    /**
+     *
+     */
     protected int m_iWidth;
+
+    /**
+     *
+     */
     protected int m_iHeight;
+
+    /**
+     *
+     */
     protected double scale;
 
-    /** Creates a new instance of PrinterItemBarcode */
+    /** Creates a new instance of PrinterItemBarcode
+     * @param type
+     * @param position
+     * @param code
+     * @param scale */
     public PrintItemBarcode(String type, String position, String code, double scale) {
 
         m_sCode = code;
@@ -66,6 +93,13 @@ public class PrintItemBarcode implements PrintItem {
         }
     }
 
+    /**
+     *
+     * @param g
+     * @param x
+     * @param y
+     * @param width
+     */
     @Override
     public void draw(Graphics2D g, int x, int y, int width) {
 
@@ -89,6 +123,10 @@ public class PrintItemBarcode implements PrintItem {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getHeight() {
         return (int) (m_iHeight * scale) + 20;

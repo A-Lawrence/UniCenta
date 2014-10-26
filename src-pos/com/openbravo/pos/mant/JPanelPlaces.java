@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -46,6 +46,9 @@ public class JPanelPlaces extends JPanelTable {
     public JPanelPlaces() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {
         DataLogicSales dlSales = null;
@@ -62,36 +65,64 @@ public class JPanelPlaces extends JPanelTable {
         jeditor = new PlacesEditor(dlSales, dirty); 
     }
         
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(tplaces);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tplaces);      
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tplaces.getVectorerBasic(new int[]{1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tplaces.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Tables");
-    }      
-    
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         jeditor.activate(); // primero activo el editor 

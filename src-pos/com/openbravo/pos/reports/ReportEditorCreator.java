@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,7 +30,21 @@ import java.awt.Component;
  */
 public interface ReportEditorCreator extends FilterEditorCreator {
     
+    /**
+     *
+     * @param app
+     */
     public void init(AppView app);
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void activate() throws BasicException;
+
+    /**
+     *
+     * @return
+     */
     public Component getComponent();
 }

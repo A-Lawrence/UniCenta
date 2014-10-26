@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -42,7 +42,9 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
     
     private String m_sID;
     
-    /** Creates new form PlacesEditor */
+    /** Creates new form PlacesEditor
+     * @param dlSales
+     * @param dirty */
     public PlacesEditor(DataLogicSales dlSales, DirtyManager dirty) {
         initComponents();
         
@@ -57,16 +59,26 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         writeValueEOF();
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void activate() throws BasicException {
         
         m_FloorModel = new ComboBoxValModel(m_sentfloor.list());
         m_jFloor.setModel(m_FloorModel);
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
-    }   
-    
+    }
+
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         
@@ -81,6 +93,10 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         m_jX.setEnabled(false);
         m_jY.setEnabled(false);
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
 
@@ -95,6 +111,11 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         m_jX.setEnabled(true);
         m_jY.setEnabled(true);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         
@@ -104,12 +125,18 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         m_jX.setText(Formats.INT.formatValue(place[2]));
         m_jY.setText(Formats.INT.formatValue(place[3]));
         m_FloorModel.setSelectedKey(place[4]);
+        
 
         m_jName.setEnabled(false);
         m_jFloor.setEnabled(false);
         m_jX.setEnabled(false);
         m_jY.setEnabled(false);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         
@@ -125,17 +152,28 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         m_jX.setEnabled(true);
         m_jY.setEnabled(true);
     }
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
-        Object[] place = new Object[5];
+        Object[] place = new Object[6];
         place[0] = m_sID;
         place[1] = m_jName.getText();
         place[2] = Formats.INT.parseValue(m_jX.getText());
         place[3] = Formats.INT.parseValue(m_jY.getText());
         place[4] = m_FloorModel.getSelectedKey();
+        place[5] = "qwerty";
         return place;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
@@ -165,48 +203,48 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
 
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("Label.Name")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(20, 20, 90, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jName);
         m_jName.setBounds(110, 20, 200, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Down");
         add(jLabel3);
         jLabel3.setBounds(220, 90, 40, 25);
 
-        m_jX.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jX.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jX);
         m_jX.setBounds(160, 90, 50, 25);
 
-        m_jY.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jY.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jY);
         m_jY.setBounds(260, 90, 50, 25);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.placefloor")); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(20, 50, 90, 25);
 
-        m_jFloor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jFloor.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         add(m_jFloor);
         m_jFloor.setBounds(110, 50, 200, 25);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Across");
         add(jLabel5);
         jLabel5.setBounds(110, 90, 50, 25);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("label.placeposition")); // NOI18N
         add(jLabel6);
         jLabel6.setBounds(20, 90, 60, 25);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("<html>Position buttons in your Table plan graphic set in the Floor option <br><br>The values specify the Centre of the button <br> <br> Start Position 0, 0 is Top Left");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel7.setMinimumSize(new java.awt.Dimension(50, 40));
@@ -214,7 +252,7 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         add(jLabel7);
         jLabel7.setBounds(10, 140, 410, 90);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/restaurant_floor_sml.png"))); // NOI18N
@@ -223,7 +261,7 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         add(jLabel4);
         jLabel4.setBounds(110, 250, 200, 140);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setForeground(javax.swing.UIManager.getDefaults().getColor("textHighlight"));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Down");
@@ -231,7 +269,7 @@ public final class PlacesEditor extends JPanel implements EditorRecord {
         add(jLabel8);
         jLabel8.setBounds(30, 300, 70, 30);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setForeground(javax.swing.UIManager.getDefaults().getColor("ToolBar.dockingForeground"));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Across");

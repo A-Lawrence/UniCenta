@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -38,7 +38,8 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
 
     private Object insertid;
 
-    /** Creates new form AttributesValuesEditor */
+    /** Creates new form AttributesValuesEditor
+     * @param dirty */
     public AttributeValuesEditor(DirtyManager dirty) {
         
         initComponents();
@@ -46,15 +47,25 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jValue.getDocument().addDocumentListener(dirty);
     }
 
+    /**
+     *
+     * @param insertid
+     */
     public void setInsertId(String insertid) {
 
         this.insertid = insertid;
     }
 
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
 
@@ -65,6 +76,9 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jValue.setEnabled(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
 
@@ -75,6 +89,10 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jValue.setEnabled(true);
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
 
@@ -87,6 +105,10 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jValue.setEnabled(true);
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
 
@@ -99,11 +121,20 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jValue.setEnabled(false);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         return new Object[] {
@@ -125,10 +156,10 @@ public class AttributeValuesEditor extends javax.swing.JPanel implements EditorR
         jLabel2 = new javax.swing.JLabel();
         jValue = new javax.swing.JTextField();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.value")); // NOI18N
 
-        jValue.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jValue.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

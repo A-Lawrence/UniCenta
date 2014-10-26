@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -48,6 +48,9 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
     public ProductsPanel() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {   
         m_dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
@@ -69,16 +72,28 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
         jeditor = new ProductsEditor(m_dlSales, dirty);       
     }
     
+    /**
+     *
+     * @return value
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
     
+    /**
+     *
+     * @return value
+     */
     @Override
     public Component getFilter() {
         return jproductfilter.getComponent();
-    }  
-    
+    }
+
+    /**
+     *
+     * @return btnScanPal
+     */
     @Override
     public Component getToolbarExtras() {
         
@@ -98,13 +113,21 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
     private void btnScanPalActionPerformed(java.awt.event.ActionEvent evt) {                                           
   
         JDlgUploadProducts.showMessage(this, app.getDeviceScanner(), bd);
-    }  
-    
+    }
+
+    /**
+     *
+     * @return value
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Products");
-    } 
-        
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         
@@ -112,8 +135,12 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
         jproductfilter.activate();
         
         super.activate();
-    } 
-    
+    }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void updateValue(Object value) {
     }    

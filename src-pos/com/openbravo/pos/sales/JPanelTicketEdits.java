@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -17,6 +17,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
+
 package com.openbravo.pos.sales;
 
 import com.openbravo.basic.BasicException;
@@ -27,6 +28,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JPanelTicketEdits extends JPanelTicket {
     
     private JTicketCatalogLines m_catandlines;
@@ -35,22 +40,37 @@ public class JPanelTicketEdits extends JPanelTicket {
     public JPanelTicketEdits() {
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return null;
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {      
         super.activate();
         m_catandlines.loadCatalog();
     }
 
+    /**
+     *
+     */
     public void showCatalog() {
         m_jbtnconfig.setVisible(true);
         m_catandlines.showCatalog();
     }
     
+    /**
+     *
+     * @param aRefundLines
+     */
     public void showRefundLines(List aRefundLines) {
         // anado las lineas de refund
         // m_reflines.setLines(aRefundLines);
@@ -58,11 +78,19 @@ public class JPanelTicketEdits extends JPanelTicket {
         m_catandlines.showRefundLines(aRefundLines);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     protected JTicketsBag getJTicketsBag() {
         return new JTicketsBagTicket(m_App, this);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected Component getSouthComponent() {
 
@@ -78,6 +106,9 @@ public class JPanelTicketEdits extends JPanelTicket {
         return m_catandlines;
     } 
 
+    /**
+     *
+     */
     @Override
     protected void resetSouthComponent() {
     }

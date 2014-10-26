@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,6 +25,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener {
 
     private CommPortIdentifier m_PortIdPrinter;
@@ -58,6 +62,10 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         m_in = null;
     }
 
+    /**
+     *
+     * @throws DeviceScannerException
+     */
     public void connectDevice() throws DeviceScannerException {    
         
         try {
@@ -97,6 +105,9 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         }       
     }
     
+    /**
+     *
+     */
     public void disconnectDevice() {
         
         try {
@@ -118,10 +129,20 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         m_in = null;      
     }
     
+    /**
+     *
+     * @throws DeviceScannerException
+     */
     public void startDownloadProduct() throws DeviceScannerException {
         writeLine(COMMAND_READ); // writeLine(COMMAND_READ);
         readCommand(COMMAND_ACK);
     }
+
+    /**
+     *
+     * @return
+     * @throws DeviceScannerException
+     */
     public ProductDownloaded recieveProduct() throws DeviceScannerException {
         byte[] line = readLine();
         if (checkCommand(COMMAND_OVER, line)) {
@@ -151,12 +172,24 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         }
     }
     
+    /**
+     *
+     * @throws DeviceScannerException
+     */
     public void startUploadProduct() throws DeviceScannerException {
         // Inicializamos la conversacion
         writeLine(COMMAND_CIPHER);
         readCommand(COMMAND_ACK);      
         m_iProductOrder = 0;
     }
+
+    /**
+     *
+     * @param sName
+     * @param sCode
+     * @param dPrice
+     * @throws DeviceScannerException
+     */
     public void sendProduct(String sName, String sCode, Double dPrice) throws DeviceScannerException {
         
         m_iProductOrder++;
@@ -183,6 +216,11 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         writeLine(lineout.toByteArray());
         readCommand(COMMAND_ACK);
     }
+
+    /**
+     *
+     * @throws DeviceScannerException
+     */
     public void stopUploadProduct() throws DeviceScannerException {
         // Cerramos la conversacion
         writeLine(COMMAND_OVER);
@@ -291,6 +329,10 @@ public class DeviceScannerComm implements DeviceScanner, SerialPortEventListener
         }      
     }
     
+    /**
+     *
+     * @param e
+     */
     public void serialEvent(SerialPortEvent e) {
 
 	// Determine type of event.

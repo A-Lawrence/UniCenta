@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -42,6 +42,11 @@ public class AttributeSetFilter extends javax.swing.JPanel implements ReportEdit
     public AttributeSetFilter() {
         initComponents();
     }
+
+    /**
+     *
+     * @param app
+     */
     @Override
     public void init(AppView app) {
 
@@ -55,6 +60,10 @@ public class AttributeSetFilter extends javax.swing.JPanel implements ReportEdit
         attusemodel = new ComboBoxValModel();
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         List a = attusesent.list();
@@ -63,24 +72,45 @@ public class AttributeSetFilter extends javax.swing.JPanel implements ReportEdit
         jAttrSet.setModel(attusemodel); 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public SerializerWrite getSerializerWrite() {
         return SerializerWriteString.INSTANCE;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
 
+    /**
+     *
+     * @param l
+     */
     public void addActionListener(ActionListener l) {
         jAttrSet.addActionListener(l);
     }
 
+    /**
+     *
+     * @param l
+     */
     public void removeActionListener(ActionListener l) {
         jAttrSet.removeActionListener(l);
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         AttributeSetInfo attset = (AttributeSetInfo) attusemodel.getSelectedItem();
@@ -102,10 +132,10 @@ public class AttributeSetFilter extends javax.swing.JPanel implements ReportEdit
 
         setPreferredSize(new java.awt.Dimension(354, 61));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText(AppLocal.getIntString("label.attributeset")); // NOI18N
 
-        jAttrSet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jAttrSet.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jAttrSet.setPreferredSize(new java.awt.Dimension(28, 28));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

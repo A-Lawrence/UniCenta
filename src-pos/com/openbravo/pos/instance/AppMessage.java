@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,5 +28,9 @@ import java.rmi.RemoteException;
  */
 public interface AppMessage extends Remote {
     
+    /**
+     *
+     * @throws RemoteException
+     */
     public void restoreWindow() throws RemoteException;    
 }

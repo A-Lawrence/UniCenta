@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,6 +31,10 @@ import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
 import java.util.Date;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEditorCreator {
 
     /** Creates new form JParamsClosedPos */
@@ -38,36 +42,66 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
         initComponents();
     }
     
+    /**
+     *
+     * @param d
+     */
     public void setStartDate(Date d) {
         jTxtStartDate.setText(Formats.TIMESTAMP.formatValue(d));
     }
     
+    /**
+     *
+     * @param d
+     */
     public void setEndDate(Date d) {
         jTxtEndDate.setText(Formats.TIMESTAMP.formatValue(d));
     }
 
+    /**
+     *
+     * @param app
+     */
     @Override
     public void init(AppView app) {
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SerializerWrite getSerializerWrite() {
         return new SerializerWriteBasic(new Datas[] {Datas.OBJECT, Datas.TIMESTAMP, Datas.OBJECT, Datas.TIMESTAMP});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         Object startdate = Formats.TIMESTAMP.parseValue(jTxtStartDate.getText());
-        Object enddate = Formats.TIMESTAMP.parseValue(jTxtEndDate.getText());   
+        Object enddate = Formats.TIMESTAMP.parseValue(jTxtEndDate.getText());  
+
         return new Object[] {
             startdate == null ? QBFCompareEnum.COMP_NONE : QBFCompareEnum.COMP_GREATEROREQUALS,
             startdate,
@@ -95,21 +129,21 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
         setPreferredSize(new java.awt.Dimension(0, 100));
         setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("Label.StartDate")); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(20, 20, 80, 25);
 
-        jTxtStartDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTxtStartDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(jTxtStartDate);
         jTxtStartDate.setBounds(100, 20, 130, 25);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("Label.EndDate")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(300, 20, 80, 25);
 
-        jTxtEndDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTxtEndDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(jTxtEndDate);
         jTxtEndDate.setBounds(380, 20, 140, 25);
 

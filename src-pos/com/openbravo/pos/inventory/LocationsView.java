@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,7 +36,8 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
     // private DirtyManager m_Dirty = new DirtyManager();    
     private String m_sID;
     
-    /** Creates new form LocationsEditor */
+    /** Creates new form LocationsEditor
+     * @param dirty */
     public LocationsView(DirtyManager dirty) {
         initComponents();
         
@@ -45,6 +46,10 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         
         writeValueEOF();    
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         
@@ -55,6 +60,10 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         m_jName.setEnabled(false);
         m_jAddress.setEnabled(false);
     }    
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         
@@ -65,6 +74,11 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         m_jName.setEnabled(true);
         m_jAddress.setEnabled(true);
     }    
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         
@@ -76,6 +90,11 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         m_jName.setEnabled(false);
         m_jAddress.setEnabled(false);
     }    
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         
@@ -87,6 +106,12 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         m_jName.setEnabled(true);
         m_jAddress.setEnabled(true);
     }    
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         Object[] location = new Object[3];
@@ -94,13 +119,20 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
         location[1] = m_jName.getText();
         location[2] = m_jAddress.getText();
         return location;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -120,21 +152,21 @@ public final class LocationsView extends javax.swing.JPanel implements EditorRec
 
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.locationname")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(20, 20, 80, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jName);
         m_jName.setBounds(100, 20, 260, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.locationaddress")); // NOI18N
         add(jLabel3);
         jLabel3.setBounds(20, 50, 80, 25);
 
-        m_jAddress.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jAddress.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jAddress);
         m_jAddress.setBounds(100, 50, 260, 25);
     }// </editor-fold>//GEN-END:initComponents

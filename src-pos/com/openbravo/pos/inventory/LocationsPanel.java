@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,6 +45,9 @@ public class LocationsPanel extends JPanelTable {
     public LocationsPanel() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {   
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");          
@@ -52,36 +55,64 @@ public class LocationsPanel extends JPanelTable {
         jeditor = new LocationsView(dirty);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(tlocations);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tlocations);        
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tlocations.getVectorerBasic(new int[]{1, 2});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return tlocations.getComparatorCreator(new int[] {1, 2});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tlocations.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Locations");

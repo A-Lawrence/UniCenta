@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,22 +23,30 @@ report.setTitleKey("Menu.SalesChart");
 report.setReport("/com/openbravo/reports/chartsales");
 report.setResourceBundle("com/openbravo/reports/chartsales_messages");
 
-report.setSentence("SELECT CLOSEDCASH.HOST, PEOPLE.ID, PEOPLE.NAME, SUM(TICKETLINES.UNITS * TICKETLINES.PRICE) AS TOTAL " +
-                 "FROM CLOSEDCASH, RECEIPTS, TICKETS, PEOPLE, TICKETLINES " +
-                 "WHERE CLOSEDCASH.MONEY = RECEIPTS.MONEY AND RECEIPTS.ID = TICKETS.ID AND TICKETS.ID = TICKETLINES.TICKET AND TICKETS.PERSON = PEOPLE.ID AND ?(QBF_FILTER) " +
-                 "GROUP BY CLOSEDCASH.HOST, PEOPLE.ID, PEOPLE.NAME");
+report.setSentence("SELECT CATEGORIES.ID, CATEGORIES.NAME, " +
+                "Sum(TICKETLINES.UNITS) AS QTY," +
+                "Sum((TICKETLINES.PRICE * TICKETLINES.UNITS) + ((TICKETLINES.PRICE * TAXES.RATE)* TICKETLINES.UNITS)) AS CATTOTAL " +
+                "FROM (TICKETS INNER JOIN RECEIPTS ON TICKETS.ID = RECEIPTS.ID) " +
+                "INNER JOIN ((CATEGORIES INNER JOIN PRODUCTS ON CATEGORIES.ID = PRODUCTS.CATEGORY) " +
+                "INNER JOIN (TAXES INNER JOIN TICKETLINES ON TAXES.ID = TICKETLINES.TAXID) " +
+                "ON PRODUCTS.ID = TICKETLINES.PRODUCT) ON TICKETS.ID = TICKETLINES.TICKET " +
+                "WHERE ?(QBF_FILTER) " +
+                "GROUP BY categories.ID, categories.NAME");
 
 report.addParameter("RECEIPTS.DATENEW");
 report.addParameter("RECEIPTS.DATENEW");
 
 paramdates = new com.openbravo.pos.reports.JParamsDatesInterval();
-paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+
+paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
+// JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
 
 report.addQBFFilter(paramdates);
 
-report.addField("HOST", com.openbravo.data.loader.Datas.STRING);
-report.addField("PERSON", com.openbravo.data.loader.Datas.STRING);
+report.addField("ID", com.openbravo.data.loader.Datas.STRING);
 report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
-report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("QTY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CATTOTAL", com.openbravo.data.loader.Datas.DOUBLE);
 
 report;

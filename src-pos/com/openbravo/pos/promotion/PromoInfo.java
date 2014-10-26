@@ -30,8 +30,24 @@ public class PromoInfo implements SerializableRead, IKeyed {
     private String m_sArticleBonusDescription;
     
     private List<PromoInfo> promos = new ArrayList<PromoInfo>();
-    
 
+    /**
+     *
+     * @param sID
+     * @param sName
+     * @param iStartHour
+     * @param iEndHour
+     * @param sArticle
+     * @param sArticleCategory
+     * @param iType
+     * @param bdAmount
+     * @param iMinQuantity
+     * @param iMaxQuantity
+     * @param iStepQuantity
+     * @param iStepAmount
+     * @param sArticleBonus
+     * @param sArticleBonusDescription
+     */
     public PromoInfo(String sID,String sName,Integer iStartHour,Integer iEndHour, String sArticle,
      String sArticleCategory,Integer iType,Double bdAmount,Integer iMinQuantity,Integer iMaxQuantity,
      Integer iStepQuantity,Integer iStepAmount,String sArticleBonus,String sArticleBonusDescription) {
@@ -51,8 +67,12 @@ public class PromoInfo implements SerializableRead, IKeyed {
                 this.m_sArticleBonus = sArticleBonus;
                 this.m_sArticleBonusDescription = sArticleBonusDescription;
     }
-    
-   public static SerializerRead getSerializerRead() {
+
+    /**
+     *
+     * @return
+     */
+    public static SerializerRead getSerializerRead() {
         return new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
 
             return new PromoInfo(
@@ -75,8 +95,10 @@ public class PromoInfo implements SerializableRead, IKeyed {
                     );
         }};
     }
-    
-    
+
+    /**
+     *
+     */
     public PromoInfo() {
         m_sID = null;
         m_sName = null;
@@ -94,11 +116,19 @@ public class PromoInfo implements SerializableRead, IKeyed {
         m_sArticleBonusDescription = null;
     }
    
+    /**
+     *
+     * @return
+     */
     public Object getKey() {
         return m_sID;
     }
-    
-    
+
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     public void readValues(DataRead dr) throws BasicException {
         m_sID = dr.getString(1);
         m_sName = dr.getString(2);
@@ -114,101 +144,197 @@ public class PromoInfo implements SerializableRead, IKeyed {
         m_iStepAmount = dr.getInt(12);
         m_sArticleBonus = dr.getString(13); 
         m_sArticleBonusDescription = dr.getString(14); 
-    } 
-    
+    }
+
+    /**
+     *
+     * @param sID
+     */
     public void setID(String sID) {
         m_sID = sID;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
     
+    /**
+     *
+     * @param sName
+     */
     public void setName(String sName) {
         m_sName = sName;
-    } 
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getStartHour() {
         return m_iStartHour;
     }
     
+    /**
+     *
+     * @param iStartHour
+     */
     public void setStartHour(Integer iStartHour) {
         iStartHour = m_iStartHour;
-    }     
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getEndHour() {
         return m_iEndHour;
     }
     
+    /**
+     *
+     * @param iEndHour
+     */
     public void setEndHour(Integer iEndHour) {
         iEndHour = m_iEndHour;
-    }   
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getArticle() {
         return m_sArticle;
     }
     
+    /**
+     *
+     * @param sArticle
+     */
     public void setArticle(String sArticle) {
         m_sArticle = sArticle;
-    }     
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getArticleCategory() {
 
         return m_sArticleCategory;
     }
     
+    /**
+     *
+     * @param sArticleCategory
+     */
     public void setArticleCategory(String sArticleCategory) {
         m_sArticleCategory = sArticleCategory;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getType() {
         return m_iType;
     }
     
+    /**
+     *
+     * @param iType
+     */
     public void setType(Integer iType) {
         iType = m_iType;
     }       
 
+    /**
+     *
+     * @return
+     */
     public Double getAmount() {
         return m_bdAmount;
     }
     
+    /**
+     *
+     * @param bdAmount
+     */
     public void setAmount(Double bdAmount) {
         bdAmount = m_bdAmount;
-    }        
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getMinQuantity() {
         return m_iMinQuantity;
     }
     
+    /**
+     *
+     * @param iMinQuantity
+     */
     public void setMinQuantity(Integer iMinQuantity) {
         iMinQuantity = m_iMinQuantity;
-    }       
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getMaxQuantity() {
         return m_iMaxQuantity;
     }
     
+    /**
+     *
+     * @param iMaxQuantity
+     */
     public void setMaxQuantity(Integer iMaxQuantity) {
         iMaxQuantity = m_iMaxQuantity;
-    }        
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getStepQuantity() {
         return m_iStepQuantity;
     }
     
+    /**
+     *
+     * @param iStepQuantity
+     */
     public void setStepQuantity(Integer iStepQuantity) {
         iStepQuantity = m_iStepQuantity;
-    }      
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public Integer getStepAmount() {
         return m_iStepAmount;
     }
     
+    /**
+     *
+     * @param iStepAmount
+     */
     public void setStepAmount(Integer iStepAmount) {
         iStepAmount = m_iStepAmount;
     }      
@@ -217,22 +343,42 @@ public class PromoInfo implements SerializableRead, IKeyed {
         return m_sName;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getArticleBonus() {
         return m_sArticleBonus;
     }
     
+    /**
+     *
+     * @param sArticleBonus
+     */
     public void setArticleBonus(String sArticleBonus) {
         m_sArticleBonus = sArticleBonus;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getArticleBonusDescription() {
         return m_sArticleBonusDescription;
     }
     
+    /**
+     *
+     * @param sArticleBonusDescription
+     */
     public void setArticleBonusDescription(String sArticleBonusDescription) {
         m_sArticleBonusDescription = sArticleBonusDescription;
-    }    
-    
+    }
+
+    /**
+     *
+     * @param l
+     */
     public void setPromos(List<PromoInfo> l) {
         promos = l;
     }

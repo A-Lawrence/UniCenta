@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,13 +27,28 @@ public abstract class BeanFactoryCache implements BeanFactoryApp {
     
     private Object bean = null;
 
+    /**
+     *
+     * @param app
+     * @return
+     * @throws BeanFactoryException
+     */
     public abstract Object constructBean(AppView app) throws BeanFactoryException;
            
+    /**
+     *
+     * @param app
+     * @throws BeanFactoryException
+     */
     @Override
     public void init(AppView app) throws BeanFactoryException {
         bean = constructBean(app);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getBean() {
         return bean;

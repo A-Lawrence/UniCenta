@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,8 +21,22 @@ package com.openbravo.pos.sales;
 
 import com.openbravo.pos.ticket.TicketInfo;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface TicketsEditor {
     
+    /**
+     *
+     * @param oTicket
+     * @param oTicketExt
+     */
     public void setActiveTicket(TicketInfo oTicket, Object oTicketExt); // el ticket mas informacion extra...
+
+    /**
+     *
+     * @return
+     */
     public TicketInfo getActiveTicket(); 
 }

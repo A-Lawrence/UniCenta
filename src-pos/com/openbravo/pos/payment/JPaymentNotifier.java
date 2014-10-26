@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,6 +27,12 @@ package com.openbravo.pos.payment;
 public interface JPaymentNotifier {
     
 //    public void setOKEnabled(boolean bValue);
-//    public void setAddEnabled(boolean bValue);    
-    public void setStatus(boolean isPositive, boolean isComplete);
+//    public void setAddEnabled(boolean bValue);
+
+    /**
+     *
+     * @param isPositive
+     * @param isComplete
+     */
+        public void setStatus(boolean isPositive, boolean isComplete);
 }

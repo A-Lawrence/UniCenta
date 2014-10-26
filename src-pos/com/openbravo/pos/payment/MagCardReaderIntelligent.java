@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,6 +19,10 @@
 
 package com.openbravo.pos.payment;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public final class MagCardReaderIntelligent implements MagCardReader {
     
     private String m_sHolderName;
@@ -38,11 +42,18 @@ public final class MagCardReaderIntelligent implements MagCardReader {
         reset();
     }
  
+    /**
+     *
+     * @return
+     */
     @Override
     public String getReaderName() {
         return "Basic magnetic card reader";
     }
     
+    /**
+     *
+     */
     @Override
     public void reset() {
         m_sHolderName = null;
@@ -52,6 +63,10 @@ public final class MagCardReaderIntelligent implements MagCardReader {
         m_iAutomState = READING_HOLDER;
     }
     
+    /**
+     *
+     * @param c
+     */
     @Override
     public void appendChar(char c) {
        
@@ -105,31 +120,64 @@ public final class MagCardReaderIntelligent implements MagCardReader {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isComplete() {
         return m_iAutomState == READING_FINISHED;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getHolderName() {
         return m_sHolderName;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getCardNumber() {
         return m_sCardNumber;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getExpirationDate() {
         return m_sExpirationDate;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack1() {
         return null;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack2() {
         return null;
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack3() {
         return null;

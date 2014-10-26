@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -46,6 +46,9 @@ public class TaxPanel extends JPanelTable {
     public TaxPanel() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");        
@@ -53,6 +56,10 @@ public class TaxPanel extends JPanelTable {
         jeditor = new TaxEditor(app, dirty);
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException { 
         
@@ -60,36 +67,64 @@ public class TaxPanel extends JPanelTable {
         super.activate();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(ttaxes);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(ttaxes);      
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return ttaxes.getVectorerBasic(new int[]{1, 5, 7});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return ttaxes.getComparatorCreator(new int[] {1, 5, 7});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(ttaxes.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
         
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Taxes");

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -33,13 +33,33 @@ import java.awt.Component;
  */
 public class ProductsWarehouseEditor extends javax.swing.JPanel implements EditorRecord {
 
+    /**
+     *
+     */
     public Object id;
+
+    /**
+     *
+     */
     public Object prodid;
+
+    /**
+     *
+     */
     public Object prodref;
+
+    /**
+     *
+     */
     public Object prodname;
+
+    /**
+     *
+     */
     public Object location;
     
-    /** Creates new form ProductsWarehouseEditor */
+    /** Creates new form ProductsWarehouseEditor
+     * @param dirty */
     public ProductsWarehouseEditor(DirtyManager dirty) {
         initComponents();
         
@@ -47,6 +67,9 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         m_jMaximum.getDocument().addDocumentListener(dirty);
     }
     
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         m_jTitle.setText(AppLocal.getIntString("label.recordeof"));
@@ -61,6 +84,10 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         m_jMinimum.setEnabled(false);
         m_jMaximum.setEnabled(false);
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         m_jTitle.setText(AppLocal.getIntString("label.recordnew"));
@@ -75,6 +102,11 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         m_jMinimum.setEnabled(true);
         m_jMaximum.setEnabled(true);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         Object[] myprod = (Object[]) value;
@@ -90,6 +122,11 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         m_jMinimum.setEnabled(true);
         m_jMaximum.setEnabled(true);
      }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         Object[] myprod = (Object[]) value;
@@ -105,6 +142,12 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         m_jMinimum.setEnabled(false);
         m_jMaximum.setEnabled(false);
     }
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         return new Object[] {
@@ -119,11 +162,18 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         };
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -150,33 +200,33 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         add(m_jTitle);
         m_jTitle.setBounds(10, 10, 320, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.units")); // NOI18N
         add(jLabel3);
         jLabel3.setBounds(10, 50, 150, 25);
 
-        m_jQuantity.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jQuantity.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jQuantity.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         m_jQuantity.setEnabled(false);
         add(m_jQuantity);
         m_jQuantity.setBounds(160, 50, 80, 25);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.minimum")); // NOI18N
         add(jLabel4);
         jLabel4.setBounds(10, 80, 150, 25);
 
-        m_jMinimum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jMinimum.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jMinimum.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         add(m_jMinimum);
         m_jMinimum.setBounds(160, 80, 80, 25);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.maximum")); // NOI18N
         add(jLabel5);
         jLabel5.setBounds(10, 110, 150, 25);
 
-        m_jMaximum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jMaximum.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jMaximum.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         add(m_jMaximum);
         m_jMaximum.setBounds(160, 110, 80, 25);

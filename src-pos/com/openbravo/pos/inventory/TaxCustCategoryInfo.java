@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,29 +32,51 @@ public class TaxCustCategoryInfo implements IKeyed {
     private String m_sID;
     private String m_sName;
     
-    /** Creates new CategoryInfo */
+    /** Creates new CategoryInfo
+     * @param id
+     * @param name */
     public TaxCustCategoryInfo(String id, String name) {
         m_sID = id;
         m_sName = name;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
         return m_sID;
     }
     
+    /**
+     *
+     * @param sID
+     */
     public void setID(String sID) {
         m_sID = sID;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
     
+    /**
+     *
+     * @param sName
+     */
     public void setName(String sName) {
         m_sName = sName;
     }

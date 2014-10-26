@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,14 +24,36 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PrintItemLine implements PrintItem {
 
+    /**
+     *
+     */
     protected Font font;
+
+    /**
+     *
+     */
     protected int fontheight;
+
+    /**
+     *
+     */
     protected int textsize;
+
+    /**
+     *
+     */
     protected List<StyledText> m_atext;
 
-    /** Creates a new instance of PrinterItemLine */
+    /** Creates a new instance of PrinterItemLine
+     * @param textsize
+     * @param font
+     * @param fontheight */
     public PrintItemLine(int textsize, Font font, int fontheight) {
         this.textsize = textsize;
         this.font = font;
@@ -41,10 +63,22 @@ public class PrintItemLine implements PrintItem {
         m_atext = new ArrayList<>();
     }
 
+    /**
+     *
+     * @param style
+     * @param text
+     */
     public void addText(int style, String text) {
         m_atext.add(new StyledText(style, text));
     }
 
+    /**
+     *
+     * @param g
+     * @param x
+     * @param y
+     * @param width
+     */
     @Override
     public void draw(Graphics2D g, int x, int y, int width) {
 
@@ -58,18 +92,38 @@ public class PrintItemLine implements PrintItem {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getHeight() {
         return fontheight * MyPrinterState.getLineMult(textsize);
     }
 
+    /**
+     *
+     */
     protected static class StyledText {
 
+        /**
+         *
+         * @param style
+         * @param text
+         */
         public StyledText(int style, String text) {
             this.style = style;
             this.text = text;
         }
+
+        /**
+         *
+         */
         public int style;
+
+        /**
+         *
+         */
         public String text;
     }
 }

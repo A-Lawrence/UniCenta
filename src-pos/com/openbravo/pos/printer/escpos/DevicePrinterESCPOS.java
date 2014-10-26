@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,6 +25,10 @@ import com.openbravo.pos.printer.TicketPrinterException;
 import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DevicePrinterESCPOS implements DevicePrinter  {
       
     private PrinterWritter m_CommOutputPrinter;   
@@ -34,8 +38,17 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
 //    private boolean m_bInline;
     private String m_sName;
     
+    
     // Creates new TicketPrinter
-    public DevicePrinterESCPOS(PrinterWritter CommOutputPrinter, Codes codes, UnicodeTranslator trans) throws TicketPrinterException {
+
+    /**
+     *
+     * @param CommOutputPrinter
+     * @param codes
+     * @param trans
+     * @throws TicketPrinterException
+     */
+        public DevicePrinterESCPOS(PrinterWritter CommOutputPrinter, Codes codes, UnicodeTranslator trans) throws TicketPrinterException {
         
         m_sName = AppLocal.getIntString("Printer.Serial");
         m_CommOutputPrinter = CommOutputPrinter;
@@ -52,26 +65,51 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         m_CommOutputPrinter.flush();  
     }
    
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterName() {
         return m_sName;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterDescription() {
         return null;
     }   
+
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getPrinterComponent() {
         return null;
     }
+
+    /**
+     *
+     */
     @Override
     public void reset() {
     }
     
+    /**
+     *
+     */
     @Override
     public void beginReceipt() {
     }
     
+    /**
+     *
+     * @param image
+     */
     @Override
     public void printImage(BufferedImage image) {
         
@@ -79,6 +117,21 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         m_CommOutputPrinter.write(m_codes.transImage(image));
     }
     
+    /**
+     *
+     */
+    @Override
+    public void printLogo() {        
+        m_CommOutputPrinter.write(ESCPOS.SELECT_PRINTER);        
+        m_CommOutputPrinter.write(m_codes.getImageLogo());
+    }
+
+    /**
+     *
+     * @param type
+     * @param position
+     * @param code
+     */
     @Override
     public void printBarCode(String type, String position, String code) {
         
@@ -86,6 +139,10 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         m_codes.printBarcode(m_CommOutputPrinter, type, position, code);
     }
     
+    /**
+     *
+     * @param iTextSize
+     */
     @Override
     public void beginLine(int iTextSize) {
 
@@ -104,6 +161,11 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         }
     }
     
+    /**
+     *
+     * @param iStyle
+     * @param sText
+     */
     @Override
     public void printText(int iStyle, String sText) {
 
@@ -123,12 +185,19 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
             m_CommOutputPrinter.write(m_codes.getBoldReset());
         }     
     }
+
+    /**
+     *
+     */
     @Override
     public void endLine() {
         m_CommOutputPrinter.write(ESCPOS.SELECT_PRINTER);   
         m_CommOutputPrinter.write(m_codes.getNewLine());
     }
     
+    /**
+     *
+     */
     @Override
     public void endReceipt() {
         m_CommOutputPrinter.write(ESCPOS.SELECT_PRINTER);   
@@ -143,6 +212,9 @@ public class DevicePrinterESCPOS implements DevicePrinter  {
         m_CommOutputPrinter.flush();
     }
     
+    /**
+     *
+     */
     @Override
     public void openDrawer() {
 

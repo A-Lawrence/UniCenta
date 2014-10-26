@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,24 +25,63 @@ package com.openbravo.data.loader;
  */
 public class SessionDBMySQL implements SessionDB {
 
+    /**
+     *
+     * @return
+     */
     public String TRUE() {
         return "TRUE";
     }
+
+    /**
+     *
+     * @return
+     */
     public String FALSE() {
         return "FALSE";
     }
+
+    /**
+     *
+     * @return
+     */
     public String INTEGER_NULL() {
         return "CAST(NULL AS UNSIGNED INTEGER)";
     }
+
+    /**
+     *
+     * @return
+     */
     public String CHAR_NULL() {
         return "CAST(NULL AS CHAR)";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return "MySQL";
     }
 
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
     public SentenceFind getSequenceSentence(Session s, String sequence) {
         return new SequenceForMySQL(s, sequence);
     }
+   
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
+    public SentenceFind resetSequenceSentence(Session s, String sequence) {
+        return new SequenceForMySQL(s, "UPDATE PICKUP_NUMBER SET ID=1");
+    }    
 }

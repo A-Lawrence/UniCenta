@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,10 +31,13 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class InstanceManager {
     
-    private Registry m_registry;
-    private AppMessage m_message;
+    private final Registry m_registry;
+    private final AppMessage m_message;
     
-    /** Creates a new instance of InstanceManager */
+    /** Creates a new instance of InstanceManager
+     * @param message
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.AlreadyBoundException */
     public InstanceManager(AppMessage message) throws RemoteException, AlreadyBoundException {
 
         m_registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);

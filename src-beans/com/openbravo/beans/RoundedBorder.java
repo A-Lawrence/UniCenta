@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,16 +23,39 @@ import java.awt.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class RoundedBorder extends AbstractBorder {
     
     private static Border blackLine;
     private static Border grayLine;
     private static Border gradientBorder;
     
+    /**
+     *
+     */
     protected Color colorBorder;
+
+    /**
+     *
+     */
     protected Color colorgradient;
+
+    /**
+     *
+     */
     protected int roundedRadius;
+
+    /**
+     *
+     */
     protected float thickness;
+
+    /**
+     *
+     */
     protected boolean filled;
     
     private float ftop;
@@ -40,6 +63,10 @@ public class RoundedBorder extends AbstractBorder {
     private float ftopinset;
     private float fbottominset;
 
+    /**
+     *
+     * @return
+     */
     public static Border createBlackLineBorder() {
         if (blackLine == null) {
             blackLine = new RoundedBorder(Color.BLACK);
@@ -47,6 +74,10 @@ public class RoundedBorder extends AbstractBorder {
         return blackLine;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Border createGrayLineBorder() {
         if (grayLine == null) {
             grayLine = new RoundedBorder(Color.GRAY);
@@ -54,6 +85,10 @@ public class RoundedBorder extends AbstractBorder {
         return grayLine;
     }
     
+    /**
+     *
+     * @return
+     */
     public static Border createGradientBorder() {
         if (gradientBorder == null) {
             gradientBorder = new RoundedBorder(Color.GRAY, 0f, 8, false, false);
@@ -61,21 +96,54 @@ public class RoundedBorder extends AbstractBorder {
         return gradientBorder;
     }
     
+    /**
+     *
+     * @param colorBorder
+     */
     public RoundedBorder(Color colorBorder) {
         this(colorBorder, Color.WHITE, 1f, 0, true, true);
     }
 
+    /**
+     *
+     * @param colorBorder
+     * @param thickness
+     */
     public RoundedBorder(Color colorBorder, float thickness) {
         this(colorBorder, Color.WHITE, thickness, 0, true, true);
     }
 
+    /**
+     *
+     * @param colorBorder
+     * @param thickness
+     * @param roundedRadius
+     */
     public RoundedBorder(Color colorBorder, float thickness, int roundedRadius) {
         this(colorBorder, Color.WHITE, thickness, roundedRadius, true, true);
     }
 
+    /**
+     *
+     * @param colorBorder
+     * @param thickness
+     * @param roundedRadius
+     * @param btopborder
+     * @param bbottomborder
+     */
     public RoundedBorder(Color colorBorder, float thickness, int roundedRadius, boolean btopborder, boolean bbottomborder) {
         this(colorBorder, Color.WHITE, thickness, roundedRadius, btopborder, bbottomborder);
     }
+
+    /**
+     *
+     * @param colorBorder
+     * @param colorgradient
+     * @param thickness
+     * @param roundedRadius
+     * @param btopborder
+     * @param bbottomborder
+     */
     public RoundedBorder(Color colorBorder, Color colorgradient, float thickness, int roundedRadius, boolean btopborder, boolean bbottomborder) {
         
         this.colorBorder = colorBorder;
@@ -169,14 +237,26 @@ public class RoundedBorder extends AbstractBorder {
         return insets;
     }
 
+    /**
+     *
+     * @return
+     */
     public Color getLineColor() {
         return colorBorder;
     }
 
+    /**
+     *
+     * @return
+     */
     public float getThickness() {
         return thickness;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isFilled() {
         return filled;
     }

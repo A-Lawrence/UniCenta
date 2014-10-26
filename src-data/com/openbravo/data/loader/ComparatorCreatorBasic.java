@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,19 +21,32 @@ package com.openbravo.data.loader;
 
 import java.util.Comparator;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ComparatorCreatorBasic implements ComparatorCreator {
     
     private String[] m_sHeaders;
     private Datas[] m_aDatas;
     private int[] m_iAvailableIndexes;
     
-    /** Creates a new instance of ComparatorCreatorBasic */
+    /** Creates a new instance of ComparatorCreatorBasic
+     * @param sHeaders
+     * @param aDatas
+     * @param iAvailableIndexes */
     public ComparatorCreatorBasic(String[] sHeaders, Datas[] aDatas, int[] iAvailableIndexes) {
         
         m_sHeaders = sHeaders;
         m_aDatas = aDatas;
         m_iAvailableIndexes = iAvailableIndexes;
     }
+
+    /**
+     *
+     * @param sHeaders
+     * @param aDatas
+     */
     public ComparatorCreatorBasic(String[] sHeaders, Datas[] aDatas) {
         m_sHeaders = sHeaders;        
         m_aDatas = aDatas;
@@ -43,6 +56,10 @@ public class ComparatorCreatorBasic implements ComparatorCreator {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String[] getHeaders() {
         
         String[] sTempHeaders = new String[m_iAvailableIndexes.length];
@@ -53,15 +70,24 @@ public class ComparatorCreatorBasic implements ComparatorCreator {
         return sTempHeaders;
     }
     
+    /**
+     *
+     * @param aiOrderBy
+     * @return
+     */
     public Comparator createComparator(int[] aiOrderBy) {
         return new ComparatorBasic(aiOrderBy);
     }
     
+    /**
+     *
+     */
     public class ComparatorBasic implements Comparator {
 
         private int[] m_aiOrderBy;
 
-        /** Creates a new instance of ComparatorBasic */
+        /** Creates a new instance of ComparatorBasic
+         * @param aiOrderBy */
         public ComparatorBasic(int[] aiOrderBy) {
             m_aiOrderBy = aiOrderBy;
         }

@@ -37,6 +37,9 @@ public class MaterialProdInfo implements SerializableRead, IKeyed {
     private double m_dAmount;
     private String m_sUnit;
 
+    /**
+     *
+     */
     public MaterialProdInfo() {
         m_sID = null;
         m_sName = null;
@@ -45,6 +48,10 @@ public class MaterialProdInfo implements SerializableRead, IKeyed {
         m_sUnit = null;
     }
     
+    /**
+     *
+     * @param p
+     */
     public MaterialProdInfo(ProductInfoExt p) {
         m_sID = p.getID();
         m_sName = p.getName();
@@ -52,6 +59,11 @@ public class MaterialProdInfo implements SerializableRead, IKeyed {
         m_dAmount = 1.0;
     }
     
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     @Override
     public void readValues(DataRead dr) throws BasicException {
         m_sID = dr.getString(1);
@@ -61,41 +73,90 @@ public class MaterialProdInfo implements SerializableRead, IKeyed {
         m_sUnit = dr.getString(5);
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setID (String id) {
         m_sID = id;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
     
+    /**
+     *
+     * @param name
+     */
     public void setName (String name) {
         m_sName = name;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
 
+    /**
+     *
+     * @param price
+     */
     public void setPriceBuy (double price) {
         m_dPriceBuy = price;
     }
+
+    /**
+     *
+     * @return
+     */
     public double getPriceBuy() {
         return m_dPriceBuy;
     }
     
+    /**
+     *
+     * @param amount
+     */
     public void setAmount (double amount) {
         m_dAmount = amount;
     }
+
+    /**
+     *
+     * @return
+     */
     public double getAmount() {
         return m_dAmount;
     }
     
+    /**
+     *
+     * @param unit
+     */
     public void setUnit (String unit) {
         m_sUnit = unit;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getUnit() {
         return m_sUnit;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
         return m_sID;

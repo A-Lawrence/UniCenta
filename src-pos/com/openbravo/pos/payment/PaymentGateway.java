@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,7 +19,15 @@
 
 package com.openbravo.pos.payment;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface PaymentGateway {
 
+    /**
+     *
+     * @param payinfo
+     */
     public void execute(PaymentInfoMagcard payinfo);
 }

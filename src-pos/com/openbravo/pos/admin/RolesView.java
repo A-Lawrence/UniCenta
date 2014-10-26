@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,7 +35,8 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
     
     private Object m_oId;
     
-    /** Creates new form RolesEditor */
+    /** Creates new form RolesEditor
+     * @param dirty */
     public RolesView(DirtyManager dirty) {
         initComponents();
         
@@ -45,6 +46,9 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         writeValueEOF();
     }
     
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         m_oId = null;
@@ -54,6 +58,9 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         m_jText.setEnabled(false);
     }
     
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         m_oId = null;
@@ -63,6 +70,10 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         m_jText.setEnabled(true);
     }
     
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
 
@@ -73,8 +84,12 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         m_jText.setCaretPosition(0);
         m_jName.setEnabled(false);
         m_jText.setEnabled(false);
-    }   
-    
+    }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
 
@@ -85,8 +100,13 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         m_jText.setCaretPosition(0);
         m_jName.setEnabled(true);
         m_jText.setEnabled(true);
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
 
@@ -97,11 +117,18 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         return role;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -119,13 +146,13 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
         jLabel2 = new javax.swing.JLabel();
         m_jName = new javax.swing.JTextField();
 
-        m_jText.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
+        m_jText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jScrollPane1.setViewportView(m_jText);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("Label.Name")); // NOI18N
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,7 +176,7 @@ public final class RolesView extends javax.swing.JPanel implements EditorRecord 
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

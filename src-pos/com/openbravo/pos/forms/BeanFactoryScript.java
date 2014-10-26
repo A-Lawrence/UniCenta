@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -34,10 +34,19 @@ public class BeanFactoryScript implements BeanFactoryApp {
     private BeanFactory bean = null;
     private String script;
     
+    /**
+     *
+     * @param script
+     */
     public BeanFactoryScript(String script) {
         this.script = script;
     }
     
+    /**
+     *
+     * @param app
+     * @throws BeanFactoryException
+     */
     @Override
     public void init(AppView app) throws BeanFactoryException {
         
@@ -62,6 +71,10 @@ public class BeanFactoryScript implements BeanFactoryApp {
         }     
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getBean() {
         return bean.getBean();

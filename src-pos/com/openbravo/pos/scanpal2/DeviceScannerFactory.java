@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,12 +22,21 @@ package com.openbravo.pos.scanpal2;
 import com.openbravo.pos.forms.AppProperties;
 import com.openbravo.pos.util.StringParser;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DeviceScannerFactory {
     
     /** Creates a new instance of DeviceScannerFactory */
     private DeviceScannerFactory() {
     }
     
+    /**
+     *
+     * @param props
+     * @return
+     */
     public static DeviceScanner createInstance(AppProperties props) {
         
         StringParser sd = new StringParser(props.getProperty("machine.scanner"));

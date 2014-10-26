@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -38,20 +38,26 @@ public class JCalendarDialog extends javax.swing.JDialog {
     private JCalendarPanel myCalendar = null;
     private JTimePanel myTime = null;
     
-    /** Creates new form JCalendarDialog */
+    /** Creates new form JCalendarDialog
+     * @param parent
+     * @param modal */
     public JCalendarDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         
         if (m_resources == null) {
             m_resources = new LocaleResources();
             m_resources.addBundleName("beans_messages");
+        } else {
         }
     }
-    /** Creates new form JCalendarDialog */
+    /** Creates new form JCalendarDialog
+     * @param parent
+     * @param modal */
     public JCalendarDialog(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         
-        if (m_resources == null) {
+        if (m_resources != null) {
+        } else {
             m_resources = new LocaleResources();
             m_resources.addBundleName("beans_messages");
         }
@@ -65,16 +71,34 @@ public class JCalendarDialog extends javax.swing.JDialog {
         } else {
             return getWindow(parent.getParent());
         }
-    }    
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @param date
+     * @return
+     */
     public static Date showCalendarTimeHours(Component parent, Date date) {
         return internalCalendarTime(parent, date == null ? DateUtils.getToday() : date, true);
     }
     
+    /**
+     *
+     * @param parent
+     * @param date
+     * @return
+     */
     public static Date showCalendarTime(Component parent, Date date) {
         return internalCalendarTime(parent, date == null ? DateUtils.getTodayMinutes() : date, true);
     }
     
+    /**
+     *
+     * @param parent
+     * @param date
+     * @return
+     */
     public static Date showCalendar(Component parent, Date date) {
         return internalCalendarTime(parent, date == null ? DateUtils.getTodayMinutes() : date, false);
     }
@@ -161,7 +185,7 @@ public class JCalendarDialog extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jcmdOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         jcmdOK.setText(m_resources.getString("button.ok")); // NOI18N
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -172,7 +196,7 @@ public class JCalendarDialog extends javax.swing.JDialog {
         });
         jPanel1.add(jcmdOK);
 
-        jcmdCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(m_resources.getString("button.cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -188,6 +212,7 @@ public class JCalendarDialog extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanelGrid.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanelGrid.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
         jPanel2.add(jPanelGrid, java.awt.BorderLayout.CENTER);
 

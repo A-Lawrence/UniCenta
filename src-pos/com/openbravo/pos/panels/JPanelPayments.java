@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -38,17 +38,28 @@ public class JPanelPayments extends JPanelTable {
     public JPanelPayments() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {
         m_dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");         
         jeditor = new PaymentsEditor(app, dirty);    
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return  new SaveProvider(null
@@ -56,11 +67,19 @@ public class JPanelPayments extends JPanelTable {
                 , m_dlSales.getPaymentMovementDelete());
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Payments");

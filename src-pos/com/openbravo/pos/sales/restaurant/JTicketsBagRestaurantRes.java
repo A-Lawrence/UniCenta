@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -37,6 +37,10 @@ import com.openbravo.pos.customers.DataLogicCustomers;
 import com.openbravo.pos.customers.JCustomerFinder;
 import com.openbravo.pos.customers.CustomerInfo;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements EditorRecord {
 
     private JTicketsBagRestaurantMap m_restaurantmap;
@@ -59,7 +63,9 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
 
     // private Date dinitdate = new GregorianCalendar(1900, 0, 0, 12, 0).getTime();
     
-    /** Creates new form JPanelReservations */
+    /** Creates new form JPanelReservations
+     * @param oApp
+     * @param restaurantmap */
     public JTicketsBagRestaurantRes(AppView oApp, JTicketsBagRestaurantMap restaurantmap) {
         
         m_restaurantmap = restaurantmap;
@@ -90,6 +96,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         m_timereservation.addPropertyChangeListener("Date", m_Dirty);
         txtCustomer.addPropertyChangeListener("Text", m_Dirty);
         txtCustomer.addPropertyChangeListener("Text", new PropertyChangeListener(){
+            @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 customer = new CustomerInfo(null);
                 customer.setTaxid(null);
@@ -119,18 +126,30 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
     }
     
     private class MyDateFilter implements EditorCreator {
+        @Override
         public Object createValue() throws BasicException {           
             return new Object[] {m_dcurrentday, new Date(m_dcurrentday.getTime() + 3600000L)};   // m_dcurrentday ya no tiene ni minutos, ni segundos.             
         }
     }
     
+    /**
+     *
+     */
     public void activate() {
         reload(DateUtils.getTodayHours(new Date()));
     }
     
+    /**
+     *
+     */
+    @Override
     public void refresh() {
-    }  
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public boolean deactivate() {
         try {
             return m_bd.actionClosingForm(this);
@@ -141,6 +160,10 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         }
     }
     
+    /**
+     *
+     */
+    @Override
     public void writeValueEOF() {
         m_sID = null;
         m_dCreated = null;
@@ -157,6 +180,10 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         
         m_jbtnReceive.setEnabled(false);
     }    
+
+    /**
+     *
+     */
     public void writeValueInsert() {
         m_sID = null;
         m_dCreated = null;
@@ -176,6 +203,12 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         
         txtCustomer.activate();
     }
+
+    /**
+     *
+     * @param value
+     */
+    @Override
     public void writeValueDelete(Object value) {
         Object[] res = (Object[]) value;
         m_sID = res[0];
@@ -198,6 +231,12 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         
         m_jbtnReceive.setEnabled(false); 
     }  
+
+    /**
+     *
+     * @param value
+     */
+    @Override
     public void writeValueEdit(Object value) {
         Object[] res = (Object[]) value;
         m_sID = res[0];
@@ -223,6 +262,12 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         txtCustomer.activate();
     }    
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
+    @Override
     public Object createValue() throws BasicException {
         
         Object[] res = new Object[10];
@@ -239,13 +284,19 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         res[9] = m_jtxtDescription.getText();
 
         return res;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public Component getComponent() {
         return this;
     }  
     
     private static class CompareReservations implements Comparator {
+        @Override
         public int compare(Object o1, Object o2) {
             Object[] a1 = (Object[]) o1;
             Object[] a2 = (Object[]) o2;
@@ -296,6 +347,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
     }
     
     private class DateChangeCalendarListener implements PropertyChangeListener {
+        @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (!m_bpaintlock) {
                 reload(DateUtils.getTodayHours(DateUtils.getDate(m_datepanel.getDate(), m_timepanel.getDate())));
@@ -304,6 +356,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
     }
         
     private class DateChangeTimeListener implements PropertyChangeListener {
+        @Override
         public void propertyChange(PropertyChangeEvent evt) {
             if (!m_bpaintlock) {
                 reload(DateUtils.getTodayHours(DateUtils.getDate(m_datepanel.getDate(), m_timepanel.getDate())));
@@ -360,6 +413,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
 
         m_jToolbarContainer.setLayout(new java.awt.BorderLayout());
 
+        m_jbtnTables.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jbtnTables.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/tables.png"))); // NOI18N
         m_jbtnTables.setText(AppLocal.getIntString("button.tables")); // NOI18N
         m_jbtnTables.setToolTipText("Go to Table Plan");
@@ -373,6 +427,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         });
         jPanel4.add(m_jbtnTables);
 
+        m_jbtnReceive.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jbtnReceive.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/receive.png"))); // NOI18N
         m_jbtnReceive.setText(AppLocal.getIntString("button.receive")); // NOI18N
         m_jbtnReceive.setToolTipText("Receive pre-Booked Customer");
@@ -401,39 +456,39 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         jPanel1.add(m_jPanelTime);
         m_jPanelTime.setBounds(90, 0, 270, 155);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("rest.label.date")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 80, 20);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("rest.label.customer")); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 160, 80, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("rest.label.chairs")); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 190, 80, 25);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("rest.label.notes")); // NOI18N
         jPanel1.add(jLabel4);
         jLabel4.setBounds(10, 220, 80, 20);
 
-        m_jtxtDescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jtxtDescription.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jtxtDescription.setMaximumSize(new java.awt.Dimension(180, 25));
         jPanel1.add(m_jtxtDescription);
         m_jtxtDescription.setBounds(90, 220, 350, 30);
 
-        m_jtxtChairs.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jtxtChairs.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jtxtChairs.setMaximumSize(new java.awt.Dimension(50, 25));
         m_jtxtChairs.setMinimumSize(new java.awt.Dimension(50, 25));
         m_jtxtChairs.setPreferredSize(new java.awt.Dimension(50, 25));
         jPanel1.add(m_jtxtChairs);
         m_jtxtChairs.setBounds(90, 190, 90, 25);
 
-        txtCustomer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCustomer.setMaximumSize(new java.awt.Dimension(200, 25));
         txtCustomer.setMinimumSize(new java.awt.Dimension(200, 25));
         txtCustomer.setPreferredSize(new java.awt.Dimension(232, 25));
@@ -475,7 +530,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
         
         try {
             m_bd.saveData();
-            m_restaurantmap.viewTables(customer);                    
+            m_restaurantmap.viewTables(customer);      
         } catch (BasicException eD) {
             MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosaveticket"), eD);
             msg.show(this);

@@ -19,12 +19,18 @@
 
 package com.openbravo.editor;
 
+import com.openbravo.pos.customers.JCustomerFinder;
 import java.awt.ComponentOrientation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.EventListener;
 import javax.swing.event.EventListenerList;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
     
     private final static char[] SET_DOUBLE = {'\u007f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-'};
@@ -32,6 +38,9 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
     private final static char[] SET_INTEGER = {'\u007f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'};
     private final static char[] SET_INTEGER_POSITIVE = {'\u007f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     
+    /**
+     *
+     */
     protected EventListenerList listeners = new EventListenerList();
     
     private EditorComponent editorcurrent ;
@@ -39,7 +48,30 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
     private char[] keysavailable;    
     private boolean m_bMinus;
     private boolean m_bKeyDot;
+    private JCustomerFinder customerFinder;
        
+    /*
+    HS KeyShortcuts
+     */
+
+    /**
+     *
+     * @return
+     */
+    
+    public JCustomerFinder getCustomerFinder() {
+        return customerFinder;
+    }
+
+    /**
+     *
+     * @param customerFinder
+     */
+    public void setCustomerFinder(JCustomerFinder customerFinder) {
+        this.customerFinder = customerFinder;
+    }
+       
+    
     /** Creates new form JEditorKeys */
     public JEditorKeys() {
         initComponents();
@@ -70,13 +102,25 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         // Nothing to change
     }
     
+    /**
+     *
+     * @param l
+     */
     public void addActionListener(ActionListener l) {
         listeners.add(ActionListener.class, l);
     }
+
+    /**
+     *
+     * @param l
+     */
     public void removeActionListener(ActionListener l) {
         listeners.remove(ActionListener.class, l);
     }
     
+    /**
+     *
+     */
     protected void fireActionPerformed() {
         EventListener[] l = listeners.getListeners(ActionListener.class);
         ActionEvent e = null;
@@ -104,6 +148,10 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         m_jMinus.setEnabled(b && m_bMinus);
     }
     
+    /**
+     *
+     * @param iMode
+     */
     public void setMode(int iMode) {
         switch (iMode) {
             case MODE_DOUBLE:
@@ -149,8 +197,13 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
                 editorcurrent.transChar(m_cCad);
             }
         }
-    }  
-    
+    }
+
+    /**
+     *
+     * @param e
+     * @param iMode
+     */
     public void setActive(EditorComponent e, int iMode) {
        
         if (editorcurrent != null) {
@@ -169,6 +222,10 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         });          
     }
     
+    /**
+     *
+     * @param e
+     */
     public void setInactive(EditorComponent e) {
         
         if (e == editorcurrent && editorcurrent != null) { // e != null
@@ -178,7 +235,18 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
             doEnabled(false);
         }        
     }
-   
+
+    /**
+     *
+     * @param enabled
+     */
+    public void dotIs00(boolean enabled) {
+        if (enabled) {
+            m_jKeyDot.setIcon(new javax.swing.ImageIcon(getClass()
+                    .getResource("/com/openbravo/images/btn00.png")));
+        }
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -232,7 +300,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(m_jKey1, gridBagConstraints);
 
         m_jKey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn4a.png"))); // NOI18N
@@ -246,7 +313,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(m_jKey4, gridBagConstraints);
 
         m_jKey7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn7a.png"))); // NOI18N
@@ -260,7 +326,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(m_jKey7, gridBagConstraints);
 
         m_jCE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnce.png"))); // NOI18N
@@ -275,6 +340,7 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(m_jCE, gridBagConstraints);
 
         m_jMinus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btnminus.png"))); // NOI18N
@@ -288,7 +354,7 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
         add(m_jMinus, gridBagConstraints);
 
         m_jKey9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn9a.png"))); // NOI18N
@@ -302,7 +368,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey9, gridBagConstraints);
 
         m_jKey8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn8a.png"))); // NOI18N
@@ -316,7 +381,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey8, gridBagConstraints);
 
         m_jKey5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn5a.png"))); // NOI18N
@@ -330,7 +394,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey5, gridBagConstraints);
 
         m_jKey6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn6a.png"))); // NOI18N
@@ -344,7 +407,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey6, gridBagConstraints);
 
         m_jKey3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn3a.png"))); // NOI18N
@@ -358,7 +420,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey3, gridBagConstraints);
 
         m_jKey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btn2a.png"))); // NOI18N
@@ -372,7 +433,6 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(m_jKey2, gridBagConstraints);
 
         m_jKeyDot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/btndot.png"))); // NOI18N
@@ -386,7 +446,7 @@ public class JEditorKeys extends javax.swing.JPanel implements EditorKeys {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(m_jKeyDot, gridBagConstraints);
 
         m_txtKeys.setPreferredSize(new java.awt.Dimension(0, 0));

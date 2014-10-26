@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -38,6 +38,9 @@ public class AttributeSetsPanel extends JPanelTable2 {
     public AttributeSetsPanel() {
     }
 
+    /**
+     *
+     */
     @Override
     protected void init() {
 
@@ -57,11 +60,19 @@ public class AttributeSetsPanel extends JPanelTable2 {
         editor = new AttributeSetsEditor(dirty);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return editor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.AttributeSets");

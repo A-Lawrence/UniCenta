@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -62,7 +62,13 @@ public class AppUser {
         initOldClasses();
     }
     
-    /** Creates a new instance of AppUser */
+    /** Creates a new instance of AppUser
+     * @param id
+     * @param name
+     * @param card
+     * @param password
+     * @param icon
+     * @param role */
     public AppUser(String id, String name, String password, String card, String role, Icon icon) {
         m_sId = id;
         m_sName = name;
@@ -73,41 +79,83 @@ public class AppUser {
         m_apermissions = null;
     }
     
+    /**
+     *
+     * @return
+     */
     public Icon getIcon() {
         return m_Icon;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return m_sId;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
     
+    /**
+     *
+     * @param sValue
+     */
     public void setPassword(String sValue) {
         m_sPassword = sValue;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return m_sPassword;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getRole() {
         return m_sRole;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getCard() {
         return m_sCard;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean authenticate() {
         return m_sPassword == null || m_sPassword.equals("") || m_sPassword.startsWith("empty:");
     }
+
+    /**
+     *
+     * @param sPwd
+     * @return
+     */
     public boolean authenticate(String sPwd) {
         return Hashcypher.authenticate(sPwd, m_sPassword);
     }
     
+    /**
+     *
+     * @param dlSystem
+     */
     public void fillPermissions(DataLogicSystem dlSystem) {
         
         // JG 16 May use diamond inference
@@ -137,11 +185,20 @@ public class AppUser {
 
     }
     
+    /**
+     *
+     * @param classname
+     * @return
+     */
     public boolean hasPermission(String classname) {
 
         return (m_apermissions == null) ? false : m_apermissions.contains(classname);        
-    }   
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public UserInfo getUserInfo() {
         return new UserInfo(m_sId, m_sName);
     }

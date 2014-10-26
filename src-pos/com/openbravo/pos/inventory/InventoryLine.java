@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,7 +39,8 @@ public class InventoryLine {
     private String attsetinstid;
     private String attsetinstdesc;
  
-    /** Creates a new instance of InventoryLine */
+    /** Creates a new instance of InventoryLine
+     * @param oProduct */
     public InventoryLine(ProductInfoExt oProduct) {
         m_sProdID = oProduct.getID();
         m_sProdName = oProduct.getName();
@@ -50,6 +51,12 @@ public class InventoryLine {
         attsetinstdesc = null;
     }
     
+    /**
+     *
+     * @param oProduct
+     * @param dpor
+     * @param dprice
+     */
     public InventoryLine(ProductInfoExt oProduct, double dpor, double dprice) {
         m_sProdID = oProduct.getID();
         m_sProdName = oProduct.getName();
@@ -60,62 +67,124 @@ public class InventoryLine {
         attsetinstdesc = null;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getProductID() {
         return m_sProdID;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getProductName() {
         return m_sProdName;
     } 
+
+    /**
+     *
+     * @param sValue
+     */
     public void setProductName(String sValue) {
         if (m_sProdID == null) {
             m_sProdName = sValue;
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public double getMultiply() {
         return m_dMultiply;
     }
     
+    /**
+     *
+     * @param dValue
+     */
     public void setMultiply(double dValue) {
         m_dMultiply = dValue;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getPrice() {
         return m_dPrice;
     }
     
+    /**
+     *
+     * @param dValue
+     */
     public void setPrice(double dValue) {
         m_dPrice = dValue;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public double getSubValue() {
         return m_dMultiply * m_dPrice;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getProductAttSetInstId() {
         return attsetinstid;
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setProductAttSetInstId(String value) {
         attsetinstid = value;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getProductAttSetId() {
         return attsetid;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProductAttSetInstDesc() {
         return attsetinstdesc;
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setProductAttSetInstDesc(String value) {
         attsetinstdesc = value;
     }
     
+    /**
+     *
+     * @return
+     */
     public String printName() {
         return StringUtils.encodeXML(m_sProdName);
     }
     
+    /**
+     *
+     * @return
+     */
     public String printPrice() {
         if (m_dMultiply == 1.0) {
             return "";
@@ -124,10 +193,18 @@ public class InventoryLine {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String printMultiply() {
         return Formats.DOUBLE.formatValue(new Double(m_dMultiply));
     }
     
+    /**
+     *
+     * @return
+     */
     public String printSubValue() {
         return Formats.CURRENCY.formatValue(new Double(getSubValue()));
     }    

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,24 +25,70 @@ package com.openbravo.data.loader;
  */
 public class SessionDBDerby implements SessionDB {
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public String TRUE() {
         return "1";
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public String FALSE() {
         return "0";
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public String INTEGER_NULL() {
         return "CAST(NULL AS INTEGER)";
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public String CHAR_NULL() {
         return "CAST(NULL AS CHAR)";
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public String getName() {
         return "Derby";
     }
 
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
+    @Override
     public SentenceFind getSequenceSentence(Session s, String sequence) {
         return new SequenceForDerby(s, sequence);
     }
+    
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
+    @Override
+    public SentenceFind resetSequenceSentence(Session s, String sequence) {
+        return new SequenceForDerby(s, sequence);    
+}
 }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,6 +27,10 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DevicePrinterPanel extends javax.swing.JPanel implements DevicePrinter {
     
     private String m_sName;
@@ -46,18 +50,43 @@ public class DevicePrinterPanel extends javax.swing.JPanel implements DevicePrin
         m_jScrollView.setViewportView(m_jTicketContainer);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterName() {
         return m_sName;
     }
+    
+    /**
+     *
+     */
+    @Override
+    public void printLogo(){   
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterDescription() {
         return null;
     }       
+
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getPrinterComponent() {
         return this;
     }
+
+    /**
+     *
+     */
     @Override
     public void reset() {
         m_ticketcurrent = null;
@@ -66,38 +95,76 @@ public class DevicePrinterPanel extends javax.swing.JPanel implements DevicePrin
     }
     
     // INTERFAZ PRINTER 2
-    @Override
+
+    /**
+     *
+     */
+        @Override
     public void beginReceipt() {
 //        m_ticketcurrent = new BasicTicket();
         m_ticketcurrent = new BasicTicketForScreen();
 
     }
+
+    /**
+     *
+     * @param image
+     */
     @Override
     public void printImage(BufferedImage image) {
         m_ticketcurrent.printImage(image);
     }
+
+    /**
+     *
+     * @param type
+     * @param position
+     * @param code
+     */
     @Override
     public void printBarCode(String type, String position, String code) {
         m_ticketcurrent.printBarCode(type, position, code);
     }
+
+    /**
+     *
+     * @param iTextSize
+     */
     @Override
     public void beginLine(int iTextSize) {
         m_ticketcurrent.beginLine(iTextSize);
     }
+
+    /**
+     *
+     * @param iStyle
+     * @param sText
+     */
     @Override
     public void printText(int iStyle, String sText) {
         m_ticketcurrent.printText(iStyle, sText);
     }
+
+    /**
+     *
+     */
     @Override
     public void endLine() {
         m_ticketcurrent.endLine();
     } 
+
+    /**
+     *
+     */
     @Override
     public void endReceipt() {
         m_jTicketContainer.addTicket(new JTicket(m_ticketcurrent));
         m_ticketcurrent = null;
     }
     
+    /**
+     *
+     */
     @Override
     public void openDrawer() {
         // Una simulacion
@@ -116,7 +183,7 @@ public class DevicePrinterPanel extends javax.swing.JPanel implements DevicePrin
 
         setLayout(new java.awt.BorderLayout());
 
-        m_jScrollView.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jScrollView.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jScrollView, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,6 +35,10 @@ import com.openbravo.pos.reports.ReportEditorCreator;
 import java.awt.Component;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ProductFilter extends javax.swing.JPanel implements ReportEditorCreator {
     
     private SentenceList m_sentcat;
@@ -46,6 +50,10 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         initComponents();
     }
     
+    /**
+     *
+     * @param app
+     */
     public void init(AppView app) {
          
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
@@ -62,6 +70,10 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         m_jCboPriceSell.setModel(ListQBFModelNumber.getMandatoryNumber());
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void activate() throws BasicException {
 
         List catlist = m_sentcat.list();
@@ -70,15 +82,28 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         m_jCategory.setModel(m_CategoryModel);
     }
     
+    /**
+     *
+     * @return
+     */
     public SerializerWrite getSerializerWrite() {
         return new SerializerWriteBasic(
                 new Datas[] {Datas.OBJECT, Datas.STRING, Datas.OBJECT, Datas.DOUBLE, Datas.OBJECT, Datas.DOUBLE, Datas.OBJECT, Datas.STRING, Datas.OBJECT, Datas.STRING});
     }
 
+    /**
+     *
+     * @return
+     */
     public Component getComponent() {
         return this;
     }
    
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public Object createValue() throws BasicException {
         
         if (m_jBarcode.getText() == null || m_jBarcode.getText().equals("")) {
@@ -128,11 +153,12 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         jLabel2 = new javax.swing.JLabel();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(AppLocal.getIntString("label.bybarcode"))); // NOI18N
+        jPanel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.prodbarcode")); // NOI18N
 
-        m_jBarcode.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jBarcode.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -156,31 +182,32 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(AppLocal.getIntString("label.byform"))); // NOI18N
+        jPanel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.prodcategory")); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.prodpricesell")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.prodpricebuy")); // NOI18N
 
-        m_jCboName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jCboName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        m_jPriceBuy.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jPriceBuy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        m_jCboPriceBuy.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jCboPriceBuy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        m_jCboPriceSell.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jCboPriceSell.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        m_jPriceSell.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jPriceSell.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        m_jCategory.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jCategory.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.prodname")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -198,20 +225,17 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
                     .addComponent(m_jCboName, 0, 192, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel3))
+                    .addComponent(m_jPriceBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jCboPriceBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(m_jCboPriceSell, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(m_jPriceBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(m_jCboPriceBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(m_jPriceSell, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 36, Short.MAX_VALUE))
-                            .addComponent(m_jCboPriceSell, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel3)
+                            .addComponent(m_jPriceSell, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -247,8 +271,10 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
    

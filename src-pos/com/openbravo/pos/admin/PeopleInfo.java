@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -34,6 +34,10 @@ public class PeopleInfo implements SerializableRead, IKeyed {
     
     private static final long serialVersionUID = 9110127845966L;
     private String m_sID;
+
+    /**
+     *
+     */
     protected String m_sName;
     
     /** Creates a new instance of RoleInfo */
@@ -42,27 +46,52 @@ public class PeopleInfo implements SerializableRead, IKeyed {
         m_sName = null;
     }
    
+    /**
+     *
+     * @return
+     */
     public Object getKey() {
         return m_sID;
     }
     
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     public void readValues(DataRead dr) throws BasicException {
         m_sID = dr.getString(1);
         m_sName = dr.getString(2);
-    }     
-    
+    }
+
+    /**
+     *
+     * @param sID
+     */
     public void setID(String sID) {
         m_sID = sID;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
     
+    /**
+     *
+     * @param sValue
+     */
     public void setName(String sValue) {
         m_sName = sValue;
     }    

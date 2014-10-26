@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -44,6 +44,10 @@ public class PaymentGatewayPlanetauthorize implements PaymentGateway {
     private String m_sCommercePassword;
     private boolean m_bTestMode;
     
+    /**
+     *
+     * @param props
+     */
     public PaymentGatewayPlanetauthorize (AppProperties props) {
         m_sCommerceID = props.getProperty("payment.commerceid");
 
@@ -53,10 +57,17 @@ public class PaymentGatewayPlanetauthorize implements PaymentGateway {
         m_bTestMode = Boolean.valueOf(props.getProperty("payment.testmode")).booleanValue();
     }
     
+    /**
+     *
+     */
     public PaymentGatewayPlanetauthorize() {
         
     }
     
+    /**
+     *
+     * @param payinfo
+     */
     @Override
     public void execute(PaymentInfoMagcard payinfo) {
         StringBuilder sb = new StringBuilder();

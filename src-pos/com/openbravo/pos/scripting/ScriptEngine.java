@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,9 +27,26 @@ package com.openbravo.pos.scripting;
  */
 public interface ScriptEngine {
     
+    /**
+     *
+     * @param key
+     * @param value
+     */
     public void put(String key, Object value);
+
+    /**
+     *
+     * @param key
+     * @return
+     */
     public Object get(String key);
     
+    /**
+     *
+     * @param src
+     * @return
+     * @throws ScriptException
+     */
     public Object eval(String src) throws ScriptException;
     
 }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -47,6 +47,10 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         setType(Formats.STRING);
     }
     
+    /**
+     *
+     * @param label
+     */
     public JParamsText(String label) {
         
         initComponents();
@@ -55,6 +59,11 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         setType(Formats.STRING);
     }
     
+    /**
+     *
+     * @param label
+     * @param format
+     */
     public JParamsText(String label, Formats format) {
         
         initComponents();
@@ -63,6 +72,12 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         setType(format);
     }
     
+    /**
+     *
+     * @param label
+     * @param format
+     * @param data
+     */
     public JParamsText(String label, Formats format, Datas data) {
         
         initComponents();
@@ -71,16 +86,29 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         setType(format, data);
     }
     
+    /**
+     *
+     * @param label
+     */
     public void setLabel(String label) {
         lblField.setText(label);
     }
     
+    /**
+     *
+     * @param format
+     * @param data
+     */
     public void setType(Formats format, Datas data) {
         formatsvalue = format;
         datasvalue = data;
         setDefaultCompare();
     }
     
+    /**
+     *
+     * @param format
+     */
     public void setType(Formats format) {
         
         if (Formats.INT == format) {
@@ -96,6 +124,10 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         }
     }
     
+    /**
+     *
+     * @param compare
+     */
     public void setCompare(QBFCompareEnum compare) {
         comparevalue = compare;
     }
@@ -114,25 +146,46 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         }
     }
     
+    /**
+     *
+     * @param app
+     */
     @Override
     public void init(AppView app) {
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         txtField.setText(null);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SerializerWrite getSerializerWrite() {
         return new SerializerWriteBasic(new Datas[] {Datas.OBJECT, datasvalue});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -160,12 +213,12 @@ public final class JParamsText extends javax.swing.JPanel implements ReportEdito
         setPreferredSize(new java.awt.Dimension(0, 30));
         setLayout(null);
 
-        lblField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblField.setText("***");
         add(lblField);
         lblField.setBounds(20, 10, 120, 25);
 
-        txtField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(txtField);
         txtField.setBounds(140, 10, 200, 25);
     }// </editor-fold>//GEN-END:initComponents

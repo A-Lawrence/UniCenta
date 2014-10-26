@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,6 +29,12 @@ public class PaymentPanelFac {
     private PaymentPanelFac() {
     }
     
+    /**
+     *
+     * @param sReader
+     * @param notifier
+     * @return
+     */
     public static PaymentPanel getPaymentPanel(String sReader, JPaymentNotifier notifier) {
 // JG 16 May 12 use switch
         switch (sReader) {

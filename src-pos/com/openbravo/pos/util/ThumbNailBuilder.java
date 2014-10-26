@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,22 +24,40 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ThumbNailBuilder {
     
     private Image m_imgdefault;
     private int m_width;
     private int m_height;
     
-    /** Creates a new instance of ThumbNailBuilder */    
+    /** Creates a new instance of ThumbNailBuilder
+     * @param width
+     * @param height */    
     public ThumbNailBuilder(int width, int height) {
         init(width, height, null);
     }
     
+    /**
+     *
+     * @param width
+     * @param height
+     * @param imgdef
+     */
     public ThumbNailBuilder(int width, int height, Image imgdef) {
         init(width, height, imgdef);
       
     }
     
+    /**
+     *
+     * @param width
+     * @param height
+     * @param img
+     */
     public ThumbNailBuilder(int width, int height, String img) {
         
         Image defimg;
@@ -60,6 +78,11 @@ public class ThumbNailBuilder {
         } 
     }
     
+    /**
+     *
+     * @param img
+     * @return
+     */
     public Image getThumbNail(Image img) {
    
         if (img == null) {
@@ -67,8 +90,14 @@ public class ThumbNailBuilder {
         } else {
             return createThumbNail(img);
         }     
-    }      
-    
+    }
+
+    /**
+     *
+     * @param img
+     * @param text
+     * @return
+     */
     public Image getThumbNailText(Image img, String text) {
                 
         img = getThumbNail(img);

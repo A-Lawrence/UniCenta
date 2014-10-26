@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,19 +19,25 @@
 
 package com.openbravo.data.gui;
 
-import javax.swing.*;
-import java.awt.*;
 import com.openbravo.data.loader.IRenderString;
+import java.awt.*;
+import javax.swing.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ListCellRendererBasic extends DefaultListCellRenderer {
     
     private IRenderString m_renderer;
     
-    /** Creates a new instance of ListCellRendererBasic */
+    /** Creates a new instance of ListCellRendererBasic
+     * @param renderer */
     public ListCellRendererBasic(IRenderString renderer) {
         m_renderer = renderer;
     }
 
+    @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         super.getListCellRendererComponent(list, null, index, isSelected, cellHasFocus);
         

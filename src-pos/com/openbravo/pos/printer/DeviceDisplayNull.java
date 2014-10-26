@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,10 @@ package com.openbravo.pos.printer;
 
 import com.openbravo.pos.forms.AppLocal;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DeviceDisplayNull implements DeviceDisplay {
     
     private String m_sName;
@@ -31,31 +35,62 @@ public class DeviceDisplayNull implements DeviceDisplay {
         this(null);
     }
     
-    /** Creates a new instance of DeviceDisplayNull */
+    /** Creates a new instance of DeviceDisplayNull
+     * @param desc */
     public DeviceDisplayNull(String desc) {
         m_sName = AppLocal.getIntString("Display.Null");
         m_sDescription = desc;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDisplayName() {
         return m_sName;
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDisplayDescription() {
         return m_sDescription;
     }        
+
+    /**
+     *
+     * @return
+     */
     @Override
     public javax.swing.JComponent getDisplayComponent() {
         return null;
     }
     
+    /**
+     *
+     */
     @Override
     public void clearVisor() {
     }      
+
+    /**
+     *
+     * @param sLine1
+     * @param sLine2
+     */
     @Override
     public void writeVisor(String sLine1, String sLine2) {
     } 
+
+    /**
+     *
+     * @param animation
+     * @param sLine1
+     * @param sLine2
+     */
     @Override
     public void writeVisor(int animation, String sLine1, String sLine2) {
     } 

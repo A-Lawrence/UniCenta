@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,7 +28,23 @@ import java.awt.Component;
  */
 public interface JPaymentInterface {
     
+    /**
+     *
+     * @param customerext
+     * @param dTotal
+     * @param transactionID
+     */
     public void activate(CustomerInfoExt customerext, double dTotal, String transactionID);    
+
+    /**
+     *
+     * @return
+     */
     public PaymentInfo executePayment();
+
+    /**
+     *
+     * @return
+     */
     public Component getComponent();
 }

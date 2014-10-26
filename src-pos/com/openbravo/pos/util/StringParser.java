@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,19 +19,29 @@
 
 package com.openbravo.pos.util;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class StringParser {
     
     private int currentPosition;
     private int maxPosition;
     private String str;
     
-    /** Creates a new instance of StringParser */
+    /** Creates a new instance of StringParser
+     * @param str */
     public StringParser(String str) {
         this.str = str;
         currentPosition = 0;
         maxPosition = str == null ? 0 : str.length();
     }
     
+    /**
+     *
+     * @param c
+     * @return
+     */
     public String nextToken(char c) {
        
         if (currentPosition < maxPosition) {

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,13 +31,28 @@ public class ImportSentence extends BaseSentence {
     public ImportSentence() {
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void closeExec() throws BasicException {
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public DataResultSet moreResults() throws BasicException {
         return null;
     }
     
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public DataResultSet openExec(Object params) throws BasicException {
         return null;
     }

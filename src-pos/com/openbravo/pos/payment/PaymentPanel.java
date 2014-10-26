@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,9 +21,28 @@ package com.openbravo.pos.payment;
 
 import javax.swing.JComponent;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface PaymentPanel {
     
+    /**
+     *
+     * @param sTransaction
+     * @param dTotal
+     */
     public void activate(String sTransaction, double dTotal);
+
+    /**
+     *
+     * @return
+     */
     public JComponent getComponent();
+
+    /**
+     *
+     * @return
+     */
     public PaymentInfoMagcard getPaymentInfoMagcard();
 }

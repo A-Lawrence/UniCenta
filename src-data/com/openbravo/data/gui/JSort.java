@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -26,6 +26,10 @@ import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.ComparatorCreator;
 import com.openbravo.data.loader.LocalRes;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JSort extends JDialog {
     
     private ComparatorCreator m_cc;
@@ -85,6 +89,13 @@ public class JSort extends JDialog {
         }
     }
        
+    /**
+     *
+     * @param parent
+     * @param cc
+     * @return
+     * @throws BasicException
+     */
     public static Comparator showMessage(Component parent, ComparatorCreator cc) throws BasicException {
          
         Window window = getWindow(parent);      
@@ -123,30 +134,30 @@ public class JSort extends JDialog {
 
         jPanel1.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(LocalRes.getIntString("label.sortby")); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 20, 100, 25);
 
-        m_jSort1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jSort1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.add(m_jSort1);
         m_jSort1.setBounds(110, 20, 230, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(LocalRes.getIntString("label.andby")); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 50, 100, 25);
 
-        m_jSort2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jSort2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.add(m_jSort2);
         m_jSort2.setBounds(110, 50, 230, 25);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(LocalRes.getIntString("label.andby")); // NOI18N
         jPanel1.add(jLabel4);
         jLabel4.setBounds(10, 80, 100, 25);
 
-        m_jSort3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jSort3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.add(m_jSort3);
         m_jSort3.setBounds(110, 80, 230, 25);
 

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,11 +25,16 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class TableRendererBasic extends DefaultTableCellRenderer {
     
     private Formats[] m_aFormats;
     
-    /** Creates a new instance of TableRendererBasic */
+    /** Creates a new instance of TableRendererBasic
+     * @param aFormats */
     public TableRendererBasic(Formats[] aFormats) {
         m_aFormats = aFormats;
     }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,7 +24,10 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.border.Border;
 
-
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class JEditorAbstract extends javax.swing.JPanel implements EditorComponent {
 
     private EditorKeys editorkeys;
@@ -43,35 +46,100 @@ public abstract class JEditorAbstract extends javax.swing.JPanel implements Edit
         m_jText.setBorder(m_borderinactive);
     }
 
+    /**
+     *
+     * @return
+     */
     protected abstract int getMode();    
+
+    /**
+     *
+     * @return
+     */
     protected abstract int getAlignment();  
+
+    /**
+     *
+     * @return
+     */
     protected abstract String getEditMode();
+
+    /**
+     *
+     * @return
+     */
     protected abstract String getTextEdit();
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected abstract String getTextFormat() throws BasicException;
+
+    /**
+     *
+     * @param c
+     */
     protected abstract void typeCharInternal(char c);    
+
+    /**
+     *
+     * @param c
+     */
     protected abstract void transCharInternal(char c);
     
+    /**
+     *
+     * @param c
+     */
+    @Override
     public void typeChar(char c) {
         typeCharInternal(c);
         reprintText();
         firePropertyChange("Edition", null, null);
     }
     
+    /**
+     *
+     * @param c
+     */
+    @Override
     public void transChar(char c) {
         transCharInternal(c);
         reprintText();
         firePropertyChange("Edition", null, null);
     }
     
+    /**
+     *
+     * @param ed
+     */
+    @Override
     public void addEditorKeys(EditorKeys ed) {
         editorkeys = ed;
     }
+
+    /**
+     *
+     */
+    @Override
     public void deactivate() {
         setActive(false);
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public Component getComponent() {
         return this;
     }
+
+    /**
+     *
+     */
     public void activate() {
         if (isEnabled()) {
             editorkeys.setActive(this, getMode());        
@@ -85,6 +153,9 @@ public abstract class JEditorAbstract extends javax.swing.JPanel implements Edit
         reprintText();
     }
             
+    /**
+     *
+     */
     protected void reprintText() {
         
         m_jText.setHorizontalAlignment(getAlignment());
@@ -104,6 +175,7 @@ public abstract class JEditorAbstract extends javax.swing.JPanel implements Edit
         }
     }
     
+    @Override
     public void setEnabled(boolean b) {
         
         if (editorkeys != null) {
@@ -133,7 +205,7 @@ public abstract class JEditorAbstract extends javax.swing.JPanel implements Edit
         panBackground.setLayout(new java.awt.BorderLayout());
 
         m_jText.setBackground(javax.swing.UIManager.getDefaults().getColor("TextField.background"));
-        m_jText.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jText.setContentAreaFilled(false);
         m_jText.setFocusPainted(false);
         m_jText.setFocusable(false);

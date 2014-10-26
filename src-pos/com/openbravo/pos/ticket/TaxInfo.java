@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,7 +39,15 @@ public class TaxInfo implements Serializable, IKeyed {
     private boolean cascade;
     private Integer order;
     
-    /** Creates new TaxInfo */
+    /** Creates new TaxInfo
+     * @param id
+     * @param name
+     * @param taxcategoryid
+     * @param taxcustcategoryid
+     * @param rate
+     * @param cascade
+     * @param parentid
+     * @param order */
     public TaxInfo(String id, String name, String taxcategoryid, String taxcustcategoryid, String parentid, double rate, boolean cascade, Integer order) {
         this.id = id;
         this.name = name;
@@ -52,74 +60,146 @@ public class TaxInfo implements Serializable, IKeyed {
         this.order = order;
     }
     
+    /**
+     *
+     * @return
+     */
     public Object getKey() {
         return id;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setID(String value) {
         id = value;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setName(String value) {
         name = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTaxCategoryID() {
         return taxcategoryid;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setTaxCategoryID(String value) {
         taxcategoryid = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTaxCustCategoryID() {
         return taxcustcategoryid;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setTaxCustCategoryID(String value) {
         taxcustcategoryid = value;
     }    
 
+    /**
+     *
+     * @return
+     */
     public String getParentID() {
         return parentid;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setParentID(String value) {
         parentid = value;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getRate() {
         return rate;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setRate(double value) {
         rate = value;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isCascade() {
         return cascade;
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setCascade(boolean value) {
         cascade = value;
     }
     
+    /**
+     *
+     * @return
+     */
     public Integer getOrder() {
         return order;
     }
     
+    /**
+     *
+     * @return
+     */
     public Integer getApplicationOrder() {
         return order == null ? Integer.MAX_VALUE : order.intValue();
-    }    
-    
+    }
+
+    /**
+     *
+     * @param value
+     */
     public void setOrder(Integer value) {
         order = value;
     }

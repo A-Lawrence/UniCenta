@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
     uniCenta oPOS - Touch friendly Point Of Sale
-    Copyright (c) 2009-2012 uniCenta.
+    Copyright (c) 2009-2014 uniCenta.
     http://sourceforge.net/projects/unicentaopos
 
     This file is part of uniCenta oPOS.
@@ -23,7 +23,7 @@
 <output>
     <display>
         <line>
-            <text align="left" length="10">Total paid.</text>
+            <text align="left" length="10">Total paid</text>
             <text align="right" length="10">${ticket.printTotalPaid()}</text>
         </line>
         <line>
@@ -54,23 +54,25 @@
         
         #if ($ticket.getCustomer())
             <line>
+                <text align="left" length="15">Account:</text>
+                <text>${ticket.getCustomer().printTaxid()}</text>
+            </line>
+            <line>
                 <text align="left" length="15">Customer:</text>
                 <text>${ticket.getCustomer().printName()}</text>
             </line>
-            <line>
-                <text align="left" length="15"></text>
-                <text>${ticket.getCustomer().printTaxid()}</text>
-            </line>
+
         #end
 
         <line></line>
         <line size="1">
-            <text align ="left" length="16" bold="true">Total Paid</text>
-            <text align ="right" length="20" bold="true">${ticket.printTotalPaid()}</text>
+            <text align ="left" length="32" bold="true">Total Paid</text>
+            <text align ="right" length="10" bold="true">${ticket.printTotalPaid()}</text>
         </line>
+        <line></line>
         <line>
-            <text align ="left" length="16" bold="true">Pending</text>
-            <text align ="right" length="20" bold="true">${customer.printCurDebt()}</text>
+            <text align ="left" length="32" bold="true">Account Balance</text>
+            <text align ="right" length="10" bold="true">${customer.printCurDebt()}</text>
         </line>
 
     #foreach ($paymentline in $ticket.payments)

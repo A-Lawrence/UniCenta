@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,19 +25,42 @@ import javax.sql.DataSource;
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.JDBCSentence.JDBCDataResultSet;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class MetaSentence extends JDBCSentence {
     
     private String m_sSentence;
+
+    /**
+     *
+     */
     protected SerializerRead m_SerRead = null;
+
+    /**
+     *
+     */
     protected SerializerWrite m_SerWrite = null;
 
-    /** Creates a new instance of MetaDataSentence */
+    /** Creates a new instance of MetaDataSentence
+     * @param s
+     * @param sSentence
+     * @param serwrite
+     * @param serread */
     public MetaSentence(Session s, String sSentence, SerializerWrite serwrite, SerializerRead serread) {
         super(s);
         m_sSentence = sSentence;
         m_SerWrite = serwrite;
         m_SerRead = serread;
     }
+
+    /**
+     *
+     * @param s
+     * @param sSentence
+     * @param serread
+     */
     public MetaSentence(Session s, String sSentence, SerializerRead serread) {
         this(s, sSentence, null, serread);
     }
@@ -89,6 +112,12 @@ public class MetaSentence extends JDBCSentence {
         }
     }
 
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public DataResultSet openExec(Object params) throws BasicException {
         
         closeExec();
@@ -164,11 +193,20 @@ public class MetaSentence extends JDBCSentence {
         } catch (SQLException eSQL) {
             throw new BasicException(eSQL);
         }
-    }  
-    
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void closeExec() throws BasicException {
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public DataResultSet moreResults() throws BasicException {
         return null;
     }

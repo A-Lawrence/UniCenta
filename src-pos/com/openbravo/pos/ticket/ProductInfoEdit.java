@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,21 +29,79 @@ import java.awt.image.BufferedImage;
  */
 public class ProductInfoEdit {
     
+    /**
+     *
+     */
     protected String m_ID;
+
+    /**
+     *
+     */
     protected String m_sRef;
+
+    /**
+     *
+     */
     protected String m_sCode;
+
+    /**
+     *
+     */
     protected String m_sName;
+
+    /**
+     *
+     */
     protected boolean m_bCom;
+
+    /**
+     *
+     */
     protected boolean m_bScale;
+
+    /**
+     *
+     */
     protected String m_sCategoryID;    
+
+    /**
+     *
+     */
     protected String m_sTaxID;
+
+    /**
+     *
+     */
     protected String attributeuseid;
+
+    /**
+     *
+     */
     protected double m_dPriceBuy;
+
+    /**
+     *
+     */
     protected double m_dPriceSell; 
+
+    /**
+     *
+     */
     protected BufferedImage m_Image;
     
+    /**
+     *
+     */
     protected Double m_dStockCost;
+
+    /**
+     *
+     */
     protected Double m_dStockVolume;
+
+    /**
+     *
+     */
     protected Integer m_iCatalogOrder;
     
     /** Creates a new instance of ProductInfoEdit */
@@ -65,78 +123,194 @@ public class ProductInfoEdit {
         m_iCatalogOrder = null;            
     }
    
+    /**
+     *
+     * @return
+     */
     public final String getID() {
         return m_ID;
     }
     
+    /**
+     *
+     * @param id
+     */
     public final void setID(String id) {
         m_ID = id;
     }
     
+    /**
+     *
+     * @return
+     */
     public final String getReference(){
         return m_sRef;
     }
+
+    /**
+     *
+     * @param sRef
+     */
     public final void setReference(String sRef){
         m_sRef = sRef;
     }    
+
+    /**
+     *
+     * @return
+     */
     public final String getCode(){
         return m_sCode;
     }
+
+    /**
+     *
+     * @param sCode
+     */
     public final void setCode(String sCode){
         m_sCode = sCode;
     }
+
+    /**
+     *
+     * @return
+     */
     public final String getName() {            
         return m_sName;
     }
+
+    /**
+     *
+     * @param sName
+     */
     public final void setName(String sName){            
         m_sName = sName;
     }
+
+    /**
+     *
+     * @return
+     */
     public final boolean isCom() {            
         return m_bCom;
     }
+
+    /**
+     *
+     * @param bValue
+     */
     public final void setCom(boolean bValue){            
         m_bCom = bValue;
     }
+
+    /**
+     *
+     * @return
+     */
     public final boolean isScale() {            
         return m_bScale;
     }
+
+    /**
+     *
+     * @param bValue
+     */
     public final void setScale(boolean bValue){            
         m_bScale = bValue;
     }
+
+    /**
+     *
+     * @return
+     */
     public final String getCategoryID() {
         return m_sCategoryID;
     }
+
+    /**
+     *
+     * @param sCategoryID
+     */
     public final void setCategoryID(String sCategoryID) {
         m_sCategoryID = sCategoryID;
     }
+
+    /**
+     *
+     * @return
+     */
     public final String getTaxID() {
         return m_sTaxID;
     }
+
+    /**
+     *
+     * @param sTaxID
+     */
     public final void setTaxID(String sTaxID) {
         m_sTaxID = sTaxID;
     }
+
+    /**
+     *
+     * @return
+     */
     public final String getAttributeUseID() {
         return attributeuseid;
     }
+
+    /**
+     *
+     * @param value
+     */
     public final void setAttributeUseID(String value) {
         attributeuseid = value;
     }
+
+    /**
+     *
+     * @return
+     */
     public final double getPriceBuy(){
         return m_dPriceBuy;
     }    
+
+    /**
+     *
+     * @param dPrice
+     */
     public final void setPriceBuy(double dPrice) {
         m_dPriceBuy = dPrice;
     }        
+
+    /**
+     *
+     * @return
+     */
     public final double getPriceSell(){        
         return m_dPriceSell;
     }
+
+    /**
+     *
+     * @param dPrice
+     */
     public final void setPriceSell(double dPrice) {        
         m_dPriceSell = dPrice;
     }      
 
+    /**
+     *
+     * @return
+     */
     public BufferedImage getImage() {
         return m_Image;
     }
+
+    /**
+     *
+     * @param img
+     */
     public void setImage(BufferedImage img) {
         m_Image = img;
     }

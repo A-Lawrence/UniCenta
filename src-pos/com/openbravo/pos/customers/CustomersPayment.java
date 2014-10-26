@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -67,6 +67,11 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
         txtNotes.addPropertyChangeListener("Text", dirty);
     }
 
+    /**
+     *
+     * @param app
+     * @throws BeanFactoryException
+     */
     @Override
     public void init(AppView app) throws BeanFactoryException {
 
@@ -77,16 +82,28 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
         ttp = new TicketParser(app.getDeviceTicket(), dlsystem);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getBean() {
         return this;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.CustomersPayment");
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
 
@@ -99,6 +116,10 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
         editorcard.activate();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
         if (dirty.isDirty()) {
@@ -114,6 +135,10 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getComponent() {
         return this;
@@ -286,6 +311,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
         jPanel6.add(btnSave);
         jPanel6.add(jSeparator1);
 
+        btnPay.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnPay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/pay.png"))); // NOI18N
         btnPay.setText(AppLocal.getIntString("button.pay")); // NOI18N
         btnPay.setToolTipText("Pay Account");
@@ -347,61 +373,61 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
 
         add(jPanel3, java.awt.BorderLayout.LINE_END);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.name")); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText(AppLocal.getIntString("label.notes")); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.card")); // NOI18N
 
         txtCard.setEditable(false);
-        txtCard.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCard.setFocusable(false);
         txtCard.setRequestFocusEnabled(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.maxdebt")); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.curdebt")); // NOI18N
 
         txtCurdebt.setEditable(false);
-        txtCurdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtCurdebt.setFocusable(false);
         txtCurdebt.setRequestFocusEnabled(false);
 
         txtCurdate.setEditable(false);
-        txtCurdate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCurdate.setFocusable(false);
         txtCurdate.setRequestFocusEnabled(false);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("label.curdate")); // NOI18N
 
         txtName.setEditable(false);
-        txtName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtName.setFocusable(false);
         txtName.setRequestFocusEnabled(false);
 
         txtMaxdebt.setEditable(false);
-        txtMaxdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMaxdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtMaxdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMaxdebt.setFocusable(false);
         txtMaxdebt.setRequestFocusEnabled(false);
 
         txtNotes.setEnabled(false);
-        txtNotes.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        txtNotes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         txtTaxId.setEditable(false);
-        txtTaxId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTaxId.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTaxId.setFocusable(false);
         txtTaxId.setRequestFocusEnabled(false);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText(AppLocal.getIntString("label.taxid")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -439,7 +465,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCurdate, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

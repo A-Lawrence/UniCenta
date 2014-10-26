@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,6 +27,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Properties;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ImageUtils {
     
     private static char[] HEXCHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
@@ -49,6 +53,11 @@ public class ImageUtils {
         return resource;       
     }
     
+    /**
+     *
+     * @param file
+     * @return
+     */
     public static byte[] getBytesFromResource(String file) {
         
         InputStream in = ImageUtils.class.getResourceAsStream(file);
@@ -69,10 +78,20 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param file
+     * @return
+     */
     public static BufferedImage readImageFromResource(String file) {
         return readImage(getBytesFromResource(file));
     }
     
+    /**
+     *
+     * @param url
+     * @return
+     */
     public static BufferedImage readImage(String url) {
         try {
             return readImage(new URL(url));
@@ -81,6 +100,11 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param url
+     * @return
+     */
     public static BufferedImage readImage(URL url) {
         
         InputStream in = null;
@@ -101,6 +125,11 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param b
+     * @return
+     */
     public static BufferedImage readImage(byte[] b) {
         if (b == null) {
             return null;
@@ -113,6 +142,11 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param img
+     * @return
+     */
     public static byte[] writeImage(BufferedImage img) {
         if (img == null) {
             return null;
@@ -129,6 +163,11 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param b
+     * @return
+     */
     public static Object readSerializable(byte[] b) {
         if (b == null) {
             return null;
@@ -148,6 +187,11 @@ public class ImageUtils {
         }
     }
     
+    /**
+     *
+     * @param o
+     * @return
+     */
     public static byte[] writeSerializable(Object o) {
         
         if (o == null) {
@@ -167,6 +211,11 @@ public class ImageUtils {
         }
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public static Properties readProperties(byte b[]) {
         Properties prop = new Properties();
         try {
@@ -178,6 +227,11 @@ public class ImageUtils {
         return prop;
     }
        
+    /**
+     *
+     * @param binput
+     * @return
+     */
     public static String bytes2hex(byte[] binput) {
         
         StringBuilder s = new StringBuilder(binput.length *2);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,19 +23,33 @@ import com.openbravo.pos.printer.DevicePrinter;
 import java.awt.Font;
 import java.awt.geom.AffineTransform;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class MyPrinterState {
 
     private int m_iSize;
 
-    /** Creates a new instance of PrinterState */
+    /** Creates a new instance of PrinterState
+     * @param iSize */
     public MyPrinterState(int iSize) {
         m_iSize = iSize;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLineMult() {
         return getLineMult(m_iSize);
     }
 
+    /**
+     *
+     * @param iSize
+     * @return
+     */
     public static int getLineMult(int iSize) {
         switch (iSize) {
             case 0:
@@ -49,6 +63,12 @@ public class MyPrinterState {
         }
     }
 
+    /**
+     *
+     * @param baseFont
+     * @param iStyle
+     * @return
+     */
     public Font getFont(Font baseFont, int iStyle) {
 
         Font f;

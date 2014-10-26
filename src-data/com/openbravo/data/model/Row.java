@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -50,26 +50,53 @@ public class Row {
     
     private Field[] fields;
     
+    /**
+     *
+     * @param fields
+     */
     public Row(Field... fields) {
         this.fields = fields;
     }
     
+    /**
+     *
+     * @return
+     */
     public Vectorer getVectorer() {
         return new RowVectorer();
     }
     
+    /**
+     *
+     * @return
+     */
     public IRenderString getRenderString() {
         return new RowRenderString();
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public ListCellRenderer getListCellRenderer() {  
         return new ListCellRendererBasic(new RowRenderString());  
     }
     
+    /**
+     *
+     * @return
+     */
     public ComparatorCreator getComparatorCreator() {
         return new RowComparatorCreator();
     }
 
+    /**
+     *
+     * @param s
+     * @param sql
+     * @param indexes
+     * @return
+     */
     public SentenceExec getExecSentence(Session s, String sql, final int... indexes) {
         return new PreparedSentence(s, sql, 
             new SerializerWrite<Object[]>() {
@@ -83,26 +110,64 @@ public class Row {
         );
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public ListProvider getListProvider(Session s, Table t) {
         return new ListProviderCreator(getListSentence(s, t));        
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public SaveProvider getSaveProvider(Session s, Table t) {
         return new SaveProvider(getUpdateSentence(s, t), getInsertSentence(s, t), getDeleteSentence(s, t));
     }
     
+    /**
+     *
+     * @param s
+     * @param sql
+     * @param sw
+     * @return
+     */
     public SentenceList getListSentence(Session s, String sql, SerializerWrite sw) {
         return new PreparedSentence(s, sql, sw, new RowSerializerRead());
     }
     
+    /**
+     *
+     * @param s
+     * @param sql
+     * @param filter
+     * @return
+     */
     public ListProvider getListProvider(Session s, String sql, FilterEditorCreator filter) {
         return new ListProviderCreator(getListSentence(s, sql, filter.getSerializerWrite()), filter);
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public SentenceList getListSentence(Session s, Table t) {
         return getListSentence(s, t.getListSQL(), null);
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public SentenceExec getInsertSentence(Session s, final Table t) {
         return new PreparedSentence(s,  t.getInsertSQL(), 
             new SerializerWrite<Object[]>() {
@@ -116,6 +181,12 @@ public class Row {
         );
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public SentenceExec getDeleteSentence(Session s, final Table t) {
         return new PreparedSentence(s,  t.getDeleteSQL(), 
             new SerializerWrite<Object[]>() {
@@ -132,6 +203,12 @@ public class Row {
         );        
     }
     
+    /**
+     *
+     * @param s
+     * @param t
+     * @return
+     */
     public SentenceExec getUpdateSentence(Session s, final Table t) {
         return new PreparedSentence(s,  t.getUpdateSQL(), 
             new SerializerWrite<Object[]>() {
@@ -153,6 +230,10 @@ public class Row {
         );        
     }
 
+    /**
+     *
+     * @return
+     */
     public Datas[] getDatas() {
         Datas[] d = new Datas[fields.length];
         for (int i = 0; i < fields.length; i++) {
@@ -161,6 +242,10 @@ public class Row {
         return d;
     }
 
+    /**
+     *
+     * @return
+     */
     public SerializerRead getSerializerRead() {
         return new RowSerializerRead();
     }
@@ -179,7 +264,7 @@ public class Row {
     private class RowVectorer implements Vectorer {
         @Override
         public String[] getHeaders() throws BasicException {
-// JG Aug 2012 use Diamon Inference
+// JG Aug 2013 use Diamon Inference
             List<String> l = new ArrayList<>();
             for (Field f : fields) {
                 if (f.isSearchable()) {
@@ -191,7 +276,7 @@ public class Row {
         @Override
         public String[] getValues(Object obj) throws BasicException {   
             Object[] values = (Object[]) obj;            
-// JG Aug 2012 use Diamon Inference
+// JG Aug 2013 use Diamon Inference
             List<String> l = new ArrayList<>();
             for (int i = 0; i < fields.length; i++) {
                 if (fields[i].isSearchable()) {
@@ -221,7 +306,7 @@ public class Row {
     
     private class RowComparatorCreator implements ComparatorCreator {
         
-// JG Aug 2012 use Diamon Inference
+// JG Aug 2013 use Diamon Inference
         private List<Integer> comparablefields = new ArrayList<>();
         
         public RowComparatorCreator() {

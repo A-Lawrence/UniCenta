@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,19 +28,36 @@ public class Table {
     private String name;
     private Column[] columns;
     
+    /**
+     *
+     * @param name
+     * @param columns
+     */
     public Table(String name, Column... columns) {
         this.name = name;
         this.columns = columns;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     *
+     * @return
+     */
     public Column[] getColumns() {
         return columns;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getListSQL() {
         StringBuilder sent = new StringBuilder();
         sent.append("select ");
@@ -56,8 +73,12 @@ public class Table {
         sent.append(name);
         
         return sent.toString();          
-    }   
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getInsertSQL() {
         
         StringBuilder sent = new StringBuilder();
@@ -81,8 +102,12 @@ public class Table {
         sent.append(")");
 
         return sent.toString();       
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getUpdateSQL() {
         
         StringBuilder values = new StringBuilder();
@@ -107,8 +132,12 @@ public class Table {
         }
         
         return "update " + name + " set " + values + filter;             
-    }   
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getDeleteSQL() {
         
         StringBuilder filter = new StringBuilder();

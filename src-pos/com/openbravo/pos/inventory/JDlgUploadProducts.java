@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -73,8 +73,14 @@ public class JDlgUploadProducts extends javax.swing.JDialog {
         } else {
             return getWindow(parent.getParent());
         }
-    }    
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @param scanner
+     * @param bd
+     */
     public static void showMessage(Component parent, DeviceScanner scanner, BrowsableEditableData bd) {
          
         Window window = getWindow(parent);      
@@ -108,6 +114,7 @@ public class JDlgUploadProducts extends javax.swing.JDialog {
 
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
         jcmdOK.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +124,7 @@ public class JDlgUploadProducts extends javax.swing.JDialog {
         });
         jPanel2.add(jcmdOK);
 
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +138,7 @@ public class JDlgUploadProducts extends javax.swing.JDialog {
 
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("message.preparescanner")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(20, 30, 420, 15);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,6 +19,7 @@
 
 package com.openbravo.data.gui;
 
+import com.openbravo.data.loader.LocalRes;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -37,8 +38,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-import com.openbravo.data.loader.LocalRes;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JImageEditor extends javax.swing.JPanel {
     
     private Dimension m_maxsize;
@@ -60,13 +64,23 @@ public class JImageEditor extends javax.swing.JPanel {
         privateSetEnabled(isEnabled());
     }
     
+    /**
+     *
+     * @param size
+     */
     public void setMaxDimensions(Dimension size) {
         m_maxsize = size;
     }
+
+    /**
+     *
+     * @return
+     */
     public Dimension getMaxDimensions() {
         return m_maxsize;
     }
     
+    @Override
     public void setEnabled(boolean value) {
 
         privateSetEnabled(value);
@@ -82,6 +96,10 @@ public class JImageEditor extends javax.swing.JPanel {
         m_jScr.setEnabled(value && (m_Img != null));
     }
     
+    /**
+     *
+     * @param img
+     */
     public void setImage(BufferedImage img) {
         BufferedImage oldimg = m_Img;
         m_Img = img;
@@ -98,14 +116,26 @@ public class JImageEditor extends javax.swing.JPanel {
         firePropertyChange("image", oldimg, m_Img);
     }
     
+    /**
+     *
+     * @return
+     */
     public BufferedImage getImage() {
         return m_Img;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public double getZoom() {
         return m_icon.getZoom();
     }
  
+    /**
+     *
+     * @param zoom
+     */
     public void setZoom(double zoom) {
         double oldzoom = m_icon.getZoom();
         m_icon.setZoom(zoom);
@@ -119,16 +149,25 @@ public class JImageEditor extends javax.swing.JPanel {
         firePropertyChange("zoom", oldzoom, zoom);
     }
     
+    /**
+     *
+     */
     public void incZoom() {        
         double zoom = m_icon.getZoom();
         setZoom(zoom > 4.0 ? 8.0 : zoom * 2.0);
     }
     
+    /**
+     *
+     */
     public void decZoom() {        
         double zoom = m_icon.getZoom();
         setZoom(zoom < 0.5 ? 0.25 : zoom / 2.0);
     }
     
+    /**
+     *
+     */
     public void doLoad() {
         JFileChooser fc = new JFileChooser(m_fCurrentDirectory);
         
@@ -201,12 +240,15 @@ public class JImageEditor extends javax.swing.JPanel {
             this.ico = null;
             this.zoom = 1.0;
         }
+        @Override
         public int getIconHeight() {
             return ico == null ? 0 : (int) (zoom * ico.getIconHeight());
         }
+        @Override
         public int getIconWidth() {
             return ico == null ? 0 : (int) (zoom * ico.getIconWidth());
         }
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             if (ico != null) {
                 Graphics2D g2d = (Graphics2D) g;
@@ -239,6 +281,7 @@ public class JImageEditor extends javax.swing.JPanel {
             this.extensions = extensions;            
         }
         
+        @Override
         public boolean accept(java.io.File f) {
             if (f.isDirectory()) {
                 return true;
@@ -257,6 +300,7 @@ public class JImageEditor extends javax.swing.JPanel {
             }   
         }
         
+        @Override
         public String getDescription() {
             return message;
         }      

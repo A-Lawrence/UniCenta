@@ -1,6 +1,6 @@
 #!/bin/sh
 #    uniCenta oPOS Touch Friendly Point of Sale designed for Touch Screen
-#    Copyright (C) 2009-2012 uniCenta
+#    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
 #    http://sourceforge.net/projects/unicentaopos
 #
 #    This file is part of uniCenta oPOS.
@@ -19,7 +19,7 @@
 #    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 
 DIRNAME=`dirname $0`
-CP=$DIRNAME/uniCentaoPOS.jar
+CP=$DIRNAME/unicentaopos.jar
 CP=$CP:$DIRNAME/locales/
 CP=$CP:$DIRNAME/lib/substance.jar
 java -cp $CP -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel com.openbravo.pos.config.JFrmConfig

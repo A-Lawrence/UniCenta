@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,7 +30,9 @@ public class CompoundIcon implements Icon {
     private Icon m_icon1;
     private Icon m_icon2;
     
-    /** Creates a new instance of CompoundIcon */
+    /** Creates a new instance of CompoundIcon
+     * @param icon1
+     * @param icon2 */
     public CompoundIcon(Icon icon1, Icon icon2) {
         m_icon1 = icon1;
         m_icon2 = icon2;

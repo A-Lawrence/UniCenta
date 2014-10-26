@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,15 +27,26 @@ import java.awt.*;
  */
 public class JPaymentSelectReceipt extends JPaymentSelect {
     
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param modal
+     * @param o */
     protected JPaymentSelectReceipt(java.awt.Frame parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
     }
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param o
+     * @param modal */
     protected JPaymentSelectReceipt(java.awt.Dialog parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
-    } 
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @return
+     */
     public static JPaymentSelect getDialog(Component parent) {
          
         Window window = getWindow(parent);
@@ -45,8 +56,11 @@ public class JPaymentSelectReceipt extends JPaymentSelect {
         } else {
             return new JPaymentSelectReceipt((Dialog) window, true, parent.getComponentOrientation());
         }
-    } 
-    
+    }
+
+    /**
+     *
+     */
     @Override
     protected void addTabs() {
         
@@ -55,10 +69,17 @@ public class JPaymentSelectReceipt extends JPaymentSelect {
         addTabPayment(new JPaymentSelect.JPaymentPaperCreator());            
         addTabPayment(new JPaymentSelect.JPaymentMagcardCreator());                
         addTabPayment(new JPaymentSelect.JPaymentFreeCreator());                
-        addTabPayment(new JPaymentSelect.JPaymentDebtCreator());                
+        addTabPayment(new JPaymentSelect.JPaymentDebtCreator());
+// JG Added 1 Dec 13 
+        addTabPayment(new JPaymentSelect.JPaymentBankCreator());        
         setHeaderVisible(true);
     }
     
+    /**
+     *
+     * @param isPositive
+     * @param isComplete
+     */
     @Override
     protected void setStatusPanel(boolean isPositive, boolean isComplete) {
         
@@ -66,6 +87,11 @@ public class JPaymentSelectReceipt extends JPaymentSelect {
         setOKEnabled(isComplete);
     }
     
+    /**
+     *
+     * @param total
+     * @return
+     */
     @Override
     protected PaymentInfo getDefaultPayment(double total) {
         return new PaymentInfoCash_original(total, total);

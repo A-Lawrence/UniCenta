@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -41,12 +41,14 @@ public class PeopleView extends JPanel implements EditorRecord {
     private Object m_oId;
     private String m_sPassword;
     
-    private DirtyManager m_Dirty;
+    private final DirtyManager m_Dirty;
     
-    private SentenceList m_sentrole;
+    private final SentenceList m_sentrole;
     private ComboBoxValModel m_RoleModel;  
     
-    /** Creates new form PeopleEditor */
+    /** Creates new form PeopleEditor
+     * @param dlAdmin
+     * @param dirty */
     public PeopleView(DataLogicAdmin dlAdmin, DirtyManager dirty) {
         initComponents();
                 
@@ -64,6 +66,9 @@ public class PeopleView extends JPanel implements EditorRecord {
         writeValueEOF();
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         m_oId = null;
@@ -83,6 +88,9 @@ public class PeopleView extends JPanel implements EditorRecord {
         jButton3.setEnabled(false);
     }
     
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         m_oId = null;
@@ -102,6 +110,10 @@ public class PeopleView extends JPanel implements EditorRecord {
         jButton3.setEnabled(true);
     }
     
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         Object[] people = (Object[]) value;
@@ -112,6 +124,7 @@ public class PeopleView extends JPanel implements EditorRecord {
         m_jVisible.setSelected(((Boolean) people[4]).booleanValue());
         jcard.setText(Formats.STRING.formatValue(people[5]));
         m_jImage.setImage((BufferedImage) people[6]);
+        
         m_jName.setEnabled(false);
         m_jRole.setEnabled(false);
         m_jVisible.setEnabled(false);
@@ -120,8 +133,12 @@ public class PeopleView extends JPanel implements EditorRecord {
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
-    }    
-    
+    }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         Object[] people = (Object[]) value;
@@ -132,6 +149,7 @@ public class PeopleView extends JPanel implements EditorRecord {
         m_jVisible.setSelected(((Boolean) people[4]).booleanValue());
         jcard.setText(Formats.STRING.formatValue(people[5]));
         m_jImage.setImage((BufferedImage) people[6]);
+        
         m_jName.setEnabled(true);
         m_jRole.setEnabled(true);
         m_jVisible.setEnabled(true);
@@ -142,6 +160,11 @@ public class PeopleView extends JPanel implements EditorRecord {
         jButton3.setEnabled(true);
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         Object[] people = new Object[7];
@@ -153,13 +176,21 @@ public class PeopleView extends JPanel implements EditorRecord {
         people[5] = Formats.STRING.parseValue(jcard.getText());
         people[6] = m_jImage.getImage();
         return people;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
-    }    
-    
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void activate() throws BasicException {
         
         m_RoleModel = new ComboBoxValModel(m_sentrole.list());
@@ -195,6 +226,7 @@ public class PeopleView extends JPanel implements EditorRecord {
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setPreferredSize(new java.awt.Dimension(531, 400));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/fileclose.png"))); // NOI18N
@@ -205,19 +237,22 @@ public class PeopleView extends JPanel implements EditorRecord {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.peoplename")); // NOI18N
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jVisible.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.peoplevisible")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.peopleimage")); // NOI18N
 
-        m_jImage.setMaxDimensions(new java.awt.Dimension(32, 32));
+        m_jImage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton1.setText(AppLocal.getIntString("button.peoplepassword")); // NOI18N
         jButton1.setPreferredSize(new java.awt.Dimension(79, 32));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -226,13 +261,13 @@ public class PeopleView extends JPanel implements EditorRecord {
             }
         });
 
-        m_jRole.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jRole.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.role")); // NOI18N
 
         jcard.setEditable(false);
-        jcard.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/encrypted.png"))); // NOI18N
         jButton2.setToolTipText("Create Key");
@@ -242,7 +277,7 @@ public class PeopleView extends JPanel implements EditorRecord {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.card")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -311,7 +346,7 @@ public class PeopleView extends JPanel implements EditorRecord {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(m_jImage, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -329,7 +364,8 @@ public class PeopleView extends JPanel implements EditorRecord {
         
         
         if (JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.cardnew"), AppLocal.getIntString("title.editor"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {  
-            jcard.setText("c" + StringUtils.getCardNumber());
+// JG 8 Jan 14 - Change "c" case to upper "C"        jcard.setText("c" + StringUtils.getCardNumber());
+            jcard.setText("C" + StringUtils.getCardNumber());
             m_Dirty.setDirty(true);
         }
         

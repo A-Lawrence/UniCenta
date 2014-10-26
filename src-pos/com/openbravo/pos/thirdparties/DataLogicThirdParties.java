@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,6 +25,10 @@ import com.openbravo.data.loader.TableDefinition;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.BeanFactoryDataSingle;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DataLogicThirdParties extends BeanFactoryDataSingle {
     
     private TableDefinition m_tthirdparties;
@@ -33,6 +37,10 @@ public class DataLogicThirdParties extends BeanFactoryDataSingle {
     public DataLogicThirdParties() {
     }
     
+    /**
+     *
+     * @param s
+     */
     public void init(Session s){
 
         m_tthirdparties = new TableDefinition(s,
@@ -45,6 +53,10 @@ public class DataLogicThirdParties extends BeanFactoryDataSingle {
         
     }
        
+    /**
+     *
+     * @return
+     */
     public final TableDefinition getTableThirdParties() {
         return m_tthirdparties;
     }    

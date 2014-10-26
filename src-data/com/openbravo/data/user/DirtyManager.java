@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,6 +31,10 @@ import java.beans.*;
 public class DirtyManager implements DocumentListener, ChangeListener, ActionListener, PropertyChangeListener {
     
     private boolean m_bDirty;    
+
+    /**
+     *
+     */
     protected Vector listeners = new Vector();
     
     /** Creates a new instance of DirtyManager */
@@ -38,12 +42,25 @@ public class DirtyManager implements DocumentListener, ChangeListener, ActionLis
         m_bDirty = false;
     }
     
+    /**
+     *
+     * @param l
+     */
     public void addDirtyListener(DirtyListener l) {
         listeners.add(l);
     }
+
+    /**
+     *
+     * @param l
+     */
     public void removeDirtyListener(DirtyListener l) {
         listeners.remove(l);
     }
+
+    /**
+     *
+     */
     protected void fireChangedDirty() {
         
         Enumeration e = listeners.elements();
@@ -53,6 +70,10 @@ public class DirtyManager implements DocumentListener, ChangeListener, ActionLis
         }
     }
     
+    /**
+     *
+     * @param bValue
+     */
     public void setDirty(boolean bValue) {
         
         if (m_bDirty != bValue) {
@@ -60,6 +81,11 @@ public class DirtyManager implements DocumentListener, ChangeListener, ActionLis
             fireChangedDirty();
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public boolean isDirty() {
         return m_bDirty;
     }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,40 +36,117 @@ public class CategoryInfo implements IKeyed {
     private static final long serialVersionUID = 8612449444103L;
     private String m_sID;
     private String m_sName;
+    private String m_sTextTip;
     private BufferedImage m_Image;
+    private Boolean m_bCatShowName;
 
-    /** Creates new CategoryInfo */
-    public CategoryInfo(String id, String name, BufferedImage image) {
+    /** Creates new CategoryInfo
+     * @param id
+     * @param name
+     * @param image
+     * @param texttip
+     * @param catshowname */
+    public CategoryInfo(String id, String name, BufferedImage image, String texttip, Boolean catshowname) {
         m_sID = id;
         m_sName = name;
         m_Image = image;
+        m_sTextTip = texttip;
+        m_bCatShowName = catshowname;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
         return m_sID;
     }
 
+    /**
+     *
+     * @param sID
+     */
     public void setID(String sID) {
         m_sID = sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
 
+    /**
+     *
+     * @param sName
+     */
     public void setName(String sName) {
         m_sName = sName;
     }
+// ADDED JDL 13.04.13 *************
 
+    /**
+     *
+     * @return
+     */
+        public String getTextTip() {
+        return m_sTextTip;
+    }
+
+    /**
+     *
+     * @param sName
+     */
+    public void setTextTip(String sName) {
+        m_sTextTip = sName;
+    }
+ 
+    /**
+     *
+     * @return
+     */
+    public Boolean getCatShowName() {
+        return m_bCatShowName;
+    }
+
+    /**
+     *
+     * @param bcatshowname
+     */
+    public void setCatShowName(Boolean bcatshowname) {
+        m_bCatShowName = bcatshowname;
+    }
+    
+    
+    
+    
+    
+    // *******************************
+    
+    /**
+     *
+     * @return
+     */
+        
     public BufferedImage getImage() {
         return m_Image;
     }
 
+    /**
+     *
+     * @param img
+     */
     public void setImage(BufferedImage img) {
         m_Image = img;
     }
@@ -79,10 +156,14 @@ public class CategoryInfo implements IKeyed {
         return m_sName;
     }
 
+    /**
+     *
+     * @return
+     */
     public static SerializerRead getSerializerRead() {
         return new SerializerRead() {@Override
  public Object readValues(DataRead dr) throws BasicException {
-            return new CategoryInfo(dr.getString(1), dr.getString(2), ImageUtils.readImage(dr.getBytes(3)));
+            return new CategoryInfo(dr.getString(1), dr.getString(2), ImageUtils.readImage(dr.getBytes(3)),dr.getString(4),dr.getBoolean(5));
         }};
     }
 }

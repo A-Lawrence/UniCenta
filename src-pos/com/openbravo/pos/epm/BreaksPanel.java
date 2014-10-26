@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -41,9 +41,15 @@ public class BreaksPanel extends JPanelTable {
     private TableDefinition tbreaks;
     private BreaksView jeditor;
 
+    /**
+     *
+     */
     public BreaksPanel() {
     }
 
+    /**
+     *
+     */
     @Override
     protected void init() {
         DataLogicPresenceManagement dlPresenceManagement  = (DataLogicPresenceManagement) app.getBean("com.openbravo.pos.epm.DataLogicPresenceManagement");
@@ -51,6 +57,10 @@ public class BreaksPanel extends JPanelTable {
         jeditor = new BreaksView(app, dirty);
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
 
@@ -58,36 +68,64 @@ public class BreaksPanel extends JPanelTable {
         super.activate();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(tbreaks);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tbreaks, new int[] {0, 1, 2, 3});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tbreaks.getVectorerBasic(new int[]{1, 2});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return tbreaks.getComparatorCreator(new int[] {1, 2});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tbreaks.getRenderStringBasic(new int[]{1}));
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Breaks");

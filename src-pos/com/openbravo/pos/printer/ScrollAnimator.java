@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,12 +27,21 @@ public class ScrollAnimator extends BaseAnimator {
 
     private int msglength;
 
+    /**
+     *
+     * @param line1
+     * @param line2
+     */
     public ScrollAnimator(String line1, String line2) {
         msglength = Math.max(line1.length(), line2.length());
         baseLine1 = DeviceTicket.alignLeft(line1, msglength);
         baseLine2 = DeviceTicket.alignLeft(line2, msglength);
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setTiming(int i) {
         int j = (i / 2) % (msglength + 20);

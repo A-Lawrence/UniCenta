@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,14 +27,31 @@ package com.openbravo.pos.scripting;
  */
 public class ScriptFactory {
     
+    /**
+     *
+     */
     public static final String VELOCITY = "velocity";
+
+    /**
+     *
+     */
     public static final String BEANSHELL = "beanshell";
+
+    /**
+     *
+     */
     public static final String RHINO = "rhino";
     
     /** Creates a new instance of ScriptFactory */
     private ScriptFactory() {
     }
     
+    /**
+     *
+     * @param name
+     * @return
+     * @throws ScriptException
+     */
     public static ScriptEngine getScriptEngine(String name) throws ScriptException {
 // JG 16 May use switch
         switch (name) {

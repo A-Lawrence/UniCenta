@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,6 +22,10 @@ package com.openbravo.data.loader;
 import java.util.MissingResourceException;
 import com.openbravo.beans.LocaleResources;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class LocalRes {
     
     // private static ResourceBundle m_Intl;
@@ -36,6 +40,11 @@ public class LocalRes {
     private LocalRes() {
     }
        
+    /**
+     *
+     * @param sKey
+     * @return
+     */
     public static String getIntString(String sKey) {      
         return m_resources.getString(sKey);
     }         

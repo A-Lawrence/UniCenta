@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -91,8 +91,13 @@ public class DevicePrinterPrinter implements DevicePrinter {
     /** 
      * Creates a new instance of DevicePrinterPrinter
      * 
+     * @param parent
      * @param printername - name of printer that will be called in the system
-     * @param isReceiptPrinter - string with boolean values if the printer is a receipt
+     * @param imageable_x
+     * @param imageable_y
+     * @param imageable_height
+     * @param imageable_width
+     * @param mediasizename
      */
     public DevicePrinterPrinter(Component parent, String printername, int imageable_x, int imageable_y, int imageable_width, int imageable_height, String mediasizename) {
 
@@ -170,6 +175,22 @@ public class DevicePrinterPrinter implements DevicePrinter {
      * @param type a type of a barcode
      * @param position coordinates of a barcode on a receipt
      * @param code the code of a productmiale
+     */
+
+    /**
+     * Method that is responsible for printing a barcode
+     * @param position coordinates of a barcode on a receipt
+     * @param code the code of a productmiale
+     */
+    @Override
+    public void printLogo(){   
+    }
+
+    /**
+     *
+     * @param type
+     * @param position
+     * @param code
      */
     @Override
     public void printBarCode(String type, String position, String code) {

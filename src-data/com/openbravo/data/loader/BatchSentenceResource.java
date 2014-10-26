@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -33,12 +33,19 @@ public class BatchSentenceResource extends BatchSentence {
 
     private String m_sResScript;
     
-    /** Creates a new instance of BatchSentenceResource */
+    /** Creates a new instance of BatchSentenceResource
+     * @param s
+     * @param resscript */
     public BatchSentenceResource(Session s, String resscript) {
         super(s);
         m_sResScript = resscript;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected Reader getReader() throws BasicException {
         
         InputStream in = BatchSentenceResource.class.getResourceAsStream(m_sResScript);

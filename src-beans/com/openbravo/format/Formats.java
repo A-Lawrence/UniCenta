@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,19 +23,70 @@ import java.text.*;
 import java.util.Date;
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class Formats {
     
+    /**
+     *
+     */
     public final static Formats NULL = new FormatsNULL();
+
+    /**
+     *
+     */
     public final static Formats INT = new FormatsINT();
+
+    /**
+     *
+     */
     public final static Formats STRING = new FormatsSTRING();
+
+    /**
+     *
+     */
     public final static Formats DOUBLE = new FormatsDOUBLE();
+
+    /**
+     *
+     */
     public final static Formats CURRENCY = new FormatsCURRENCY();
+
+    /**
+     *
+     */
     public final static Formats PERCENT = new FormatsPERCENT();
+
+    /**
+     *
+     */
     public final static Formats BOOLEAN = new FormatsBOOLEAN();
+
+    /**
+     *
+     */
     public final static Formats TIMESTAMP = new FormatsTIMESTAMP();
+
+    /**
+     *
+     */
     public final static Formats DATE = new FormatsDATE();
+
+    /**
+     *
+     */
     public final static Formats TIME = new FormatsTIME();
+
+    /**
+     *
+     */
     public final static Formats BYTEA = new FormatsBYTEA();
+
+    /**
+     *
+     */
     public final static Formats HOURMIN = new FormatsHOURMIN();
 /** Added; Thanks  TSirwani 3 Mar 11 */
     public final static Formats SIMPLEDATE = new FormatsSIMPLEDATE();
@@ -54,19 +105,35 @@ public abstract class Formats {
     protected Formats() {
     }
     
+    /**
+     *
+     * @return
+     */
     public static int getCurrencyDecimals() {
 
         return m_currencyformat.getMaximumFractionDigits();
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public String formatValue(Object value) {
         if (value == null) {
             return "";
         } else {
-            return formatValueInt(value);
+        return formatValueInt(value);
         }
     }
     
+    /**
+     *
+     * @param value
+     * @param defvalue
+     * @return
+     * @throws BasicException
+     */
     public Object parseValue(String value, Object defvalue) throws BasicException {
         if (value == null || "".equals(value)) {
             return defvalue;
@@ -79,10 +146,20 @@ public abstract class Formats {
         }  
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     * @throws BasicException
+     */
     public Object parseValue(String value) throws BasicException {
         return parseValue(value, null);
     }
 
+    /**
+     *
+     * @param pattern
+     */
     public static void setIntegerPattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_integerformat = NumberFormat.getIntegerInstance();
@@ -91,6 +168,10 @@ public abstract class Formats {
         }
     }
 
+    /**
+     *
+     * @param pattern
+     */
     public static void setDoublePattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_doubleformat = NumberFormat.getNumberInstance();
@@ -99,6 +180,10 @@ public abstract class Formats {
         }
     }
 
+    /**
+     *
+     * @param pattern
+     */
     public static void setCurrencyPattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_currencyformat = NumberFormat.getCurrencyInstance();
@@ -107,14 +192,22 @@ public abstract class Formats {
         }
     }    
 
+    /**
+     *
+     * @param pattern
+     */
     public static void setPercentPattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_percentformat = new DecimalFormat("#,##0.##%");
         } else {
             m_percentformat = new DecimalFormat(pattern);
         }
-    }   
-    
+    }
+
+    /**
+     *
+     * @param pattern
+     */
     public static void setDatePattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_dateformat = DateFormat.getDateInstance();
@@ -123,6 +216,10 @@ public abstract class Formats {
         }
     }
     
+    /**
+     *
+     * @param pattern
+     */
     public static void setTimePattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_timeformat = DateFormat.getTimeInstance();
@@ -131,6 +228,10 @@ public abstract class Formats {
         }
     }
     
+    /**
+     *
+     * @param pattern
+     */
     public static void setDateTimePattern(String pattern) {
         if (pattern == null || pattern.equals("")) {
             m_datetimeformat = DateFormat.getDateTimeInstance();
@@ -139,8 +240,25 @@ public abstract class Formats {
         }
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     protected abstract String formatValueInt(Object value);
+
+    /**
+     *
+     * @param value
+     * @return
+     * @throws ParseException
+     */
     protected abstract Object parseValueInt(String value) throws ParseException;
+
+    /**
+     *
+     * @return
+     */
     public abstract int getAlignment();
 
     private static final class FormatsNULL extends Formats {       

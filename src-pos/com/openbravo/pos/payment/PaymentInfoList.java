@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,6 +22,10 @@ package com.openbravo.pos.payment;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PaymentInfoList {
     
     private LinkedList<PaymentInfo> m_apayment;
@@ -32,6 +36,10 @@ public class PaymentInfoList {
         m_apayment = new LinkedList<>();
     }
         
+    /**
+     *
+     * @return
+     */
     public double getTotal() {
         
         double dTotal = 0.0;
@@ -42,20 +50,35 @@ public class PaymentInfoList {
         }
         
         return dTotal;
-    }     
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public boolean isEmpty() {
         return m_apayment.isEmpty();
     }
     
+    /**
+     *
+     * @param p
+     */
     public void add(PaymentInfo p) {
         m_apayment.addLast(p);
     }
     
+    /**
+     *
+     */
     public void removeLast() {
         m_apayment.removeLast();
     }
     
+    /**
+     *
+     * @return
+     */
     public LinkedList<PaymentInfo> getPayments() {
         return m_apayment;
     }

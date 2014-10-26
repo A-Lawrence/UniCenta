@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,11 +24,26 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-   public abstract class BasicTicket implements PrintItem {
+/**
+ *
+ * @author JG uniCenta
+ */
+public abstract class BasicTicket implements PrintItem {
 
-       protected java.util.List<PrintItem> m_aCommands;
-       protected PrintItemLine pil;
-       protected int m_iBodyHeight;
+    /**
+     *
+     */
+    protected java.util.List<PrintItem> m_aCommands;
+
+    /**
+     *
+     */
+    protected PrintItemLine pil;
+
+    /**
+     *
+     */
+    protected int m_iBodyHeight;
    
        /** Creates a new instance of AbstractTicket */
        public BasicTicket() {
@@ -38,17 +53,40 @@ import java.util.ArrayList;
            m_iBodyHeight = 0;
        }
 
-       protected abstract Font getBaseFont();
+    /**
+     *
+     * @return
+     */
+    protected abstract Font getBaseFont();
 
-       protected abstract int getFontHeight();
+    /**
+     *
+     * @return
+     */
+    protected abstract int getFontHeight();
 
-       protected abstract double getImageScale();
+    /**
+     *
+     * @return
+     */
+    protected abstract double getImageScale();
 
+    /**
+     *
+     * @return
+     */
     @Override
        public int getHeight() {
           return m_iBodyHeight;
        }
 
+    /**
+     *
+     * @param g2d
+     * @param x
+     * @param y
+     * @param width
+     */
     @Override
        public void draw(Graphics2D g2d, int x, int y, int width) {
 
@@ -59,36 +97,63 @@ import java.util.ArrayList;
            }
        }
 
-       public java.util.List<PrintItem> getCommands() {
+    /**
+     *
+     * @return
+     */
+    public java.util.List<PrintItem> getCommands() {
           return m_aCommands;
        }
 
        // INTERFAZ PRINTER 2
-       public void printImage(BufferedImage image) {
+
+    /**
+     *
+     * @param image
+     */
+           public void printImage(BufferedImage image) {
 
            PrintItem pi = new PrintItemImage(image, getImageScale());
            m_aCommands.add(pi);
            m_iBodyHeight += pi.getHeight();
        }
 
-       public void printBarCode(String type, String position, String code) {
+    /**
+     *
+     * @param type
+     * @param position
+     * @param code
+     */
+    public void printBarCode(String type, String position, String code) {
 
            PrintItem pi = new PrintItemBarcode(type, position, code, getImageScale());
            m_aCommands.add(pi);
            m_iBodyHeight += pi.getHeight();
        }
 
-       public void beginLine(int iTextSize) {
+    /**
+     *
+     * @param iTextSize
+     */
+    public void beginLine(int iTextSize) {
            pil = new PrintItemLine(iTextSize, getBaseFont(), getFontHeight());
        }
 
-       public void printText(int iStyle, String sText) {
+    /**
+     *
+     * @param iStyle
+     * @param sText
+     */
+    public void printText(int iStyle, String sText) {
            if (pil != null) {
                pil.addText(iStyle, sText);
            }
        }
 
-      public void endLine() {
+    /**
+     *
+     */
+    public void endLine() {
            if (pil != null) {
                m_aCommands.add(pil);
                m_iBodyHeight += pil.getHeight();

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,7 +32,11 @@ public class JProductAttListItem extends javax.swing.JPanel implements JProductA
     private String attid;
     private ComboBoxValModel model;
 
-    /** Creates new form JProductAttListItem */
+    /** Creates new form JProductAttListItem
+     * @param attid
+     * @param label
+     * @param value
+     * @param values */
     public JProductAttListItem(String attid, String label, String value, List<String> values) {
 
         this.attid = attid;
@@ -47,6 +51,9 @@ public class JProductAttListItem extends javax.swing.JPanel implements JProductA
         jValues.setSelectedItem(value);
     }
 
+    /**
+     *
+     */
     public void assignSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -55,14 +62,26 @@ public class JProductAttListItem extends javax.swing.JPanel implements JProductA
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAttribute() {
         return attid;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getValue() {
         return (String) jValues.getSelectedItem();
     }
 
+    /**
+     *
+     * @return
+     */
     public Component getComponent() {
         return this;
     }
@@ -79,10 +98,10 @@ public class JProductAttListItem extends javax.swing.JPanel implements JProductA
         jLabel1 = new javax.swing.JLabel();
         jValues = new javax.swing.JComboBox();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("jLabel1");
 
-        jValues.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jValues.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,7 +117,7 @@ public class JProductAttListItem extends javax.swing.JPanel implements JProductA
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jValues, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))

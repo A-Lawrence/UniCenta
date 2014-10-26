@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -59,6 +59,10 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
     private boolean m_bTestMode;
     private static String APPROVED = "APPROVED";
 
+    /**
+     *
+     * @param props
+     */
     public PaymentGatewayLinkPoint(AppProperties props) {
 
         
@@ -73,10 +77,17 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
                 : "secure.linkpt.net";
     }
     
+    /**
+     *
+     */
     public PaymentGatewayLinkPoint() {
         
     }
 
+    /**
+     *
+     * @param payinfo
+     */
     @Override
     public void execute(PaymentInfoMagcard payinfo) {
         String sReturned="";
@@ -85,9 +96,9 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
         System.setProperty("javax.net.ssl.keyStore", sClientCertPath);
         System.setProperty("javax.net.ssl.keyStorePassword", sPasswordCert);
         System.setProperty("javax.net.ssl.keyStoreType", "PKCS12");        
-        
-        
-        
+
+
+
         try {
             url = new URL("https://"+HOST+":"+PORT);
             HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
@@ -129,7 +140,7 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
             }
         }
         else {
-            payinfo.paymentError(lpp.getResult(), "");
+            payinfo.paymentError(lpp.getResult(), "");        
         }
     }
     
@@ -181,7 +192,7 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
         xml.append("<order>");
 // JG 16 May 12 use chain of .append
             xml.append("<merchantinfo><configfile>").append(sConfigfile).append("</configfile></merchantinfo>");
-            xml.append("<orderoptions><ordertype>").append(sTransactionType).append("</ordertype><result>LIVE</result></orderoptions>");
+            xml.append("<orderoptions><ordertype>").append(sTransactionType).append("</ordertype><result>TEST</result></orderoptions>");
             xml.append("<payment><chargetotal>").append(URLEncoder.encode(amount.replace(',', '.'), "UTF-8")).append("</chargetotal></payment>");
         xml.append(moreInfo);
         xml.append("<transactiondetails>");
@@ -200,9 +211,9 @@ public class PaymentGatewayLinkPoint implements PaymentGateway {
     private class LinkPointParser extends DefaultHandler {
     
     private SAXParser m_sp = null;
-    private Map props = new HashMap();
+    private final Map props = new HashMap();
     private String text;
-    private InputStream is;
+    private final InputStream is;
     private String result;
     
     public LinkPointParser(String in) {

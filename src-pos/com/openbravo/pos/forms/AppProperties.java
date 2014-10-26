@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2009-2012 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (C) 2009-2014 Openbravo, S.L.
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,7 +27,22 @@ import java.io.File;
  */
 public interface AppProperties {
 
+    /**
+     *
+     * @return
+     */
     public File getConfigFile(); 
+
+    /**
+     *
+     * @return
+     */
     public String getHost();    
+
+    /**
+     *
+     * @param sKey
+     * @return
+     */
     public String getProperty(String sKey); // Config property.
 }

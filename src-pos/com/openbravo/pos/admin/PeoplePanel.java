@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,6 +45,9 @@ public class PeoplePanel extends JPanelTable {
     public PeoplePanel() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {      
         DataLogicAdmin dlAdmin = (DataLogicAdmin) app.getBean("com.openbravo.pos.admin.DataLogicAdmin");        
@@ -52,42 +55,75 @@ public class PeoplePanel extends JPanelTable {
         jeditor = new PeopleView(dlAdmin, dirty);    
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(tpeople);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tpeople);        
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tpeople.getVectorerBasic(new int[]{1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return tpeople.getComparatorCreator(new int[] {1, 3});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tpeople.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         
         jeditor.activate(); // primero el editor    
         super.activate(); // y luego cargamos los datos
     }      
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Users");

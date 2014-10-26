@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,10 @@ package com.openbravo.editor;
 
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JEditorPassword extends JEditorText {
     
     private static final char ECHO_CHAR = '*';
@@ -30,14 +34,26 @@ public class JEditorPassword extends JEditorText {
         super();
     }
     
+    /**
+     *
+     * @return
+     */
     protected final int getMode() {
         return EditorKeys.MODE_STRING;
     }
         
+    /**
+     *
+     * @return
+     */
     protected int getStartMode() {
         return MODE_Abc1;
     }
     
+    /**
+     *
+     * @return
+     */
     protected String getTextEdit() {
         
         StringBuilder s = new StringBuilder();
@@ -53,13 +69,22 @@ public class JEditorPassword extends JEditorText {
         return s.toString(); 
     }
     
+    /**
+     *
+     * @return
+     */
     public final String getPassword() {
         
         // como clave nunca devolvemos null
         String sPassword = getText();
         return sPassword == null ? "" : sPassword;     
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected String getTextFormat() throws BasicException {
         return "<html>" + getEcho(m_svalue);
     }    

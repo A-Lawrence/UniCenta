@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -74,15 +74,26 @@ public class JInventoryLines extends javax.swing.JPanel {
         m_tableinventory.setModel(m_inventorylines);        
     }
     
+    /**
+     *
+     */
     public void clear() {
         m_inventorylines.clear();
     }
     
+    /**
+     *
+     * @param i
+     */
     public void addLine(InventoryLine i) {
         m_inventorylines.addRow(i);
         setSelectedIndex(m_inventorylines.getRowCount() - 1);        
     }
     
+    /**
+     *
+     * @param index
+     */
     public void deleteLine(int index) {
         m_inventorylines.removeRow(index);
 
@@ -97,27 +108,53 @@ public class JInventoryLines extends javax.swing.JPanel {
         }         
     }
     
+    /**
+     *
+     * @param index
+     * @param i
+     */
     public void setLine(int index, InventoryLine i) {
         m_inventorylines.setRow(index, i);
         setSelectedIndex(index);
     }
     
+    /**
+     *
+     * @param index
+     * @return
+     */
     public InventoryLine getLine(int index) {
         return m_inventorylines.getRow(index);
     }
     
+    /**
+     *
+     * @return
+     */
     public List<InventoryLine> getLines() {
         return m_inventorylines.getLines();
     }
     
+    /**
+     *
+     * @return
+     */
     public int getCount() {
         return m_inventorylines.getRowCount();
     }
     
+    /**
+     *
+     * @return
+     */
     public int getSelectedRow() {
         return m_tableinventory.getSelectedRow();
-    }   
-    
+    }
+
+    /**
+     *
+     * @param i
+     */
     public void setSelectedIndex(int i){
         
         // Seleccionamos
@@ -128,6 +165,9 @@ public class JInventoryLines extends javax.swing.JPanel {
         m_tableinventory.scrollRectToVisible(oRect);
     }
     
+    /**
+     *
+     */
     public void goDown() {
 
         int i = m_tableinventory.getSelectionModel().getMaxSelectionIndex();
@@ -147,6 +187,9 @@ public class JInventoryLines extends javax.swing.JPanel {
         }        
     }
     
+    /**
+     *
+     */
     public void goUp() {
         int i = m_tableinventory.getSelectionModel().getMinSelectionIndex();
         if (i < 0){
@@ -165,7 +208,7 @@ public class JInventoryLines extends javax.swing.JPanel {
     }
     
     private static class InventoryTableModel extends AbstractTableModel {
-// JG 16 May 2012 use diamond inference        
+// JG 16 May 2013 use diamond inference        
         private ArrayList<InventoryLine> m_rows = new ArrayList<>();
         
         @Override
@@ -274,7 +317,7 @@ public class JInventoryLines extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         m_tableinventory.setAutoCreateColumnsFromModel(false);
         m_tableinventory.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);

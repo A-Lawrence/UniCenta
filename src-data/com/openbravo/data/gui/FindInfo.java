@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,11 +24,30 @@ import com.openbravo.data.loader.Vectorer;
 import com.openbravo.data.user.Finder;
 import java.util.regex.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class FindInfo implements Finder {
     
+    /**
+     *
+     */
     public static final int MATCH_STARTFIELD = 0;
+
+    /**
+     *
+     */
     public static final int MATCH_WHOLEFIELD = 1;
+
+    /**
+     *
+     */
     public static final int MATCH_ANYPARTFIELD = 2;
+
+    /**
+     *
+     */
     public static final int MATCH_REGEXP = 3;
     
     private String m_sTextCompare;
@@ -41,7 +60,12 @@ public class FindInfo implements Finder {
     
     private Vectorer m_vec;
     
-    /** Creates a new instance of FindInfo */
+    /** Creates a new instance of FindInfo
+     * @param vec
+     * @param sText
+     * @param iField
+     * @param iMatch
+     * @param bMatchCase */
     public FindInfo(Vectorer vec, String sText, int iField, boolean bMatchCase, int iMatch) {
         m_vec = vec;
         m_sText = sText;
@@ -60,27 +84,58 @@ public class FindInfo implements Finder {
         }
     }
     
-    /** Creates a new instance of FindInfo */
+    /** Creates a new instance of FindInfo
+     * @param vec */
     public FindInfo(Vectorer vec) {
         this(vec,  "", 0, true, MATCH_ANYPARTFIELD);
     }
     
+    /**
+     *
+     * @return
+     */
     public Vectorer getVectorer() {
         return m_vec;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getText() {
         return m_sText;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getField() {
         return m_iField;
     }
+
+    /**
+     *
+     * @return
+     */
     public boolean isMatchCase() {
         return m_bMatchCase;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getMatch() {
         return m_iMatch;
     }
    
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws BasicException
+     */
     public boolean match(Object obj) throws BasicException {
         
         String[] v = m_vec.getValues(obj);

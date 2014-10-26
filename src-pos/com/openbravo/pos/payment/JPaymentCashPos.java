@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,7 @@ package com.openbravo.pos.payment;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
+import com.openbravo.pos.forms.AppConfig;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.scripting.ScriptEngine;
@@ -34,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -47,9 +49,12 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
     private JPaymentNotifier m_notifier;
 
     private double m_dPaid;
-    private double m_dTotal;    
+    private double m_dTotal;  
+    private Boolean priceWith00;
     
-    /** Creates new form JPaymentCash */
+    /** Creates new form JPaymentCash
+     * @param notifier
+     * @param dlSystem */
     public JPaymentCashPos(JPaymentNotifier notifier, DataLogicSystem dlSystem) {
         
         m_notifier = notifier;
@@ -59,6 +64,16 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         m_jTendered.addPropertyChangeListener("Edition", new RecalculateState());
         m_jTendered.addEditorKeys(m_jKeys);
         
+// added JDL 11.05.13        
+        AppConfig m_config =  new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));        
+        m_config.load();        
+        priceWith00 =("true".equals(m_config.getProperty("till.pricewith00")));
+        if (priceWith00) {
+            // use '00' instead of '.'
+            m_jKeys.dotIs00(true);
+        }
+//        m_config=null;
+       
         String code = dlSystem.getResourceAsXML("payment.cash");
         if (code != null) {
             try {
@@ -73,9 +88,16 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         
     }
     
+    /**
+     *
+     * @param customerext
+     * @param dTotal
+     * @param transID
+     */
     @Override
     public void activate(CustomerInfoExt customerext, double dTotal, String transID) {
-        
+               
+               
         m_dTotal = dTotal;
         
         m_jTendered.reset();
@@ -83,6 +105,11 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         
         printState();        
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public PaymentInfo executePayment() {
         if (m_dPaid - m_dTotal >= 0.0) {
@@ -93,6 +120,11 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
             return new PaymentInfoCash_original(m_dPaid, m_dPaid);
         }        
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
@@ -105,6 +137,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
             m_dPaid = m_dTotal;
         } else {            
             m_dPaid = value;
+
         }   
 
         int iCompare = RoundUtils.compare(m_dPaid, m_dTotal);
@@ -122,21 +155,49 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         public void propertyChange(PropertyChangeEvent evt) {
             printState();
         }
-    }    
-    
+    }
+
+    /**
+     *
+     */
     public class ScriptPaymentCash {
         
         private DataLogicSystem dlSystem;
         private ThumbNailBuilder tnbbutton;
+        private AppConfig m_config;
         
+        /**
+         *
+         * @param dlSystem
+         */
         public ScriptPaymentCash(DataLogicSystem dlSystem) {
+//added 19.04.13 JDL        
+            AppConfig m_config =  new AppConfig(new File((System.getProperty("user.home")), AppLocal.APP_ID + ".properties"));        
+            m_config.load();
+            this.m_config = m_config;
+        
             this.dlSystem = dlSystem;
-            tnbbutton = new ThumbNailBuilder(64, 54, "com/openbravo/images/cash.png");
+            tnbbutton = new ThumbNailBuilder(64, 50, "com/openbravo/images/cash.png");
         }
         
+        /**
+         *
+         * @param image
+         * @param amount
+         */
         public void addButton(String image, double amount) {
             JButton btn = new JButton();
-            btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));
+//added 19.04.13 JDL removal of text on payment buttons if required.   
+            try {
+            if ((m_config.getProperty("payments.textoverlay")).equals("true")){
+                     btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image),"")));  
+            } else {
+                     btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount)))); 
+            }
+            } catch (Exception e){
+                    btn.setIcon(new ImageIcon(tnbbutton.getThumbNailText(dlSystem.getResourceAsImage(image), Formats.CURRENCY.formatValue(amount))));        
+            }   
+            
             btn.setFocusPainted(false);
             btn.setFocusable(false);
             btn.setRequestFocusEnabled(false);
@@ -148,6 +209,8 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         }
     }
     
+    
+    
     private class AddAmount implements ActionListener {        
         private double amount;
         public AddAmount(double amount) {
@@ -156,10 +219,12 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         @Override
         public void actionPerformed(ActionEvent e) {
             Double tendered = m_jTendered.getDoubleValue();
+ 
             if (tendered == null) {
-                m_jTendered.setDoubleValue(amount);
+                 m_jTendered.setDoubleValue(amount);
             } else {
-                m_jTendered.setDoubleValue(tendered + amount);
+              m_jTendered.setDoubleValue(tendered + amount);    
+              
             }
 
             printState();
@@ -191,35 +256,39 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(0, 100));
+        jPanel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel4.setPreferredSize(new java.awt.Dimension(0, 70));
         jPanel4.setLayout(null);
 
-        m_jChangeEuros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jChangeEuros.setBackground(new java.awt.Color(255, 255, 255));
+        m_jChangeEuros.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         m_jChangeEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jChangeEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jChangeEuros.setOpaque(true);
-        m_jChangeEuros.setPreferredSize(new java.awt.Dimension(150, 25));
+        m_jChangeEuros.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel4.add(m_jChangeEuros);
-        m_jChangeEuros.setBounds(120, 50, 150, 25);
+        m_jChangeEuros.setBounds(120, 36, 180, 30);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("Label.ChangeCash")); // NOI18N
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel4.add(jLabel6);
-        jLabel6.setBounds(20, 50, 100, 25);
+        jLabel6.setBounds(10, 36, 100, 30);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setText(AppLocal.getIntString("Label.InputCash")); // NOI18N
+        jLabel8.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel4.add(jLabel8);
-        jLabel8.setBounds(20, 20, 100, 25);
+        jLabel8.setBounds(10, 4, 100, 30);
 
-        m_jMoneyEuros.setBackground(new java.awt.Color(153, 153, 255));
-        m_jMoneyEuros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jMoneyEuros.setBackground(new java.awt.Color(204, 255, 51));
+        m_jMoneyEuros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         m_jMoneyEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jMoneyEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jMoneyEuros.setOpaque(true);
-        m_jMoneyEuros.setPreferredSize(new java.awt.Dimension(150, 25));
+        m_jMoneyEuros.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel4.add(m_jMoneyEuros);
-        m_jMoneyEuros.setBounds(120, 20, 150, 25);
+        m_jMoneyEuros.setBounds(120, 4, 180, 30);
 
         jPanel5.add(jPanel4, java.awt.BorderLayout.NORTH);
 
@@ -236,7 +305,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        m_jTendered.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jTendered.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jPanel3.add(m_jTendered, java.awt.BorderLayout.CENTER);
 
         jPanel1.add(jPanel3);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,17 +23,30 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DateUtils {
     
     /** Creates a new instance of DateUtils */
     private DateUtils() {
     }
     
+    /**
+     *
+     * @return
+     */
     public static Date getToday() { 
         // el dia de hoy sin horas ni nada.        
         return getToday(new Date());     
     }
     
+    /**
+     *
+     * @param d
+     * @return
+     */
     public static Date getToday(Date d) { 
         // el dia de hoy sin horas ni nada.        
         GregorianCalendar ddate = new GregorianCalendar();
@@ -42,11 +55,20 @@ public class DateUtils {
         return ddateday.getTime();        
     }
     
+    /**
+     *
+     * @return
+     */
     public static Date getTodayMinutes() { 
         // el dia de hoy sin horas ni nada.        
         return getTodayMinutes(new Date());     
     }
     
+    /**
+     *
+     * @param d
+     * @return
+     */
     public static Date getTodayMinutes(Date d) { 
         // el dia de hoy sin horas ni nada.        
         GregorianCalendar ddate = new GregorianCalendar();
@@ -56,6 +78,11 @@ public class DateUtils {
         return ddateday.getTime();        
     }
     
+    /**
+     *
+     * @param d
+     * @return
+     */
     public static Date getTodayHours(Date d) {
         // el dia ajustado a las horeas     
         Calendar ddate = Calendar.getInstance();
@@ -69,6 +96,12 @@ public class DateUtils {
         return dNow.getTime();        
     }
     
+    /**
+     *
+     * @param day
+     * @param hour
+     * @return
+     */
     public static Date getDate(Date day, Date hour) {
         
         // Calculamos el dia actual con la hora escogida.
@@ -84,5 +117,5 @@ public class DateUtils {
         
         return dNow.getTime();
     }
- 
+
 }

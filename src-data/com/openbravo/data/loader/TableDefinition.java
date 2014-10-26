@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,10 @@ package com.openbravo.data.loader;
 
 import com.openbravo.format.Formats;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class TableDefinition {
     
     private Session m_s;
@@ -34,7 +38,14 @@ public class TableDefinition {
     private int[] idinx;
    
     
-    /** Creates a new instance of TableDefinition */
+    /** Creates a new instance of TableDefinition
+     * @param s
+     * @param fieldformat
+     * @param tablename
+     * @param fieldname
+     * @param fieldtran
+     * @param idinx
+     * @param fielddata */
     public TableDefinition(
             Session s,
             String tablename, 
@@ -51,51 +62,109 @@ public class TableDefinition {
   
         this.idinx = idinx;
     }  
+
+    /**
+     *
+     * @param s
+     * @param tablename
+     * @param fieldname
+     * @param fielddata
+     * @param fieldformat
+     * @param idinx
+     */
     public TableDefinition(
             Session s,
             String tablename, 
             String[] fieldname, Datas[] fielddata, Formats[] fieldformat,
             int[] idinx) {
         this(s, tablename, fieldname, fieldname, fielddata, fieldformat, idinx);
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getTableName() {
         return tablename;
     }
     
+    /**
+     *
+     * @return
+     */
     public String[] getFields() {
         return fieldname;
     }
     
+    /**
+     *
+     * @param aiFields
+     * @return
+     */
     public Vectorer getVectorerBasic(int[] aiFields) {
         return new VectorerBasic(fieldtran, fieldformat, aiFields);
     }
     
+    /**
+     *
+     * @param aiFields
+     * @return
+     */
     public IRenderString getRenderStringBasic(int[] aiFields) {
         return new RenderStringBasic(fieldformat, aiFields);
     }
     
+    /**
+     *
+     * @param aiOrders
+     * @return
+     */
     public ComparatorCreator getComparatorCreator(int [] aiOrders) {
         return new ComparatorCreatorBasic(fieldtran, fielddata, aiOrders);
     }
     
+    /**
+     *
+     * @return
+     */
     public IKeyGetter getKeyGetterBasic() {
         if (idinx.length == 1) {
             return new KeyGetterFirst(idinx);
         } else {
             return new KeyGetterBasic(idinx);     
         }
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public SerializerRead getSerializerReadBasic() {
         return new SerializerReadBasic(fielddata);
     }
+
+    /**
+     *
+     * @param fieldindx
+     * @return
+     */
     public SerializerWrite getSerializerInsertBasic(int[] fieldindx) {
         return new SerializerWriteBasicExt(fielddata, fieldindx);
     }
+
+    /**
+     *
+     * @return
+     */
     public SerializerWrite getSerializerDeleteBasic() {     
         return new SerializerWriteBasicExt(fielddata, idinx);
     }
+
+    /**
+     *
+     * @param fieldindx
+     * @return
+     */
     public SerializerWrite getSerializerUpdateBasic(int[] fieldindx) {
         
         int[] aindex = new int[fieldindx.length + idinx.length];
@@ -110,14 +179,27 @@ public class TableDefinition {
         return new SerializerWriteBasicExt(fielddata, aindex);
     }
     
+    /**
+     *
+     * @return
+     */
     public SentenceList getListSentence() {
         return getListSentence(getSerializerReadBasic());
     }
     
+    /**
+     *
+     * @param sr
+     * @return
+     */
     public SentenceList getListSentence(SerializerRead sr) {
         return new PreparedSentence(m_s, getListSQL(), null,  sr);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getListSQL() {
         
         StringBuilder sent = new StringBuilder();
@@ -136,14 +218,27 @@ public class TableDefinition {
         return sent.toString();    
     }
    
+    /**
+     *
+     * @return
+     */
     public SentenceExec getDeleteSentence() {
         return getDeleteSentence(getSerializerDeleteBasic());
     }
     
+    /**
+     *
+     * @param sw
+     * @return
+     */
     public SentenceExec getDeleteSentence(SerializerWrite sw) {
         return new PreparedSentence(m_s, getDeleteSQL(), sw, null);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getDeleteSQL() {
         
         StringBuilder sent = new StringBuilder();
@@ -159,10 +254,19 @@ public class TableDefinition {
         return sent.toString();     
     }
    
+    /**
+     *
+     * @return
+     */
     public SentenceExec getInsertSentence() {
         return getInsertSentence(getAllFields());
     }
     
+    /**
+     *
+     * @param fieldindx
+     * @return
+     */
     public SentenceExec getInsertSentence(int[] fieldindx) {
         return new PreparedSentence(m_s, getInsertSQL(fieldindx), getSerializerInsertBasic(fieldindx), null);
     }
@@ -201,10 +305,19 @@ public class TableDefinition {
         return fieldindx;        
     }
    
+    /**
+     *
+     * @return
+     */
     public SentenceExec getUpdateSentence() {
         return getUpdateSentence(getAllFields());
     }
     
+    /**
+     *
+     * @param fieldindx
+     * @return
+     */
     public SentenceExec getUpdateSentence(int[] fieldindx) {
         return new PreparedSentence(m_s, getUpdateSQL(fieldindx), getSerializerUpdateBasic(fieldindx), null);
     }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -26,11 +26,17 @@ import com.openbravo.data.user.DirtyManager;
 import com.openbravo.data.user.EditorRecord;
 import com.openbravo.pos.forms.AppView;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord {
 
     private Object m_oId;
     
-    /** Creates new form ThirdPartiesView */
+    /** Creates new form ThirdPartiesView
+     * @param app
+     * @param dirty */
     public ThirdPartiesView(AppView app, DirtyManager dirty) {
         initComponents();
         
@@ -49,6 +55,10 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
 
         writeValueEOF();        
     }
+
+    /**
+     *
+     */
     public void writeValueEOF() {
         m_oId = null;
         m_jCIF.setText(null);
@@ -75,8 +85,11 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         m_jEMail.setEnabled(false);
         m_jWebPage.setEnabled(false);
         m_jNotes.setEnabled(false);
-    }    
-    
+    }
+
+    /**
+     *
+     */
     public void writeValueInsert() {
         m_oId = null;
         m_jCIF.setText(null);
@@ -105,6 +118,10 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         m_jNotes.setEnabled(true);
     }
     
+    /**
+     *
+     * @param value
+     */
     public void writeValueDelete(Object value) {
         Object[] thirdparty = (Object[]) value;
         m_oId = thirdparty[0];
@@ -132,8 +149,12 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         m_jEMail.setEnabled(false);
         m_jWebPage.setEnabled(false);
         m_jNotes.setEnabled(false);    
-    }    
-    
+    }
+
+    /**
+     *
+     * @param value
+     */
     public void writeValueEdit(Object value) {
         Object[] thirdparty = (Object[]) value;
         m_oId = thirdparty[0];
@@ -163,6 +184,11 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         m_jNotes.setEnabled(true);
     }
      
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public Object createValue() throws BasicException {
         
         Object[] thirdparty = new Object[13];
@@ -183,10 +209,17 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         return thirdparty;
     }
     
+    /**
+     *
+     * @return
+     */
     public Component getComponent() {
         return this;
-    }   
-    
+    }
+
+    /**
+     *
+     */
     public void refresh() {
     }
     
@@ -230,107 +263,115 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
 
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Account");
         add(jLabel2);
         jLabel2.setBounds(20, 20, 90, 25);
 
-        m_jCIF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jCIF.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jCIF);
         m_jCIF.setBounds(110, 20, 270, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Number");
         add(jLabel3);
         jLabel3.setBounds(20, 50, 90, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jName);
         m_jName.setBounds(110, 50, 270, 25);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Comercial");
         add(jLabel4);
         jLabel4.setBounds(20, 190, 90, 25);
 
-        m_jContactComm.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jContactComm.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jContactComm);
         m_jContactComm.setBounds(110, 190, 160, 25);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Invoicing");
         add(jLabel5);
         jLabel5.setBounds(290, 190, 90, 25);
 
-        m_jContactFact.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jContactFact.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jContactFact);
         m_jContactFact.setBounds(380, 190, 160, 25);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Payment Method");
         add(jLabel6);
         jLabel6.setBounds(20, 340, 120, 25);
+
+        m_jPayRule.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jPayRule);
         m_jPayRule.setBounds(150, 340, 160, 25);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Fax");
         add(jLabel7);
         jLabel7.setBounds(20, 250, 90, 25);
 
-        m_jFaxNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jFaxNumber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jFaxNumber);
         m_jFaxNumber.setBounds(110, 250, 160, 25);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Telephone");
         add(jLabel8);
         jLabel8.setBounds(20, 220, 90, 25);
 
-        m_jPhoneNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jPhoneNumber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jPhoneNumber);
         m_jPhoneNumber.setBounds(110, 220, 160, 25);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Mobile");
         add(jLabel9);
         jLabel9.setBounds(290, 220, 90, 25);
+
+        m_jMobileNumber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jMobileNumber);
         m_jMobileNumber.setBounds(380, 220, 160, 25);
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("E Mail");
         add(jLabel10);
         jLabel10.setBounds(290, 250, 90, 25);
 
-        m_jEMail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jEMail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jEMail);
         m_jEMail.setBounds(380, 250, 160, 25);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Web page");
         add(jLabel11);
         jLabel11.setBounds(20, 280, 90, 25);
 
-        m_jWebPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jWebPage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jWebPage);
         m_jWebPage.setBounds(110, 280, 270, 25);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("Notes");
         add(jLabel12);
         jLabel12.setBounds(20, 410, 90, 25);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setText("Direction");
         add(jLabel13);
         jLabel13.setBounds(20, 80, 90, 25);
 
-        m_jNotes.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        m_jNotes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jScrollPane1.setViewportView(m_jNotes);
 
         add(jScrollPane1);
         jScrollPane1.setBounds(110, 410, 270, 70);
+
+        jScrollPane2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         m_jAddress.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jScrollPane2.setViewportView(m_jAddress);
@@ -338,19 +379,19 @@ public class ThirdPartiesView extends javax.swing.JPanel implements EditorRecord
         add(jScrollPane2);
         jScrollPane2.setBounds(110, 80, 270, 70);
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel14.setText("Contact");
         jLabel14.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         add(jLabel14);
         jLabel14.setBounds(20, 160, 520, 16);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel15.setText("Payment");
         jLabel15.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         add(jLabel15);
         jLabel15.setBounds(20, 310, 520, 16);
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel16.setText("Notes");
         jLabel16.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         add(jLabel16);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,6 +36,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DeviceTicket {
 
     private static final Logger logger = Logger.getLogger("com.openbravo.pos.printer.DeviceTicket");
@@ -46,7 +50,10 @@ public class DeviceTicket {
     private Map<String, DevicePrinter> m_deviceprinters;
     private List<DevicePrinter> m_deviceprinterslist;
 
-    /** Creates a new instance of DeviceTicket */
+/** 
+ * 
+ * Creates a new instance of DeviceTicket 
+ */
     public DeviceTicket() {
         // Una impresora solo de pantalla.
 
@@ -55,7 +62,6 @@ public class DeviceTicket {
         m_devicedisplay = new DeviceDisplayNull();
 
         m_nullprinter = new DevicePrinterNull();
-// JG May 12 use diamond inference
         m_deviceprinters = new HashMap<>();
         m_deviceprinterslist = new ArrayList<>();
 
@@ -64,6 +70,11 @@ public class DeviceTicket {
         m_deviceprinterslist.add(p);
     }
 
+    /**
+     *
+     * @param parent
+     * @param props
+     */
     public DeviceTicket(Component parent, AppProperties props) {
 
         PrinterWritterPool pws = new PrinterWritterPool();
@@ -82,13 +93,11 @@ public class DeviceTicket {
             m_deviceFiscal = new DeviceFiscalPrinterNull(e.getMessage());
         }
 
-        // El visor
         StringParser sd = new StringParser(props.getProperty("machine.display"));
         String sDisplayType = sd.nextToken(':');
         String sDisplayParam1 = sd.nextToken(',');
         String sDisplayParam2 = sd.nextToken(',');
 
-        // compatibilidad hacia atras.
         if ("serial".equals(sDisplayType) || "rxtx".equals(sDisplayType) || "file".equals(sDisplayType)) {
             sDisplayParam2 = sDisplayParam1;
             sDisplayParam1 = sDisplayType;
@@ -96,7 +105,7 @@ public class DeviceTicket {
         }
 
         try {
-// JG 16 May 12 use switch            
+         
             switch (sDisplayType) {
                 case "screen":
                     m_devicedisplay = new DeviceDisplayPanel();
@@ -126,7 +135,7 @@ public class DeviceTicket {
         }
 
         m_nullprinter = new DevicePrinterNull();
-// JG 16 May 12 use diamond inference
+
         m_deviceprinters = new HashMap<>();
         m_deviceprinterslist = new ArrayList<>();
 
@@ -142,7 +151,7 @@ public class DeviceTicket {
             String sPrinterParam1 = sp.nextToken(',');
             String sPrinterParam2 = sp.nextToken(',');
 
-            // compatibilidad hacia atras.
+
             if ("serial".equals(sPrinterType) || "rxtx".equals(sPrinterType) || "file".equals(sPrinterType)) {
                 sPrinterParam2 = sPrinterParam1;
                 sPrinterParam1 = sPrinterType;
@@ -150,7 +159,7 @@ public class DeviceTicket {
             }
 
             try {
-// JG 16 May 12 use switch                
+        
                 switch (sPrinterType) {
                     case "screen":
                         addPrinter(sPrinterIndex, new DevicePrinterPanel());
@@ -196,7 +205,6 @@ public class DeviceTicket {
                 logger.log(Level.WARNING, e.getMessage(), e);
             }
 
-            // siguiente impresora...
             iPrinterIndex++;
             sPrinterIndex = Integer.toString(iPrinterIndex);
             sprinter = props.getProperty("machine.printer." + sPrinterIndex);
@@ -210,15 +218,14 @@ public class DeviceTicket {
 
     private static class PrinterWritterPool {
 
-// JG 16 May 12 use diamond inference
-        private Map<String, PrinterWritter> m_apool = new HashMap<>();
+        private final Map<String, PrinterWritter> m_apool = new HashMap<>();
 
         public PrinterWritter getPrinterWritter(String con, String port) throws TicketPrinterException {
 
             String skey = con + "-->" + port;
             PrinterWritter pw = (PrinterWritter) m_apool.get(skey);
             if (pw == null) {
-// JG 16 May 12 use switch                
+            
                 switch (con) {
                     case "serial":
                     case "rxtx":
@@ -236,25 +243,49 @@ public class DeviceTicket {
             return pw;
         }
     }
-    // Impresora fiscal
-    public DeviceFiscalPrinter getFiscalPrinter() {
+    
+
+    /**
+     *
+     * @return Fiscal printer
+     */
+        public DeviceFiscalPrinter getFiscalPrinter() {
         return m_deviceFiscal;
     }
-    // Display
-    public DeviceDisplay getDeviceDisplay() {
+    
+    /**
+     *
+     * @return Device display
+     */
+        public DeviceDisplay getDeviceDisplay() {
         return m_devicedisplay;
     }
-    // Receipt printers
-    public DevicePrinter getDevicePrinter(String key) {
+    
+    /**
+     *
+     * @param key
+     * @return Device printer
+     */
+        public DevicePrinter getDevicePrinter(String key) {
         DevicePrinter printer = m_deviceprinters.get(key);
         return printer == null ? m_nullprinter : printer;
     }
 
+    /**
+     *
+     * @return Device printer list
+     */
     public List<DevicePrinter> getDevicePrinterAll() {
         return m_deviceprinterslist;
     }
-    // Utilidades
-    public static String getWhiteString(int iSize, char cWhiteChar) {
+    
+    /**
+     *
+     * @param iSize
+     * @param cWhiteChar
+     * @return Spacing string length
+     */
+        public static String getWhiteString(int iSize, char cWhiteChar) {
 
         char[] cFill = new char[iSize];
         for (int i = 0; i < iSize; i++) {
@@ -263,11 +294,22 @@ public class DeviceTicket {
         return new String(cFill);
     }
 
+    /**
+     *
+     * @param iSize
+     * @return Space sizing
+     */
     public static String getWhiteString(int iSize) {
 
         return getWhiteString(iSize, ' ');
     }
 
+    /**
+     *
+     * @param sLine
+     * @param iSize
+     * @return Barcode bar inter-spacing
+     */
     public static String alignBarCode(String sLine, int iSize) {
 
         if (sLine.length() > iSize) {
@@ -277,6 +319,12 @@ public class DeviceTicket {
         }
     }
 
+    /**
+     *
+     * @param sLine
+     * @param iSize
+     * @return Reduce spacing
+     */
     public static String alignLeft(String sLine, int iSize) {
 
         if (sLine.length() > iSize) {
@@ -286,6 +334,12 @@ public class DeviceTicket {
         }
     }
 
+    /**
+     *
+     * @param sLine
+     * @param iSize
+     * @return Add spacing
+     */
     public static String alignRight(String sLine, int iSize) {
 
         if (sLine.length() > iSize) {
@@ -295,6 +349,12 @@ public class DeviceTicket {
         }
     }
 
+    /**
+     *
+     * @param sLine
+     * @param iSize
+     * @return Adjusts Left/Right spacing
+     */
     public static String alignCenter(String sLine, int iSize) {
 
         if (sLine.length() > iSize) {
@@ -304,12 +364,23 @@ public class DeviceTicket {
         }
     }
 
+    /**
+     *
+     * @param sLine
+     * @return Equalise Left/Right spacing 
+     */
     public static String alignCenter(String sLine) {
         return alignCenter(sLine, 42);
     }
 
 // JG 16 May 12     public static final byte[] transNumber(String sCad) {
-    public static byte[] transNumber(String sCad) {
+
+    /**
+     *
+     * @param sCad
+     * @return Convert number to string
+     */
+        public static byte[] transNumber(String sCad) {
 
         if (sCad == null) {
             return null;
@@ -322,6 +393,11 @@ public class DeviceTicket {
         }
     }
 
+    /**
+     *
+     * @param sChar
+     * @return Convert hex to character
+     */
     public static byte transNumberChar(char sChar) {
         switch (sChar) {
         case '0' : return 0x30;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
     uniCenta oPOS - Touch friendly Point Of Sale
-    Copyright (c) 2009-2012 uniCenta.
+    Copyright (c) 2009-2014 uniCenta.
     http://sourceforge.net/projects/unicentaopos
 
     This file is part of uniCenta oPOS.
@@ -33,19 +33,20 @@
                 
 	<!-- SET Line or Total Discount (Default=TotalDiscount= ENABLED) -->
 	<button key="button.totaldiscount" image="img.discount" code="script.totaldiscount"/>
-	<!-- <button key="button.linediscount" image="img.discount" code="script.linediscount"/> -->
+	<!-- <button key="button.linediscount" image="img.discount" code="script.linediscount"/>  -->
 
-	<!-- SET Server's name (Default=DISABLED) -->
-	<!-- <button key="button.setperson" image="img.user" code="script.SetPerson"/> -->
+	<!-- SET Waiter's name (Default=DISABLED) -->
+	<!-- <button key="button.setperson" image="img.user" code="script.SetPerson"/>  -->
 
-	<!-- SET Kitchen Print (Default=DISABLED) -->
-	<!-- <button key="button.sendorder" image="img.kit_print" code="script.SendOrder"/> -->
+	<!-- SET Remote Printer (Default=DISABLED) Not required for John L changes--> 
+	<!-- <button key="button.sendorder" image="img.kit_print" code="script.SendOrder"/>  -->
 
 	<!-- SET Ticket Print Preview (Default=ENABLED) -->
     	<button key="button.print" image="img.ticket_print" template="Printer.TicketPreview"/>
 
 	<!-- SET Open Cashdrawer (Default=ENABLED) -->
 	<button key="button.opendrawer" image="img.cashdrawer" template="Printer.OpenDrawer"/>
+        
 <!-- END Sales Ticket Button Bar - Show icons -->
 
 <!-- SET Ticket Button Bar - Text Only ****************************************************************** -->
@@ -67,7 +68,8 @@
 
 	<!-- Maximum Category height for 1024x768 in Full Screen mode (Default=ENABLED) -->
 	<cat-height value="320" />
-
+	<!-- <cat-width value="600" /> -->
+        
 	<!-- Maximum Category height for 1280x1024 in Full Screen mode -->
 	<!--  <cat-height value="640" /> -->
 <!-- END Product Area Size -->
@@ -78,8 +80,8 @@
 	<!--  <img-height value="48"/> -->
 
 	<!-- Medium Product button size in Sales screen (Default=ENABLED) -->
-   	<img-width value="96"/>
-	<img-height value="72"/>
+   	<img-width value="80"/>
+	<img-height value="80"/>
     
 <!-- Large Product button size in Sales screen (Default=DISABLED)-->
 	<!-- <img-width value="128"/> -->
@@ -90,25 +92,28 @@
         <printselected value="true"/>
 
 <!-- ADDITIONAL FEATURES ************************************************* -->
-	<!-- SET Show Change in Cash Sale (Default=ENABLED -->
-	<event key="ticket.close" code="Ticket.Close"/>
+    <!-- SET Show Change in Cash Sale (Default=ENABLED -->
+        <event key="ticket.close" code="Ticket.Close"/>
 
-	<!-- SET Consolidate Receipt - Multiple ProductID's (Default=ENABLED) -->
-	<event  key="ticket.total" code="script.ReceiptConsolidate"/>
+    <!-- SET Consolidate Receipt - Multiple ProductID's (Default=DISABLED) -->
+        <!-- <event  key="ticket.total" code="script.ReceiptConsolidate"/> -->
 
-	<!-- SET Stock Level Checking (Default=DISABLED) --> 
-	<!-- <event key="ticket.addline" code="script.StockCurrentAdd"/> -->
-	<!-- <event key="ticket.setline" code="script.StockCurrentSet"/> -->
+    <!-- SET Stock Level Checking (Default=DISABLED) --> 
+        <!-- <event key="ticket.addline" code="script.StockCurrentAdd"/> -->
+        <!-- <event key="ticket.setline" code="script.StockCurrentSet"/> -->
 
-    <event key="ticket.change" code="event.change"/>
-    <event key="ticket.addline" code="event.addline"/>
-    <event key="ticket.removeline" code="event.removeline"/>
-    <event key="ticket.setline" code="event.setline"/>
-	<!-- <event key="ticket.show" code="event.show"/> -->
-	<!-- <event key="ticket.total" code="script.Event.Total"/> -->
+        <!-- <event key="ticket.change" code="event.change"/> -->
+        <!-- <event key="ticket.addline" code="event.addline"/> -->
+        <!-- <event key="ticket.removeline" code="event.removeline"/> -->
+        <!-- <event key="ticket.setline" code="event.setline"/> -->
+        <!-- <event key="ticket.show" code="event.show"/> -->
+        <!-- <event key="ticket.total" code="script.Event.Total"/> -->
+        <!-- <event key="ticket.total" code="event.total"/> -->
+        <!-- <event key="ticket.close" code="event.close"/> -->
 
-            <!-- <taxesincluded value="true"/> -->
-            <!-- <taxcategoryid value="001"/> -->
-            <!-- <pricevisible value="true" /> -->
 
+         <taxesincluded value="true"/>
+         <!-- <taxcategoryid value="001"/> -->
+         <!-- <pricevisible value="true" /> -->
+         
 </configuration>

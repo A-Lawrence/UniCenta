@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -34,7 +34,8 @@ public class SQLDatabase implements TreeNode {
     private HashMap m_mTables;
     private String m_sName;
     
-    /** Creates a new instance of SQLDatabase */
+    /** Creates a new instance of SQLDatabase
+     * @param name */
     public SQLDatabase(String name) {
         m_sName = name;
         m_aTables = new ArrayList();
@@ -45,11 +46,21 @@ public class SQLDatabase implements TreeNode {
         return m_sName;
     }
     
+    /**
+     *
+     * @param sTable
+     */
     public void addTable(String sTable) {
         SQLTable t = new SQLTable(this, sTable);
         m_aTables.add(t);
         m_mTables.put(sTable, t);
     }
+
+    /**
+     *
+     * @param sTable
+     * @return
+     */
     public SQLTable getTable(String sTable) {
         return (SQLTable) m_mTables.get(sTable);
     }
@@ -80,7 +91,7 @@ public class SQLDatabase implements TreeNode {
     }
     @Override
     public boolean isLeaf() {
-// JG 16 May 2012 use isEmpty
+// JG 16 May 2013 use isEmpty
         return m_aTables.isEmpty();
     }    
 }

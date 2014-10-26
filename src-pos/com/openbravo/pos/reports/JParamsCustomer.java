@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -63,11 +63,19 @@ public class JParamsCustomer extends javax.swing.JPanel implements ReportEditorC
         });
     }
 
+    /**
+     *
+     * @param app
+     */
     @Override
     public void init(AppView app) {
         dlCustomers = (DataLogicCustomers) app.getBean("com.openbravo.pos.customers.DataLogicCustomers");
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         
@@ -75,16 +83,29 @@ public class JParamsCustomer extends javax.swing.JPanel implements ReportEditorC
         jTextField1.setText(null);        
     }
             
+    /**
+     *
+     * @return
+     */
     @Override
     public SerializerWrite getSerializerWrite() {
         return new SerializerWriteBasic(new Datas[] {Datas.OBJECT, Datas.STRING, Datas.OBJECT, Datas.STRING});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -115,12 +136,12 @@ public class JParamsCustomer extends javax.swing.JPanel implements ReportEditorC
         setPreferredSize(new java.awt.Dimension(400, 60));
         setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.customer")); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(20, 20, 120, 25);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(jTextField1);
         jTextField1.setBounds(140, 20, 200, 25);
 

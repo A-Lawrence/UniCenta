@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -26,16 +26,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Creation and Editing of stored settings
+ * unicentaopos.properties
+ * @author JG uniCenta
  * @author adrianromero
  */
 public class AppConfig implements AppProperties {
 
     private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.AppConfig");
      
+    private static AppConfig m_instance = null;
     private Properties m_propsconfig;
     private File configfile;
       
+    /**
+     *
+     * @param args
+     */
     public AppConfig(String[] args) {
         if (args.length == 0) {
             init(getDefaultConfig());
@@ -44,6 +51,10 @@ public class AppConfig implements AppProperties {
         }
     }
     
+    /**
+     *
+     * @param configfile
+     */
     public AppConfig(File configfile) {
         init(configfile);
     }
@@ -59,21 +70,39 @@ public class AppConfig implements AppProperties {
         return new File(new File(System.getProperty("user.home")), AppLocal.APP_ID + ".properties");
     }
     
+    /**
+     *
+     * @param sKey
+     * @return keypair from .properties filename
+     */
     @Override
     public String getProperty(String sKey) {
         return m_propsconfig.getProperty(sKey);
     }
     
+    /**
+     *
+     * @return Machine name
+     */
     @Override
     public String getHost() {
         return getProperty("machine.hostname");
-    } 
-    
+    }
+
+    /**
+     *
+     * @return .properties filename
+     */
     @Override
     public File getConfigFile() {
         return configfile;
     }
     
+    /**
+     * Update .properties resource keypair values
+     * @param sKey
+     * @param sValue
+     */
     public void setProperty(String sKey, String sValue) {
         if (sValue == null) {
             m_propsconfig.remove(sKey);
@@ -82,6 +111,10 @@ public class AppConfig implements AppProperties {
         }
     }
     
+   /**
+     * Local machine identity
+     * @return Machine name from OS
+     */
     private String getLocalHostName() {
         try {
             return java.net.InetAddress.getLocalHost().getHostName();
@@ -90,11 +123,19 @@ public class AppConfig implements AppProperties {
         }
     }
    
+    /**
+     *
+     * @return Delete .properties filename
+     */
     public boolean delete() {
         loadDefault();
         return configfile.delete();
     }
-    
+
+    /**
+     * Get instance settings
+     * @Read .properties resource files
+     */
     public void load() {
 
         loadDefault();
@@ -110,7 +151,24 @@ public class AppConfig implements AppProperties {
         }
     
     }
-    
+
+    /**
+     *
+     * @return 0 or 00 number keypad boolean true/false
+     */
+    public Boolean isPriceWith00() {
+        String prop = getProperty("pricewith00");
+        if (prop == null) {
+            return false;
+        } else {
+            return prop.equals("true");
+        }
+    }
+
+    /**
+     * Save values to .properties file
+     * @throws IOException
+     */
     public void save() throws IOException {
         
         OutputStream out = new FileOutputStream(configfile);
@@ -119,6 +177,11 @@ public class AppConfig implements AppProperties {
             out.close();
         }
     }
+    
+    /**
+     * Settings over-rides
+     * @throws IOException
+     */
     
     private void loadDefault() {
         
@@ -149,6 +212,11 @@ public class AppConfig implements AppProperties {
 //        m_propsconfig.setProperty("db.user", "user");         
 //        m_propsconfig.setProperty("db.password", "password");        
 
+
+ /**
+  * 
+  * Default component settings
+  */       
         m_propsconfig.setProperty("machine.hostname", getLocalHostName());
         
         Locale l = Locale.getDefault();
@@ -157,9 +225,15 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("user.variant", l.getVariant());     
         
         m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.metal.MetalLookAndFeel"));
+//        m_propsconfig.setProperty("swing.defaultlaf", System.getProperty("swing.defaultlaf", "javax.swing.plaf.synth.SynthLookAndFeel"));        
+        
         m_propsconfig.setProperty("machine.printer", "screen");
         m_propsconfig.setProperty("machine.printer.2", "Not defined");
         m_propsconfig.setProperty("machine.printer.3", "Not defined");
+        m_propsconfig.setProperty("machine.printer.4", "Not defined");
+        m_propsconfig.setProperty("machine.printer.5", "Not defined");
+        m_propsconfig.setProperty("machine.printer.6", "Not defined");
+                
         m_propsconfig.setProperty("machine.display", "screen");
         m_propsconfig.setProperty("machine.scale", "Not defined");
         m_propsconfig.setProperty("machine.screenmode", "window"); // fullscreen / window
@@ -175,8 +249,13 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("machine.printername", "(Default)");
 
         // Receipt printer paper set to 72mmx200mm
+
+// JG 7 May 14 Epson ESC/POS settings
         m_propsconfig.setProperty("paper.receipt.x", "10");
-        m_propsconfig.setProperty("paper.receipt.y", "287");
+        m_propsconfig.setProperty("paper.receipt.y", "10");
+// JG 7 May 14 Star Micronics settings
+//        m_propsconfig.setProperty("paper.receipt.x", "10");
+//        m_propsconfig.setProperty("paper.receipt.y", "287");
         m_propsconfig.setProperty("paper.receipt.width", "190");
         m_propsconfig.setProperty("paper.receipt.height", "546");
         m_propsconfig.setProperty("paper.receipt.mediasizename", "A4");
@@ -189,5 +268,7 @@ public class AppConfig implements AppProperties {
         m_propsconfig.setProperty("paper.standard.mediasizename", "A4");
 
         m_propsconfig.setProperty("machine.uniqueinstance", "false");
+        
+
     }
 }

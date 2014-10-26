@@ -42,54 +42,100 @@ public class BarcodeImage {
 //    * org.krysalis.barcode4j.impl.upcean.UPCABean
 //    * org.krysalis.barcode4j.impl.upcean.UPCEBean
     
+    /**
+     *
+     * @param value
+     * @return
+     */
+        
     public static Image getBarcodeCodabar(String value) {
         AbstractBarcodeBean barcode = new CodabarBean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
-    }    
-    
+    }
+
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeCode39(String value) {
         AbstractBarcodeBean barcode = new Code39Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
-    } 
-    
+    }
+
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeInterleaved2Of5(String value) {
         AbstractBarcodeBean barcode = new Interleaved2Of5Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodePOSTNET(String value) {
         AbstractBarcodeBean barcode = new POSTNETBean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeUPCA(String value) {
         AbstractBarcodeBean barcode = new UPCABean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeUPCE(String value) {
         AbstractBarcodeBean barcode = new UPCEBean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeEAN13(String value) {
         AbstractBarcodeBean barcode = new EAN13Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcodeEAN8(String value) {
         AbstractBarcodeBean barcode = new EAN8Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static Image getBarcode128(String value) {
         AbstractBarcodeBean barcode = new Code128Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_NONE);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,6 +31,10 @@ import com.openbravo.data.user.SaveProvider;
 import com.openbravo.data.user.ListProvider;
 import com.openbravo.data.user.ListProviderCreator;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ThirdPartiesPanel extends JPanelTable {
     
     private TableDefinition tthirdparties;
@@ -40,36 +44,67 @@ public class ThirdPartiesPanel extends JPanelTable {
     public ThirdPartiesPanel() {
     }
     
+    /**
+     *
+     */
     protected void init() {
         DataLogicThirdParties dlThirdParties = (DataLogicThirdParties) app.getBean("com.openbravo.pos.thirdparties.DataLogicThirdParties");        
         tthirdparties = dlThirdParties.getTableThirdParties();        
         jeditor = new ThirdPartiesView(app, dirty);     
     }
     
+    /**
+     *
+     * @return
+     */
     public ListProvider getListProvider() {
         return new ListProviderCreator(tthirdparties);
     }
     
+    /**
+     *
+     * @return
+     */
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tthirdparties);      
     }
     
+    /**
+     *
+     * @return
+     */
     public Vectorer getVectorer() {
         return tthirdparties.getVectorerBasic(new int[]{1, 2, 3, 4});
     }
     
+    /**
+     *
+     * @return
+     */
     public ComparatorCreator getComparatorCreator() {
         return tthirdparties.getComparatorCreator(new int[] {1, 2, 3, 4});
     }
     
+    /**
+     *
+     * @return
+     */
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tthirdparties.getRenderStringBasic(new int[]{1, 2}));
     }
     
+    /**
+     *
+     * @return
+     */
     public EditorRecord getEditor() {
         return jeditor;
-    }       
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return AppLocal.getIntString("Menu.ThirdPartiesManagement");
     }     

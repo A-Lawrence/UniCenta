@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,71 +29,158 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class BatchSentence extends BaseSentence {
     
+    /**
+     *
+     */
     protected Session m_s;    
+
+    /**
+     *
+     */
     protected HashMap<String, String> m_parameters;
     
-    /** Creates a new instance of BatchSentence */
+    /** Creates a new instance of BatchSentence
+     * @param s */
     public BatchSentence(Session s) {
         m_s = s;
         m_parameters = new HashMap<>();
     }
     
+    /**
+     *
+     * @param name
+     * @param replacement
+     */
     public void putParameter(String name, String replacement) {
         m_parameters.put(name, replacement);
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected abstract Reader getReader() throws BasicException;
     
+    /**
+     *
+     */
     public class ExceptionsResultSet implements DataResultSet {
         
         List l;
         int m_iIndex;
         
+        /**
+         *
+         * @param l
+         */
         public ExceptionsResultSet(List l) {
             this.l = l;
             m_iIndex = -1;
         }
         
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Integer getInt(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public String getString(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Double getDouble(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Boolean getBoolean(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public java.util.Date getTimestamp(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
 
         //public java.io.InputStream getBinaryStream(int columnIndex) throws DataException;
-        @Override
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
+                @Override
         public byte[] getBytes(int columnIndex) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
+
+        /**
+         *
+         * @param columnIndex
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Object getObject(int columnIndex) throws BasicException  {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
         }
 
     //    public int getColumnCount() throws DataException;
-        @Override
+
+        /**
+         *
+         * @return
+         * @throws BasicException
+         */
+                @Override
         public DataField[] getDataField() throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
-        }        
-        
-        
+        }
+
+        /**
+         *
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Object getCurrent() throws BasicException {
             if (m_iIndex < 0 || m_iIndex >= l.size()) {
@@ -103,28 +190,58 @@ public abstract class BatchSentence extends BaseSentence {
             }
         }
         
+        /**
+         *
+         * @return
+         * @throws BasicException
+         */
         @Override
         public boolean next() throws BasicException {
             return ++m_iIndex < l.size();
         }
+
+        /**
+         *
+         * @throws BasicException
+         */
         @Override
         public void close() throws BasicException {
         }
+
+        /**
+         *
+         * @return
+         */
         @Override
         public int updateCount() {
             return 0;
         }
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public final void closeExec() throws BasicException {
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public final DataResultSet moreResults() throws BasicException {
         return null;
     }
     
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     @Override
     public DataResultSet openExec(Object params) throws BasicException {
 

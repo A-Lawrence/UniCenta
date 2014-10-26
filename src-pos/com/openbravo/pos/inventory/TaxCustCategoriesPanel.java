@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,6 +45,9 @@ public class TaxCustCategoriesPanel extends JPanelTable {
     public TaxCustCategoriesPanel() {
     }
     
+    /**
+     *
+     */
     @Override
     protected void init() {
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");        
@@ -52,36 +55,64 @@ public class TaxCustCategoriesPanel extends JPanelTable {
         jeditor = new TaxCustCategoriesEditor(dirty);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(ttaxcategories);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(ttaxcategories);      
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return ttaxcategories.getVectorerBasic(new int[]{1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return ttaxcategories.getComparatorCreator(new int[] {1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(ttaxcategories.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
         
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.TaxCustCategories");

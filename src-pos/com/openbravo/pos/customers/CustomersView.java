@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,34 +30,50 @@ import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.util.StringUtils;
 import java.awt.Component;
+import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author  adrianromero
  */
-public class CustomersView extends javax.swing.JPanel implements EditorRecord {
+public final class CustomersView extends javax.swing.JPanel implements EditorRecord {
 
+    private static final long serialVersionUID = 1L;
     private Object m_oId;
     
     private SentenceList m_sentcat;
+    private List<CustomerTransaction> customerTransactionList;
+    private TransactionTableModel transactionModel;
     private ComboBoxValModel m_CategoryModel;
     
     private DirtyManager m_Dirty;
-        
-    /** Creates new form CustomersView */
+    private DataLogicSales dlSales;
+    
+    /** Creates new form CustomersView
+     * @param app
+     * @param dirty */
     public CustomersView(AppView app, DirtyManager dirty) {
+        try {
+            dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
         
-        DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
+//        DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
         
         initComponents();
         
         m_sentcat = dlSales.getTaxCustCategoriesList();
         m_CategoryModel = new ComboBoxValModel();
         
-        m_Dirty = dirty;
+        m_Dirty = dirty;        
         m_jTaxID.getDocument().addDocumentListener(dirty);
         m_jSearchkey.getDocument().addDocumentListener(dirty);
         m_jName.getDocument().addDocumentListener(dirty);
@@ -72,28 +88,51 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.getDocument().addDocumentListener(dirty);
         txtPhone2.getDocument().addDocumentListener(dirty);
         txtFax.getDocument().addDocumentListener(dirty);
+        m_jImage.addPropertyChangeListener(dirty);
         
         txtAddress.getDocument().addDocumentListener(dirty);
         txtAddress2.getDocument().addDocumentListener(dirty);
+ //           txtAddress3.getDocument().addDocumentListener(dirty);
         txtPostal.getDocument().addDocumentListener(dirty);
         txtCity.getDocument().addDocumentListener(dirty);
         txtRegion.getDocument().addDocumentListener(dirty);
-        txtCountry.getDocument().addDocumentListener(dirty);
+        txtCountry.getDocument().addDocumentListener(dirty);           
         
-        writeValueEOF(); 
+            init();
+        } catch (Exception ex) {
+            Logger.getLogger(CustomersView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void init() {
+            writeValueEOF(); 
     }
     
+    /**
+     * Instantiate object
+     * @throws BasicException
+     */
+    @SuppressWarnings("unchecked")
     public void activate() throws BasicException {
         
         List a = m_sentcat.list();
         a.add(0, null); // The null item
         m_CategoryModel = new ComboBoxValModel(a);
         m_jCategory.setModel(m_CategoryModel);         
+        customerTransactionList = dlSales.getCustomersTransactionList();
     }
     
+    /**
+     * Refresh object
+     */
+    @Override
     public void refresh() {
     }
     
+    /**
+     * Write EOF
+     */
+    @Override
     public void writeValueEOF() {
         m_oId = null;
         m_jTaxID.setText(null);
@@ -101,6 +140,7 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         m_jName.setText(null);
         m_CategoryModel.setSelectedKey(null);
         m_jNotes.setText(null);
+
         txtMaxdebt.setText(null);
         txtCurdebt.setText(null);
         txtCurdate.setText(null);
@@ -113,9 +153,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setText(null);
         txtPhone2.setText(null);
         txtFax.setText(null);
+        m_jImage.setImage(null);
        
         txtAddress.setText(null);
         txtAddress2.setText(null);
+//       txtAddress3.setText(null);
         txtPostal.setText(null);
         txtCity.setText(null);
         txtRegion.setText(null);
@@ -138,9 +180,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setEnabled(false);
         txtPhone2.setEnabled(false);
         txtFax.setEnabled(false);
+        m_jImage.setEnabled(false);
        
         txtAddress.setEnabled(false);
         txtAddress2.setEnabled(false);
+//        txtAddress3.setEnabled(false);
         txtPostal.setEnabled(false);
         txtCity.setEnabled(false);
         txtRegion.setEnabled(false);
@@ -148,8 +192,14 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
-    } 
-    
+
+        jTable1.setEnabled(false);
+    }
+
+    /**
+     * Insert data
+     */
+    @Override
     public void writeValueInsert() {
         m_oId = null;
         m_jTaxID.setText(null);
@@ -169,9 +219,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setText(null);
         txtPhone2.setText(null);
         txtFax.setText(null);
+        m_jImage.setImage(null);
        
         txtAddress.setText(null);
         txtAddress2.setText(null);
+//        txtAddress3.setText(null);
         txtPostal.setText(null);
         txtCity.setText(null);
         txtRegion.setText(null);
@@ -194,9 +246,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setEnabled(true);
         txtPhone2.setEnabled(true);
         txtFax.setEnabled(true);
+        m_jImage.setEnabled(true);
        
         txtAddress.setEnabled(true);
         txtAddress2.setEnabled(true);
+//        txtAddress3.setEnabled(true);
         txtPostal.setEnabled(true);
         txtCity.setEnabled(true);
         txtRegion.setEnabled(true);
@@ -204,16 +258,24 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
+
+        jTable1.setEnabled(false);
     }
 
+    /**
+     * Delete from object
+     * @param value
+     */
+    @Override
     public void writeValueDelete(Object value) {
+
         Object[] customer = (Object[]) value;
         m_oId = customer[0];
         m_jTaxID.setText((String) customer[1]);
         m_jSearchkey.setText((String) customer[2]);
         m_jName.setText((String) customer[3]);
         m_jNotes.setText((String) customer[4]);
-        m_jVisible.setSelected(((Boolean) customer[5]).booleanValue());
+        m_jVisible.setSelected(((Boolean) customer[5]));
         jcard.setText((String) customer[6]);
         txtMaxdebt.setText(Formats.CURRENCY.formatValue(customer[7]));
         txtCurdate.setText(Formats.DATE.formatValue(customer[8]));        
@@ -234,6 +296,8 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtCountry.setText(Formats.STRING.formatValue(customer[21]));      
         
         m_CategoryModel.setSelectedKey(customer[22]);
+// JG 3 Oct 2013 - Customer Image
+        m_jImage.setImage((BufferedImage) customer[23]);
         
         m_jTaxID.setEnabled(false);
         m_jSearchkey.setEnabled(false);
@@ -251,9 +315,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setEnabled(false);
         txtPhone2.setEnabled(false);
         txtFax.setEnabled(false);
+        m_jImage.setEnabled(true);
        
         txtAddress.setEnabled(false);
         txtAddress2.setEnabled(false);
+//        txtAddress3.setEnabled(false);
         txtPostal.setEnabled(false);
         txtCity.setEnabled(false);
         txtRegion.setEnabled(false);
@@ -263,8 +329,18 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         
         jButton2.setEnabled(false);
         jButton3.setEnabled(false);
+
+// JG 3 Oct 2013 - for Transaction List table
+        transactionModel = new TransactionTableModel(getTransactionOfName((String) customer[3]));
+        jTable1.setModel(transactionModel);
+        jTable1.setEnabled(false);
     }
 
+    /**
+     * Edit object
+     * @param value
+     */
+    @Override
     public void writeValueEdit(Object value) {
         Object[] customer = (Object[]) value;
         m_oId = customer[0];
@@ -272,7 +348,7 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         m_jSearchkey.setText((String) customer[2]);
         m_jName.setText((String) customer[3]);
         m_jNotes.setText((String) customer[4]);
-        m_jVisible.setSelected(((Boolean) customer[5]).booleanValue());
+        m_jVisible.setSelected(((Boolean) customer[5]));
         jcard.setText((String) customer[6]);
         txtMaxdebt.setText(Formats.CURRENCY.formatValue(customer[7]));
         txtCurdate.setText(Formats.DATE.formatValue(customer[8]));        
@@ -293,6 +369,9 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtCountry.setText(Formats.STRING.formatValue(customer[21]));   
         
         m_CategoryModel.setSelectedKey(customer[22]);
+
+// JG 3 Oct 2013 - Customer image
+        m_jImage.setImage((BufferedImage) customer[23]);
         
         m_jTaxID.setEnabled(true);
         m_jSearchkey.setEnabled(true);
@@ -310,9 +389,11 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtPhone.setEnabled(true);
         txtPhone2.setEnabled(true);
         txtFax.setEnabled(true);
+        m_jImage.setEnabled(true);
        
         txtAddress.setEnabled(true);
         txtAddress2.setEnabled(true);
+//        txtAddress3.setEnabled(true);
         txtPostal.setEnabled(true);
         txtCity.setEnabled(true);
         txtRegion.setEnabled(true);
@@ -322,18 +403,28 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         
         jButton2.setEnabled(true);
         jButton3.setEnabled(true);
+
+        transactionModel = new TransactionTableModel(getTransactionOfName((String) customer[3]));
+        jTable1.setModel(transactionModel);
+        jTable1.setEnabled(true);
     }
     
+    /**
+     * Create object
+     * @return
+     * @throws BasicException
+     */
+    @Override
     public Object createValue() throws BasicException {
-        Object[] customer = new Object[23];
+        Object[] customer = new Object[25];
         customer[0] = m_oId == null ? UUID.randomUUID().toString() : m_oId;
         customer[1] = m_jTaxID.getText();
         customer[2] = m_jSearchkey.getText();
         customer[3] = m_jName.getText();
         customer[4] = m_jNotes.getText();
-        customer[5] = Boolean.valueOf(m_jVisible.isSelected());
+        customer[5] = m_jVisible.isSelected();
         customer[6] = Formats.STRING.parseValue(jcard.getText()); // Format to manage NULL values
-        customer[7] = Formats.CURRENCY.parseValue(txtMaxdebt.getText(), new Double(0.0));
+        customer[7] = Formats.CURRENCY.parseValue(txtMaxdebt.getText(), 0.0);
         customer[8] = Formats.TIMESTAMP.parseValue(txtCurdate.getText()); // not saved
         customer[9] = Formats.CURRENCY.parseValue(txtCurdebt.getText()); // not saved
         
@@ -352,12 +443,81 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         customer[21] = Formats.STRING.parseValue(txtCountry.getText()); 
         
         customer[22] = m_CategoryModel.getSelectedKey();
+// JG 3 Oct 2013 - Customer image
+        customer[23] = m_jImage.getImage();    
         
         return customer;
-    }   
+    }
     
+    @Override
     public Component getComponent() {
         return this;
+    }
+    
+// JG 3 Oct 2013 - Customer Transaction List
+    private List<CustomerTransaction> getTransactionOfName(String name) {
+
+        List<CustomerTransaction> customerList = new ArrayList<>();
+
+        for (CustomerTransaction customerTransaction : customerTransactionList) {
+            String customerName = customerTransaction.getCustomerName();
+            if (customerName.equals(name)) {
+                customerList.add(customerTransaction);
+            }
+        }
+        return customerList;
+    }
+
+    class TransactionTableModel extends AbstractTableModel {
+
+        List<CustomerTransaction> transactionList;
+        String[] columnNames = {"TicketID", "Date", "Product", "Quantity", "Total"};
+
+        public TransactionTableModel(List<CustomerTransaction> list) {
+            transactionList = list;
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 5;
+        }
+
+        @Override
+        public int getRowCount() {
+            return transactionList.size();
+        }
+
+        // this method is called to set the value of each cell
+        @Override
+        public Object getValueAt(int row, int column) {
+            CustomerTransaction customerTransaction = transactionList.get(row);
+            switch (column) {
+
+                case 0:
+                    return customerTransaction.getTicketId();                    
+                case 1:
+                    Date transactionDate = customerTransaction.getTransactionDate();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    String formattedDate = sdf.format(transactionDate);
+                    return formattedDate;
+                case 2:
+                    return customerTransaction.getProductName();
+                case 3:
+                    return customerTransaction.getUnit();
+                case 4:
+                    Double amount = customerTransaction.getTotal();
+                    DecimalFormat df = new DecimalFormat("#.##");                    
+                    String formattedAmount = df.format(amount);
+                    return formattedAmount;
+                default:
+                    return "";
+            }
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
     }    
     /** This method is called from within the constructor to
      * initialize the form.
@@ -414,30 +574,44 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
         txtCity = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         txtRegion = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        m_jImage = new com.openbravo.data.gui.JImageEditor();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         m_jNotes = new javax.swing.JTextArea();
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText(AppLocal.getIntString("label.taxid")); // NOI18N
+        jLabel7.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel7.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel7.setPreferredSize(new java.awt.Dimension(140, 25));
 
-        m_jTaxID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jTaxID.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText(AppLocal.getIntString("label.searchkey")); // NOI18N
 
-        m_jSearchkey.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jSearchkey.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.name")); // NOI18N
+        jLabel3.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel3.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel3.setPreferredSize(new java.awt.Dimension(140, 25));
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.card")); // NOI18N
+        jLabel5.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel5.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel5.setPreferredSize(new java.awt.Dimension(140, 25));
 
         jcard.setEditable(false);
-        jcard.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcard.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/encrypted.png"))); // NOI18N
         jButton2.setToolTipText("Create Key");
@@ -461,35 +635,47 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText(AppLocal.getIntString("label.custtaxcategory")); // NOI18N
+        jLabel9.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel9.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel9.setPreferredSize(new java.awt.Dimension(140, 25));
 
-        m_jCategory.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jCategory.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.visible")); // NOI18N
+        jLabel4.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel4.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel4.setPreferredSize(new java.awt.Dimension(140, 25));
 
-        m_jVisible.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jVisible.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.maxdebt")); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel1.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel1.setPreferredSize(new java.awt.Dimension(140, 25));
 
-        txtMaxdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMaxdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtMaxdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.curdebt")); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(140, 25));
+        jLabel2.setMinimumSize(new java.awt.Dimension(140, 25));
+        jLabel2.setPreferredSize(new java.awt.Dimension(140, 25));
 
         txtCurdebt.setEditable(false);
-        txtCurdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText(AppLocal.getIntString("label.curdate")); // NOI18N
 
         txtCurdate.setEditable(false);
-        txtCurdate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCurdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,36 +683,45 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
             }
         });
 
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jTabbedPane1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTabbedPane1PropertyChange(evt);
+            }
+        });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel19.setText(AppLocal.getIntString("label.firstname")); // NOI18N
         jLabel19.setAlignmentX(0.5F);
 
-        txtFirstName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel15.setText(AppLocal.getIntString("label.lastname")); // NOI18N
 
-        txtLastName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel16.setText(AppLocal.getIntString("label.email")); // NOI18N
 
-        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel17.setText(AppLocal.getIntString("label.phone")); // NOI18N
 
-        txtPhone.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPhone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel18.setText(AppLocal.getIntString("label.phone2")); // NOI18N
 
-        txtPhone2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPhone2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel14.setText(AppLocal.getIntString("label.fax")); // NOI18N
 
+        txtFax.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtFax.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFaxActionPerformed(evt);
@@ -596,35 +791,35 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.contact"), jPanel1); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setText(AppLocal.getIntString("label.address")); // NOI18N
 
-        txtAddress.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel20.setText(AppLocal.getIntString("label.country")); // NOI18N
 
-        txtCountry.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCountry.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel21.setText(AppLocal.getIntString("label.address2")); // NOI18N
 
-        txtAddress2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAddress2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel22.setText(AppLocal.getIntString("label.postal")); // NOI18N
 
-        txtPostal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtPostal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel23.setText(AppLocal.getIntString("label.city")); // NOI18N
 
-        txtCity.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCity.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel24.setText(AppLocal.getIntString("label.region")); // NOI18N
 
-        txtRegion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtRegion.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -682,7 +877,72 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
 
         jTabbedPane1.addTab(AppLocal.getIntString("label.location"), jPanel2); // NOI18N
 
-        m_jNotes.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jPanel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jTable1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "TicketID", "Date", "Product", "Quantity", "Total"
+            }
+        ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(20);
+        jTable1.setShowHorizontalLines(false);
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("label.Transactions"), jPanel4); // NOI18N
+
+        m_jImage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addComponent(m_jImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(m_jImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(bundle.getString("label.photo"), jPanel5); // NOI18N
+
+        m_jNotes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jScrollPane1.setViewportView(m_jNotes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -698,7 +958,7 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -713,40 +973,43 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(m_jTaxID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(m_jVisible, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m_jSearchkey, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(m_jTaxID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(m_jSearchkey, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jcard, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(m_jName)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCurdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaxdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMaxdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCurdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCurdate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(m_jCategory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcard, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(m_jVisible, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(m_jCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -763,19 +1026,19 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jcard, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcard, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m_jVisible, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jVisible, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -786,12 +1049,12 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCurdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCurdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCurdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCurdebt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -811,12 +1074,16 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtFaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaxActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtFaxActionPerformed
 
     private void txtCurdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCurdateActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCurdateActionPerformed
+
+    private void jTabbedPane1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1PropertyChange
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -846,10 +1113,15 @@ public class CustomersView extends javax.swing.JPanel implements EditorRecord {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jcard;
     private javax.swing.JComboBox m_jCategory;
+    private com.openbravo.data.gui.JImageEditor m_jImage;
     private javax.swing.JTextField m_jName;
     private javax.swing.JTextArea m_jNotes;
     private javax.swing.JTextField m_jSearchkey;

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,7 +39,8 @@ public class SQLTableModel extends AbstractTableModel {
     private DataField[] m_df;
     private Datas[] m_classes;
     
-    /** Creates a new instance of SQLTableModel */
+    /** Creates a new instance of SQLTableModel
+     * @param df */
     public SQLTableModel(DataField[] df) {
         m_aRows = new ArrayList();
 
@@ -96,6 +97,11 @@ public class SQLTableModel extends AbstractTableModel {
         }
     }
 
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     public void addRow(DataRead dr) throws BasicException {
         
         Object[] m_values = new Object[m_classes.length];
@@ -104,9 +110,15 @@ public class SQLTableModel extends AbstractTableModel {
         }
          m_aRows.add(m_values);
     }     
+
+    /**
+     *
+     * @param row
+     * @return
+     */
     public String getColumnString(int row) {
         Object [] rowvalues = (Object[]) m_aRows.get(row);
-// JG 16 May 2012 use StringBuilder instead of StringBuilder
+// JG 16 May 2013 use StringBuilder instead of StringBuilder
         StringBuilder s = new StringBuilder();
         for(int i = 0; i < rowvalues.length; i++) {
             if (i > 0) {

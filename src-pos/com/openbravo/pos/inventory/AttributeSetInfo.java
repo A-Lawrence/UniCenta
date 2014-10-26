@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,20 +30,37 @@ public class AttributeSetInfo implements IKeyed {
     private String id;
     private String name;
 
+    /**
+     *
+     * @param id
+     * @param name
+     */
     public AttributeSetInfo(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,10 +35,15 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
     private TableDefinition m_troles;
     private TableDefinition m_tresources;    
     
+    
     /** Creates a new instance of DataLogicAdmin */
     public DataLogicAdmin() {
     }
     
+    /**
+     *
+     * @param s
+     */
     @Override
     public void init(Session s){
         this.s = s;
@@ -51,7 +56,7 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
             , new Formats[] {Formats.STRING, Formats.STRING, Formats.STRING, Formats.STRING, Formats.BOOLEAN, Formats.STRING, Formats.NULL}
             , new int[] {0}
         );   
-        
+                        
         m_troles = new TableDefinition(s,
             "ROLES"
             , new String[] {"ID", "NAME", "PERMISSIONS"}
@@ -71,27 +76,49 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
         );           
     }
        
+    /**
+     *
+     * @return
+     */
     public final SentenceList getRolesList() {
         return new StaticSentence(s
             , "SELECT ID, NAME FROM ROLES ORDER BY NAME"
             , null
             , new SerializerReadClass(RoleInfo.class));
     }
+
+    /**
+     *
+     * @return
+     */
     public final TableDefinition getTablePeople() {
         return m_tpeople;
     }    
+
+    /**
+     *
+     * @return
+     */
     public final TableDefinition getTableRoles() {
         return m_troles;
     }
+
+    /**
+     *
+     * @return
+     */
     public final TableDefinition getTableResources() {
         return m_tresources;
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public final SentenceList getPeopleList() {
         return new StaticSentence(s
                 , "SELECT ID, NAME FROM PEOPLE ORDER BY NAME"
                 , null
                 , new SerializerReadClass(PeopleInfo.class));
     }
-
 }

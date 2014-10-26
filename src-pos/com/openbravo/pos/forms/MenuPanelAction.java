@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,10 +30,14 @@ import javax.swing.ImageIcon;
  */
 public class MenuPanelAction extends AbstractAction {
 
-    private AppView m_App;
-    private String m_sMyView;
+    private final AppView m_App;
+    private final String m_sMyView;
 
-    /** Creates a new instance of MenuPanelAction */
+    /** Creates a new instance of MenuPanelAction
+     * @param app
+     * @param icon
+     * @param keytext
+     * @param sMyView */
     public MenuPanelAction(AppView app, String icon, String keytext, String sMyView) {
         putValue(Action.SMALL_ICON, new ImageIcon(JPrincipalApp.class.getResource(icon)));
         putValue(Action.NAME, AppLocal.getIntString(keytext));

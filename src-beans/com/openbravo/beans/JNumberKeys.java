@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,6 +23,10 @@ import java.awt.ComponentOrientation;
 import java.util.Enumeration;
 import java.util.Vector;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JNumberKeys extends javax.swing.JPanel {
 
     private Vector m_Listeners = new Vector();
@@ -52,6 +56,10 @@ public class JNumberKeys extends javax.swing.JPanel {
         m_jEquals.addActionListener(new MyKeyNumberListener('='));
     }
 
+    /**
+     *
+     * @param value
+     */
     public void setNumbersOnly(boolean value) {
         m_jEquals.setVisible(value);
         m_jMinus.setVisible(value);
@@ -86,32 +94,71 @@ public class JNumberKeys extends javax.swing.JPanel {
         // Nothing to change
     }
     
+    /**
+     *
+     * @param b
+     */
     public void setMinusEnabled(boolean b) {
         minusenabled = b;
         m_jMinus.setEnabled(minusenabled && isEnabled());
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isMinusEnabled() {
         return minusenabled;
     }
     
+    /**
+     *
+     * @param b
+     */
     public void setEqualsEnabled(boolean b) {
         equalsenabled = b;
         m_jEquals.setEnabled(equalsenabled && isEnabled());
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isEqualsEnabled() {
         return equalsenabled;
     }
-
     
+    /**
+     *
+     * @param enabled
+     */
+    public void dotIs00(boolean enabled) {
+        if (enabled) {
+            m_jKeyDot.setIcon(new javax.swing.ImageIcon(getClass()
+                    .getResource("/com/openbravo/images/btn00.png")));
+        }
+    }
+    
+    /**
+     *
+     * @return
+     */
     public boolean isNumbersOnly() {
         return m_jEquals.isVisible();
     }
     
+    /**
+     *
+     * @param listener
+     */
     public void addJNumberEventListener(JNumberEventListener listener) {
         m_Listeners.add(listener);
     }
+
+    /**
+     *
+     * @param listener
+     */
     public void removeJNumberEventListener(JNumberEventListener listener) {
         m_Listeners.remove(listener);
     }

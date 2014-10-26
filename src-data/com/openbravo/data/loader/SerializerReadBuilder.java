@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,11 +29,18 @@ public class SerializerReadBuilder  implements SerializerRead {
     
     private SerializableBuilder m_sb;
     
-    /** Creates a new instance of SerializerReadBuilder */
+    /** Creates a new instance of SerializerReadBuilder
+     * @param sb */
     public SerializerReadBuilder(SerializableBuilder sb) {
         m_sb = sb;
     }
     
+    /**
+     *
+     * @param dr
+     * @return
+     * @throws BasicException
+     */
     public Object readValues(DataRead dr) throws BasicException {
         SerializableRead sr = m_sb.createNew();
         sr.readValues(dr);

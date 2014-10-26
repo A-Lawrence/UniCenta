@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,10 @@ package com.openbravo.pos.ticket;
 
 import java.util.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class Signumprovider {
     
     private Set m_positives = new HashSet();
@@ -30,14 +34,28 @@ public class Signumprovider {
     public Signumprovider() {
     }
     
+    /**
+     *
+     * @param key
+     */
     public void addPositive(Object key) {
         m_positives.add(key);
     }
     
+    /**
+     *
+     * @param key
+     */
     public void addNegative(Object key) {
         m_negatives.add(key);
     }
     
+    /**
+     *
+     * @param key
+     * @param value
+     * @return
+     */
     public Double correctSignum(Object key, Double value) {
         if (m_positives.contains(key)) {
             return value.doubleValue() < 0.0 ? new Double(-value.doubleValue()) : value;

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,7 +39,9 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
     private SentenceList m_sentcat;
     private DirtyManager m_Dirty;
 
-    /** Creates new form BreaksView */
+    /** Creates new form BreaksView
+     * @param app
+     * @param dirty */
     public BreaksView(AppView app, DirtyManager dirty) {
 
         DataLogicPresenceManagement dlPresenceManagement = (DataLogicPresenceManagement) app.getBean("com.openbravo.pos.epm.DataLogicPresenceManagement");
@@ -57,6 +59,9 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         a.add(0, null);
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         m_oId = null;
@@ -68,6 +73,9 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         m_jVisible.setEnabled(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         m_oId = null;
@@ -79,6 +87,10 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         m_jVisible.setEnabled(true);
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         Object[] breaks = (Object[]) value;
@@ -91,6 +103,10 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         m_jVisible.setEnabled(true);
     }
 
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         Object[] breaks = (Object[]) value;
@@ -103,15 +119,27 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         m_jVisible.setEnabled(false);
     }
 
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         Object[] breaks = new Object[4];
@@ -140,23 +168,23 @@ public final class BreaksView extends javax.swing.JPanel implements EditorRecord
         m_Name3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        m_jBreakName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jBreakName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         m_jBreakDescription.setColumns(20);
-        m_jBreakDescription.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        m_jBreakDescription.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jBreakDescription.setLineWrap(true);
         m_jBreakDescription.setRows(5);
         jScrollPane1.setViewportView(m_jBreakDescription);
 
-        m_jVisible.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jVisible.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        m_Ncx.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_Ncx.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_Ncx.setText(AppLocal.getIntString("label.epm.visible")); // NOI18N
 
-        m_Name3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_Name3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_Name3.setText(AppLocal.getIntString("label.epm.notes")); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("pos_messages"); // NOI18N
         jLabel1.setText(bundle.getString("label.epm.employee")); // NOI18N
 

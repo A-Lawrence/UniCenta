@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -46,6 +46,11 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
         this.setVisible(true);
     }
 
+    /**
+     *
+     * @param app
+     * @throws BeanFactoryException
+     */
     @Override
     public void init(AppView app) throws BeanFactoryException {
         this.app = app;
@@ -106,11 +111,19 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.CheckInCheckOut");
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         boolean isOnLeave = dlpresencemanagement.IsOnLeave(app.getAppUserView().getUser().getId());
@@ -142,16 +155,28 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getComponent() {
         return this;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getBean() {
         return this;
@@ -195,6 +220,7 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
         jScrollPane1 = new javax.swing.JScrollPane();
         message = new javax.swing.JLabel();
 
+        btnCheckIn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCheckIn.setText("Check In");
         btnCheckIn.setMaximumSize(new java.awt.Dimension(85, 23));
         btnCheckIn.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +229,7 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
             }
         });
 
+        btnCheckOut.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCheckOut.setText("Check Out");
         btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,9 +239,10 @@ public class JPanelEmployeePresence extends javax.swing.JPanel implements JPanel
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jScrollPane1.setPreferredSize(new java.awt.Dimension(570, 120));
 
-        message.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        message.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         message.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         message.setOpaque(true);

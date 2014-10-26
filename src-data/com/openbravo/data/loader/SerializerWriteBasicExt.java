@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,17 +21,30 @@ package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class SerializerWriteBasicExt implements SerializerWrite<Object[]> {
     
     private Datas[] m_classes;
     private int[] m_index;
     
-    /** Creates a new instance of SerializerWriteBasic */
+    /** Creates a new instance of SerializerWriteBasic
+     * @param classes
+     * @param index */
     public SerializerWriteBasicExt(Datas[] classes, int[] index) {
         m_classes = classes;
         m_index = index;
     }
     
+    /**
+     *
+     * @param dp
+     * @param obj
+     * @throws BasicException
+     */
+    @Override
     public void writeValues(DataWrite dp, Object[] obj) throws BasicException {
 
         for (int i = 0; i < m_index.length; i++) {

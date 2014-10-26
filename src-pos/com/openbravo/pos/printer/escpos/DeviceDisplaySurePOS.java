@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,11 +29,18 @@ public class DeviceDisplaySurePOS extends DeviceDisplaySerial {
     
     private UnicodeTranslator trans;
     
+    /**
+     *
+     * @param display
+     */
     public DeviceDisplaySurePOS(PrinterWritter display) { 
         trans = new UnicodeTranslatorSurePOS();
         init(display);                
     }
    
+    /**
+     *
+     */
     @Override
     public void initVisor() {
         display.write(new byte[]{0x00, 0x01}); // IBM Mode
@@ -45,6 +52,9 @@ public class DeviceDisplaySurePOS extends DeviceDisplaySerial {
         display.flush();
     }
 
+    /**
+     *
+     */
     @Override
     public void repaintLines() {
         display.write(new byte[]{0x10, 0x00}); // VISOR HOME

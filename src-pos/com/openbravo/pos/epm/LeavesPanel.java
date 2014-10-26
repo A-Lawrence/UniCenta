@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,6 +45,9 @@ public class LeavesPanel extends JPanelTable {
     public LeavesPanel() {
     }
 
+    /**
+     *
+     */
     @Override
     protected void init() {
         DataLogicPresenceManagement dlPresenceManagement  = (DataLogicPresenceManagement) app.getBean("com.openbravo.pos.epm.DataLogicPresenceManagement");
@@ -52,42 +55,74 @@ public class LeavesPanel extends JPanelTable {
         jeditor = new LeavesView(app, dirty);
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         jeditor.activate();
         super.activate();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ListProvider getListProvider() {
         return new ListProviderCreator(tleaves);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tleaves, new int[] {0, 1, 2, 3, 4, 5});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tleaves.getVectorerBasic(new int[]{2, 5});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return tleaves.getComparatorCreator(new int[] {2, 3, 4, 5});
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tleaves.getRenderStringBasic(new int[]{2}));
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return jeditor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Leaves");

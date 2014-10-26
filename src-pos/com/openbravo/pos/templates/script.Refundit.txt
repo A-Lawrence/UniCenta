@@ -2,7 +2,7 @@
 // This script allows an item to be Refunded (or Returned/Exchanged) within a Sale
 //
 //    uniCenta oPOS - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
+//    Copyright (c) 2009-2014 uniCenta
 //    http://sourceforge.net/projects/unicentaopos
 //
 //    This file is part of uniCenta oPOS.

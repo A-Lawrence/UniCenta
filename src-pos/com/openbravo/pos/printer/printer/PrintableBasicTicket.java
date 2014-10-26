@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -40,6 +40,14 @@ public class PrintableBasicTicket implements Printable {
 
     private BasicTicket ticket;
 
+    /**
+     *
+     * @param ticket
+     * @param imageable_x
+     * @param imageable_y
+     * @param imageable_width
+     * @param imageable_height
+     */
     public PrintableBasicTicket(BasicTicket ticket, int imageable_x, int imageable_y, int imageable_width, int imageable_height) {
         this.ticket = ticket;
         this.imageable_x = imageable_x;

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,15 +27,29 @@ package com.openbravo.data.user;
  */
 public class DocumentLoaderBasic implements DocumentLoader {
     
+    /**
+     *
+     */
     public static final DocumentLoader INSTANCE = new DocumentLoaderBasic();
     
     /** Creates a new instance of DocumentLoaderBasic */
     private DocumentLoaderBasic() {
     }
     
+    /**
+     *
+     * @param key
+     * @return
+     */
     public Object getValue(Object key) {
         return key;
     }
+
+    /**
+     *
+     * @param value
+     * @return
+     */
     public Object getKey(Object value) {
         return value;
     }

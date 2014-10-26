@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,6 +27,10 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JCalendarPanel extends javax.swing.JPanel {
     
     // private static ResourceBundle m_Intl;
@@ -52,6 +56,10 @@ public class JCalendarPanel extends javax.swing.JPanel {
         this(new Date());
     }
 
+    /**
+     *
+     * @param dDate
+     */
     public JCalendarPanel(Date dDate) {
         
         super();
@@ -73,6 +81,10 @@ public class JCalendarPanel extends javax.swing.JPanel {
         renderDay();
     }
 
+    /**
+     *
+     * @param dNewDate
+     */
     public void setDate(Date dNewDate) {        
                      
         // cambiamos la fecha
@@ -87,6 +99,10 @@ public class JCalendarPanel extends javax.swing.JPanel {
         firePropertyChange("Date", dOldDate, dNewDate);
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDate() {
         return m_date;
     }
@@ -323,6 +339,7 @@ public class JCalendarPanel extends javax.swing.JPanel {
         m_jMonth.add(m_jWeekDays, java.awt.BorderLayout.NORTH);
 
         m_jDates.setBackground(javax.swing.UIManager.getDefaults().getColor("TextPane.background"));
+        m_jDates.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jDates.setLayout(new java.awt.GridLayout(6, 7));
         m_jMonth.add(m_jDates, java.awt.BorderLayout.CENTER);
 

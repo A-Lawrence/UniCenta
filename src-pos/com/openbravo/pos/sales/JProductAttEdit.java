@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -88,7 +88,9 @@ public class JProductAttEdit extends javax.swing.JDialog {
         attsetSent = new PreparedSentence(s,
                 "SELECT ID, NAME FROM ATTRIBUTESET WHERE ID = ?",
                 SerializerWriteString.INSTANCE,
-                new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
+                new SerializerRead()  {
+                @Override
+                public Object readValues(DataRead dr) throws BasicException {
                     return new AttributeSetInfo(dr.getString(1), dr.getString(2));
                 }});
         attsetinstExistsSent = new PreparedSentence(s,
@@ -101,7 +103,9 @@ public class JProductAttEdit extends javax.swing.JDialog {
                 "WHERE AU.ATTRIBUTESET_ID = ? " +
                 "ORDER BY AU.LINENO",
             SerializerWriteString.INSTANCE,
-            new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
+            new SerializerRead() {
+                @Override
+                public Object readValues(DataRead dr) throws BasicException {
                 return new AttributeInstInfo(dr.getString(1), dr.getString(2), dr.getString(3), dr.getString(4));
             }});
         attinstSent2 = new PreparedSentence(s, "SELECT A.ID, A.NAME, AI.ID, AI.VALUE " +
@@ -109,17 +113,24 @@ public class JProductAttEdit extends javax.swing.JDialog {
             "WHERE AU.ATTRIBUTESET_ID = ? AND AI.ATTRIBUTESETINSTANCE_ID = ?" +
             "ORDER BY AU.LINENO",
             new SerializerWriteBasic(Datas.STRING, Datas.STRING),
-            new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
+            new SerializerRead() {
+                @Override
+                public Object readValues(DataRead dr) throws BasicException {
                 return new AttributeInstInfo(dr.getString(1), dr.getString(2), dr.getString(3), dr.getString(4));
             }});
-        attvaluesSent = new PreparedSentence(s, "SELECT VALUE FROM ATTRIBUTEVALUE WHERE ATTRIBUTE_ID = ?",
+                attvaluesSent = new PreparedSentence(s, "SELECT VALUE FROM ATTRIBUTEVALUE WHERE ATTRIBUTE_ID = ?",
                 SerializerWriteString.INSTANCE,
                 SerializerReadString.INSTANCE);
 
         getRootPane().setDefaultButton(m_jButtonOK);
     }
 
-
+    /**
+     *
+     * @param parent
+     * @param s
+     * @return
+     */
     public static JProductAttEdit getAttributesEditor(Component parent, Session s) {
 
         Window window = SwingUtilities.getWindowAncestor(parent);
@@ -135,6 +146,12 @@ public class JProductAttEdit extends javax.swing.JDialog {
         return myMsg;
     }
 
+    /**
+     *
+     * @param attsetid
+     * @param attsetinstid
+     * @throws BasicException
+     */
     public void editAttributes(String attsetid, String attsetinstid) throws BasicException {
 
         if (attsetid == null) {
@@ -162,7 +179,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
                     ? attinstSent.list(attsetid)
                     : attinstSent2.list(attsetid, attsetinstid);
 
-            itemslist = new ArrayList<JProductAttEditI>();
+            itemslist = new ArrayList<>();
 
             for (AttributeInstInfo aii : attinstinfo) {
 
@@ -187,14 +204,26 @@ public class JProductAttEdit extends javax.swing.JDialog {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOK() {
         return ok;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAttributeSetInst() {
         return attInstanceId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAttributeSetInstDescription() {
         return attInstanceDescription;
     }
@@ -276,6 +305,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel5.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
@@ -283,6 +313,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
+        m_jButtonOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jButtonOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         m_jButtonOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
         m_jButtonOK.setFocusPainted(false);
@@ -296,6 +327,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
         });
         jPanel1.add(m_jButtonOK);
 
+        m_jButtonCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         m_jButtonCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         m_jButtonCancel.setFocusPainted(false);
@@ -313,6 +345,7 @@ public class JProductAttEdit extends javax.swing.JDialog {
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.CENTER);
 
+        jPanel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));

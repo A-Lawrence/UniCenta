@@ -1,6 +1,6 @@
 #!/bin/sh
 #    uniCenta oPOS Touch Friendly Point of Sale designed for Touch Screen
-#    Copyright (C) 2009-2012 uniCenta
+#    Copyright (C) 2009-2014 uniCenta
 #    http://sourceforge.net/projects/unicentaopos
 #
 #    This file is part of uniCenta oPOS.

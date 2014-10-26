@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,13 +31,18 @@ import com.openbravo.data.user.StateListener;
  */
 public class JCounter extends JPanel implements BrowseListener, StateListener  {
     
-    /** Creates new form JCounter */
+    /** Creates new form JCounter
+     * @param bd */
     public JCounter(BrowsableEditableData bd) {
         initComponents();
         bd.addBrowseListener(this);
         bd.addStateListener(this);
     }
     
+    /**
+     *
+     * @param iState
+     */
     public void updateState(int iState) {
         if (iState == BrowsableEditableData.ST_INSERT) {
              // Insert
@@ -45,6 +50,11 @@ public class JCounter extends JPanel implements BrowseListener, StateListener  {
         }
     }  
 
+    /**
+     *
+     * @param iIndex
+     * @param iCounter
+     */
     public void updateIndex(int iIndex, int iCounter) {
 
         if (iIndex >= 0 && iIndex < iCounter) {

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,27 +29,52 @@ import java.io.Serializable;
 public class EmployeeInfo implements Serializable {
     
     private static final long serialVersionUID = 9083257536541L;
+
+    /**
+     *
+     */
     protected String id;
+
+    /**
+     *
+     */
     protected String name;
     
-    /** Creates a new instance of EmployeeInfo */
+    /** Creates a new instance of EmployeeInfo
+     * @param id */
     public EmployeeInfo(String id) {
         this.id = id;
         this.name = null;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }   
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String printName() {
         return StringUtils.encodeXML(name);
     }

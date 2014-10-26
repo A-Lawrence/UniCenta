@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -44,6 +44,10 @@ public class PaymentGatewayPGNET implements PaymentGateway {
     private String m_sCommercePassword;
     private boolean m_bTestMode;
     
+    /**
+     *
+     * @param props
+     */
     public PaymentGatewayPGNET(AppProperties props) {
         // Grab some configuration variables
         m_sCommerceID = props.getProperty("payment.commerceid");
@@ -58,10 +62,17 @@ public class PaymentGatewayPGNET implements PaymentGateway {
                 : "https://www.paymentsgateway.net/cgi-bin/postauth.pl";
     }
     
+    /**
+     *
+     */
     public PaymentGatewayPGNET(){
         
     }
     
+    /**
+     *
+     * @param payinfo
+     */
     @Override
     public void execute(PaymentInfoMagcard payinfo) {
 

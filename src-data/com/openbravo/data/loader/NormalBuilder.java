@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,15 +22,28 @@ package com.openbravo.data.loader;
 import java.util.*;
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class NormalBuilder implements ISQLBuilderStatic {
     
     private String m_sSentence;
     
-    /** Creates a new instance of NormalBuilder */
+    /** Creates a new instance of NormalBuilder
+     * @param sSentence */
     public NormalBuilder(String sSentence) {
         m_sSentence = sSentence;
     }
     
+    /**
+     *
+     * @param sw
+     * @param params
+     * @return
+     * @throws BasicException
+     */
+    @Override
     public String getSQL(SerializerWrite sw, Object params) throws BasicException {
         
         NormalParameter mydw = new NormalParameter(m_sSentence);
@@ -50,25 +63,30 @@ public class NormalBuilder implements ISQLBuilderStatic {
             m_aParams = new ArrayList();
         }
         
+        @Override
         public void setDouble(int paramIndex, Double dValue) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(dValue));
         }
         
+        @Override
         public void setBoolean(int paramIndex, Boolean bValue) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(bValue));
         }       
+        @Override
         public void setInt(int paramIndex, Integer iValue) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(iValue));
         }
         
+        @Override
         public void setString(int paramIndex, String sValue) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(sValue));
         }
         
+        @Override
         public void setTimestamp(int paramIndex, java.util.Date dValue) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(dValue));
@@ -76,9 +94,11 @@ public class NormalBuilder implements ISQLBuilderStatic {
 //        public void setBinaryStream(int paramIndex, java.io.InputStream in, int length) throws DataException{
 //            throw new DataException("Param type not allowed");      
 //        }
+        @Override
         public void setBytes(int paramIndex, byte[] value) throws BasicException {
             throw new BasicException(LocalRes.getIntString("exception.noparamtype"));
         }
+        @Override
         public void setObject(int paramIndex, Object value) throws BasicException {
             ensurePlace(paramIndex - 1);
             m_aParams.set(paramIndex - 1, DataWriteUtils.getSQLValue(value));

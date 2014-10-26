@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,25 +31,97 @@ import java.util.Date;
  */
 public interface AppView {
     
+    /**
+     *
+     * @return
+     */
     public DeviceScale getDeviceScale();
+
+    /**
+     *
+     * @return
+     */
     public DeviceTicket getDeviceTicket();
+
+    /**
+     *
+     * @return
+     */
     public DeviceScanner getDeviceScanner();
       
+    /**
+     *
+     * @return
+     */
     public Session getSession();
+
+    /**
+     *
+     * @return
+     */
     public AppProperties getProperties();
+
+    /**
+     *
+     * @param beanfactory
+     * @return
+     * @throws BeanFactoryException
+     */
     public Object getBean(String beanfactory) throws BeanFactoryException;
      
+    /**
+     *
+     * @param value
+     * @param iSeq
+     * @param dStart
+     * @param dEnd
+     */
     public void setActiveCash(String value, int iSeq, Date dStart, Date dEnd);
+
+    /**
+     *
+     * @return
+     */
     public String getActiveCashIndex();
+
+    /**
+     *
+     * @return
+     */
     public int getActiveCashSequence();
+
+    /**
+     *
+     * @return
+     */
     public Date getActiveCashDateStart();
+
+    /**
+     *
+     * @return
+     */
     public Date getActiveCashDateEnd();
     
+    /**
+     *
+     * @return
+     */
     public String getInventoryLocation();
     
+    /**
+     *
+     */
     public void waitCursorBegin();
+
+    /**
+     *
+     */
     public void waitCursorEnd();
     
+    /**
+     *
+     * @return
+     */
     public AppUserView getAppUserView();
 }
 

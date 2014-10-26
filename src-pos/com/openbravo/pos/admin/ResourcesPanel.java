@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,12 +45,19 @@ public class ResourcesPanel extends JPanelTable {
     public ResourcesPanel() {
     }
     
+    /**
+     *
+     */
     protected void init() {
         DataLogicAdmin dlAdmin = (DataLogicAdmin) app.getBean("com.openbravo.pos.admin.DataLogicAdmin"); 
         tresources = dlAdmin.getTableResources();         
         jeditor = new ResourcesView(dirty);           
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
         if (super.deactivate()) {
@@ -62,33 +69,61 @@ public class ResourcesPanel extends JPanelTable {
         }    
     }
     
+    /**
+     *
+     * @return
+     */
     public ListProvider getListProvider() {
         return new ListProviderCreator(tresources);
     }
     
+    /**
+     *
+     * @return
+     */
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tresources);        
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tresources.getVectorerBasic(new int[] {1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ComparatorCreator getComparatorCreator() {
         return tresources.getComparatorCreator(new int[] {1, 2});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tresources.getRenderStringBasic(new int[] {1}));
     }
     
+    /**
+     *
+     * @return
+     */
     public EditorRecord getEditor() {
         return jeditor;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return AppLocal.getIntString("Menu.Resources");
     }        

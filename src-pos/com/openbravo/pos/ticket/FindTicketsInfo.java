@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -43,6 +43,11 @@ public class FindTicketsInfo implements SerializableRead {
         
     }
     
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
     @Override
     public void readValues(DataRead dr) throws BasicException {
         
@@ -51,7 +56,7 @@ public class FindTicketsInfo implements SerializableRead {
         date = dr.getTimestamp(3);
         name = dr.getString(4);
         customer = dr.getString(5);
-        total = (dr.getObject(6) == null) ? 0.0 : dr.getDouble(6).doubleValue();
+        total = (dr.getObject(6) == null) ? 0.0 : dr.getDouble(6);
     }
     
     @Override
@@ -59,7 +64,7 @@ public class FindTicketsInfo implements SerializableRead {
         
         String sCustomer = (customer==null) ? "" : customer;
 
-        String sHtml = "<tr><td width=\"30\">"+ "["+ ticketid +"]" +"</td>" +
+        String sHtml = "<tr><td width=\"50\">"+ "["+ ticketid +"]" +"</td>" +
                 "<td width=\"100\">"+ Formats.TIMESTAMP.formatValue(date) +"</td>" +
                 "<td align=\"center\" width=\"100\">"+ sCustomer +"</td>" +
                 "<td align=\"right\" width=\"100\">"+ Formats.CURRENCY.formatValue(total) +"</td>"+
@@ -68,10 +73,18 @@ public class FindTicketsInfo implements SerializableRead {
         return sHtml;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getTicketId(){
         return this.ticketid;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getTicketType(){
         return this.tickettype;
     }

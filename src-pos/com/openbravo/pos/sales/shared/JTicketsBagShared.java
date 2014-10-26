@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,13 +35,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTicketsBagShared extends JTicketsBag {
     
     private String m_sCurrentTicket = null;
     private DataLogicReceipts dlReceipts = null;
     
     
-    /** Creates new form JTicketsBagShared */
+    /** Creates new form JTicketsBagShared
+     * @param app
+     * @param panelticket */
     public JTicketsBagShared(AppView app, TicketsEditor panelticket) {
         
         super(app, panelticket);
@@ -51,6 +57,9 @@ public class JTicketsBagShared extends JTicketsBag {
         initComponents();
     }
     
+    /**
+     *
+     */
     @Override
     public void activate() {
         
@@ -63,6 +72,10 @@ public class JTicketsBagShared extends JTicketsBag {
        
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
         
@@ -77,28 +90,47 @@ public class JTicketsBagShared extends JTicketsBag {
         // postcondicion es que no tenemos ticket activado ni ticket en el panel
     }
         
+    /**
+     *
+     */
     @Override
-    public void deleteTicket() {          
+    public void deleteTicket() {   
+
         m_sCurrentTicket = null;
         selectValidTicket();      
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     protected JComponent getBagComponent() {
         return this;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     protected JComponent getNullComponent() {
         return new JPanel();
     }
    
     private void saveCurrentTicket() {
-        
-        // save current ticket, if exists,
+// Thanks Ibastavd & sunnytang 2012/2013 - Mod JG 23 Jul 13    
+// save current ticket, if exists,
         if (m_sCurrentTicket != null) {
             try {
-                dlReceipts.insertSharedTicket(m_sCurrentTicket, m_panelticket.getActiveTicket());
+                dlReceipts.insertSharedTicket(m_sCurrentTicket, m_panelticket.getActiveTicket(),m_panelticket.getActiveTicket().getPickupId());
+                
+                TicketInfo l = dlReceipts.getSharedTicket(m_sCurrentTicket);
+                    if(l.getLinesCount() == 0) {
+//                      throw new BasicException(AppLocal.getIntString("message.nullticket"));
+//                    }else{
+                        dlReceipts.deleteSharedTicket(m_sCurrentTicket);
+                    }             
             } catch (BasicException e) {
                 new MessageInf(e).show(this);
             }  
@@ -113,9 +145,13 @@ public class JTicketsBagShared extends JTicketsBag {
             // Does it exist
             throw new BasicException(AppLocal.getIntString("message.noticket"));
         } else {
+            dlReceipts.getPickupId(id);
+            Integer pickUp = dlReceipts.getPickupId(id);
             dlReceipts.deleteSharedTicket(id);
             m_sCurrentTicket = id;
             m_panelticket.setActiveTicket(ticket, null);
+            ticket.setPickupId(pickUp);         
+            
         } 
         // END TRANSACTION                 
     }
@@ -157,13 +193,17 @@ public class JTicketsBagShared extends JTicketsBag {
         m_jDelTicket = new javax.swing.JButton();
         m_jListTickets = new javax.swing.JButton();
 
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
         m_jNewTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_new.png"))); // NOI18N
         m_jNewTicket.setToolTipText("New Sale");
         m_jNewTicket.setFocusPainted(false);
         m_jNewTicket.setFocusable(false);
-        m_jNewTicket.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jNewTicket.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jNewTicket.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jNewTicket.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jNewTicket.setPreferredSize(new java.awt.Dimension(50, 40));
         m_jNewTicket.setRequestFocusEnabled(false);
         m_jNewTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +216,10 @@ public class JTicketsBagShared extends JTicketsBag {
         m_jDelTicket.setToolTipText("Cancel Sale");
         m_jDelTicket.setFocusPainted(false);
         m_jDelTicket.setFocusable(false);
-        m_jDelTicket.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jDelTicket.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jDelTicket.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jDelTicket.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jDelTicket.setPreferredSize(new java.awt.Dimension(50, 40));
         m_jDelTicket.setRequestFocusEnabled(false);
         m_jDelTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +232,10 @@ public class JTicketsBagShared extends JTicketsBag {
         m_jListTickets.setToolTipText("Layaways");
         m_jListTickets.setFocusPainted(false);
         m_jListTickets.setFocusable(false);
-        m_jListTickets.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jListTickets.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jListTickets.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jListTickets.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jListTickets.setPreferredSize(new java.awt.Dimension(50, 40));
         m_jListTickets.setRequestFocusEnabled(false);
         m_jListTickets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +278,7 @@ public class JTicketsBagShared extends JTicketsBag {
         int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannadelete"), AppLocal.getIntString("title.editor"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (res == JOptionPane.YES_OPTION) {
             deleteTicket();
+
         }
         
     }//GEN-LAST:event_m_jDelTicketActionPerformed

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,8 +39,19 @@ public class JProductFinder extends javax.swing.JDialog {
     private ProductInfoExt m_ReturnProduct;
     private ListProvider lpr;
     
+    /**
+     *
+     */
     public final static int PRODUCT_ALL = 0;
+
+    /**
+     *
+     */
     public final static int PRODUCT_NORMAL = 1;
+
+    /**
+     *
+     */
     public final static int PRODUCT_AUXILIAR = 2;
     
     /** Creates new form JProductFinder */
@@ -53,7 +64,7 @@ public class JProductFinder extends javax.swing.JDialog {
     }    
     
     private ProductInfoExt init(DataLogicSales dlSales, int productsType) {
-        
+
         initComponents();
         
         jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
@@ -96,12 +107,25 @@ public class JProductFinder extends javax.swing.JDialog {
         } else {
             return getWindow(parent.getParent());
         }
-    }    
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @param dlSales
+     * @return
+     */
     public static ProductInfoExt showMessage(Component parent, DataLogicSales dlSales) {
         return showMessage(parent, dlSales, PRODUCT_ALL);
     }
 
+    /**
+     *
+     * @param parent
+     * @param dlSales
+     * @param productsType
+     * @return
+     */
     public static ProductInfoExt showMessage(Component parent, DataLogicSales dlSales, int productsType) {
 
         Window window = getWindow(parent);
@@ -151,8 +175,8 @@ public class JProductFinder extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListProducts = new javax.swing.JList();
         jPanel1 = new javax.swing.JPanel();
-        jcmdOK = new javax.swing.JButton();
         jcmdCancel = new javax.swing.JButton();
+        jcmdOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("form.productslist")); // NOI18N
@@ -166,6 +190,7 @@ public class JProductFinder extends javax.swing.JDialog {
 
         m_jProductSelect.setLayout(new java.awt.BorderLayout());
 
+        jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         jButton3.setText(AppLocal.getIntString("button.executefilter")); // NOI18N
         jButton3.setToolTipText("Execute Filter");
@@ -185,16 +210,16 @@ public class JProductFinder extends javax.swing.JDialog {
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jListProducts.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jListProducts.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jListProducts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jListProducts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jListProductsValueChanged(evt);
-            }
-        });
         jListProducts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListProductsMouseClicked(evt);
+            }
+        });
+        jListProducts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListProductsValueChanged(evt);
             }
         });
         jScrollPane1.setViewportView(jListProducts);
@@ -205,26 +230,34 @@ public class JProductFinder extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
-        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
-        jcmdOK.setEnabled(false);
-        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcmdOKActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jcmdOK);
-
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
+        jcmdCancel.setMaximumSize(new java.awt.Dimension(103, 44));
+        jcmdCancel.setMinimumSize(new java.awt.Dimension(103, 44));
+        jcmdCancel.setPreferredSize(new java.awt.Dimension(103, 44));
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcmdCancelActionPerformed(evt);
             }
         });
         jPanel1.add(jcmdCancel);
+
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
+        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
+        jcmdOK.setEnabled(false);
+        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setMinimumSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setPreferredSize(new java.awt.Dimension(103, 44));
+        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmdOKActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcmdOK);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.SOUTH);
 

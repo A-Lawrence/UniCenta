@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,6 +23,10 @@ import gnu.io.*;
 import java.io.*;
 import java.util.TooManyListenersException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ScaleSamsungEsp implements Scale, SerialPortEventListener {
     
     private CommPortIdentifier m_PortIdPrinter;
@@ -40,7 +44,8 @@ public class ScaleSamsungEsp implements Scale, SerialPortEventListener {
     private double m_dWeightDecimals;
     private int m_iStatusScale;
         
-    /** Creates a new instance of ScaleComm */
+    /** Creates a new instance of ScaleComm
+     * @param sPortPrinter */
     public ScaleSamsungEsp(String sPortPrinter) {
         m_sPortScale = sPortPrinter;
         m_out = null;
@@ -51,6 +56,10 @@ public class ScaleSamsungEsp implements Scale, SerialPortEventListener {
         m_dWeightDecimals = 1.0;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Double readWeight() {
         
@@ -120,6 +129,10 @@ public class ScaleSamsungEsp implements Scale, SerialPortEventListener {
         }        
     }
     
+    /**
+     *
+     * @param e
+     */
     @Override
     public void serialEvent(SerialPortEvent e) {
 

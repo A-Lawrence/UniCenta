@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -41,6 +41,11 @@ public class DeviceDisplayPanel extends JPanel implements DeviceDisplay, DeviceD
     public DeviceDisplayPanel() {
         this(1.0);
     }
+
+    /**
+     *
+     * @param dZoom
+     */
     public DeviceDisplayPanel(double dZoom) {
         initComponents();
         
@@ -52,36 +57,67 @@ public class DeviceDisplayPanel extends JPanel implements DeviceDisplay, DeviceD
         m_displaylines = new DeviceDisplayBase(this);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDisplayName() {
         return m_sName;
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDisplayDescription() {
         return null;
     }        
+
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getDisplayComponent() {
         return this;
     }
     
+    /**
+     *
+     * @param animation
+     * @param sLine1
+     * @param sLine2
+     */
     @Override
     public void writeVisor(int animation, String sLine1, String sLine2) {
         
         m_displaylines.writeVisor(animation, sLine1, sLine2);
     }
     
+    /**
+     *
+     * @param sLine1
+     * @param sLine2
+     */
     @Override
     public void writeVisor(String sLine1, String sLine2) {
         
         m_displaylines.writeVisor(sLine1, sLine2);
     }
 
+    /**
+     *
+     */
     @Override
     public void clearVisor() {
         m_displaylines.clearVisor();
     }
     
+    /**
+     *
+     */
     @Override
     public void repaintLines() {
         jline1.setText(m_displaylines.getLine1());
@@ -122,7 +158,7 @@ public class DeviceDisplayPanel extends JPanel implements DeviceDisplay, DeviceD
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(16, 16, 16, 16));
-        jPanel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 

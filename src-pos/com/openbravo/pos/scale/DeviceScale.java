@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,17 +24,26 @@ import com.openbravo.pos.forms.AppProperties;
 import com.openbravo.pos.util.StringParser;
 import java.awt.Component;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DeviceScale {
     
     private Scale m_scale;
     
-    /** Creates a new instance of DeviceScale */
+    /** Creates a new instance of DeviceScale
+     * @param parent
+     * @param props */
     public DeviceScale(Component parent, AppProperties props) {
         StringParser sd = new StringParser(props.getProperty("machine.scale"));
         String sScaleType = sd.nextToken(':');
         String sScaleParam1 = sd.nextToken(',');
         // String sScaleParam2 = sd.nextToken(',');
         switch (sScaleType) {
+            case "casiopd1":
+                m_scale = new ScaleCasioPD1(sScaleParam1);
+                break;
             case "dialog1":
                 m_scale = new ScaleComm(sScaleParam1);
                 break;
@@ -55,10 +64,19 @@ public class DeviceScale {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean existsScale() {
         return m_scale != null;
     }
     
+    /**
+     *
+     * @return
+     * @throws ScaleException
+     */
     public Double readWeight() throws ScaleException {
         
         if (m_scale == null) {

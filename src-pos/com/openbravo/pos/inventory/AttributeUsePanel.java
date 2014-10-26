@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,6 +39,9 @@ public class AttributeUsePanel extends JPanelTable2 {
     private AttributeUseEditor editor;
     private AttributeSetFilter filter;
 
+    /**
+     *
+     */
     @Override
     protected void init() {
 
@@ -70,6 +73,10 @@ public class AttributeUsePanel extends JPanelTable2 {
         editor = new AttributeUseEditor(app, dirty);
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         filter.activate();
@@ -80,11 +87,19 @@ public class AttributeUsePanel extends JPanelTable2 {
         reload();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getFilter(){
         return filter.getComponent();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return editor;
@@ -98,6 +113,10 @@ public class AttributeUsePanel extends JPanelTable2 {
         bd.actionLoad();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.AttributeUse");

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -57,16 +57,23 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
     private DataLogicCustomers dlCustomers;
     private FindTicketsInfo selectedTicket;
    
-    /** Creates new form JCustomerFinder */
+    /** Creates new form JTicketsFinder */
     private JTicketsFinder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
     }
 
-    /** Creates new form JCustomerFinder */
+    /** Creates new form JTicketsFinder */
     private JTicketsFinder(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
     }
     
+    /**
+     *
+     * @param parent
+     * @param dlSales
+     * @param dlCustomers
+     * @return
+     */
     public static JTicketsFinder getReceiptFinder(Component parent, DataLogicSales dlSales, DataLogicCustomers dlCustomers) {
         Window window = getWindow(parent);
         
@@ -81,6 +88,10 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         return myMsg;
     }
     
+    /**
+     *
+     * @return
+     */
     public FindTicketsInfo getSelectedCustomer() {
         return selectedTicket;
     }
@@ -112,6 +123,9 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         selectedTicket = null;
     }
     
+    /**
+     *
+     */
     public void executeSearch() {
         try {
             jListTickets.setModel(new MyListData(lpr.loadData()));
@@ -147,16 +161,15 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
     private void defaultValues() {
         
         jListTickets.setModel(new MyListData(new ArrayList()));
-        
         jcboUser.setSelectedItem(null);
-        
         jtxtTicketID.reset();
         jtxtTicketID.activate();
-        
+        jTxtStartDate.setText(null);
+        jTxtEndDate.setText(null);
+        jtxtCustomer.setText(null);
         jComboBoxTicket.setSelectedIndex(0);
-        
         jcboUser.setSelectedItem(null);
-        
+
         jcboMoney.setSelectedItem( ((ListQBFModelNumber)jcboMoney.getModel()).getElementAt(0) );
         jcboMoney.revalidate();
         jcboMoney.repaint();
@@ -170,6 +183,11 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -245,7 +263,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
     
     private static class MyListData extends javax.swing.AbstractListModel {
         
-        private java.util.List m_data;
+        private final java.util.List m_data;
         
         public MyListData(java.util.List data) {
             m_data = data;
@@ -298,8 +316,8 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         jListTickets = new javax.swing.JList();
         jPanel8 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jcmdOK = new javax.swing.JButton();
         jcmdCancel = new javax.swing.JButton();
+        jcmdOK = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         m_jKeys = new com.openbravo.editor.JEditorKeys();
 
@@ -312,7 +330,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
 
         jPanel7.setPreferredSize(new java.awt.Dimension(0, 210));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(AppLocal.getIntString("label.ticketid")); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -323,30 +341,30 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
 
         jtxtMoney.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jcboUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcboUser.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jcboUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcboUserActionPerformed(evt);
             }
         });
 
-        jcboMoney.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcboMoney.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jtxtTicketID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtTicketID.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        labelCustomer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         labelCustomer.setText(AppLocal.getIntString("label.customer")); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("Label.StartDate")); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("Label.EndDate")); // NOI18N
 
-        jTxtStartDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTxtStartDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTxtStartDate.setPreferredSize(new java.awt.Dimension(200, 25));
 
-        jTxtEndDate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTxtEndDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTxtEndDate.setPreferredSize(new java.awt.Dimension(200, 25));
 
         btnDateStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
@@ -367,7 +385,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
             }
         });
 
-        jtxtCustomer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtCustomer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtxtCustomer.setPreferredSize(new java.awt.Dimension(200, 25));
 
         btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/customer_sml.png"))); // NOI18N
@@ -383,7 +401,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
             }
         });
 
-        jComboBoxTicket.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxTicket.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -463,6 +481,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
 
         jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
 
+        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/reload.png"))); // NOI18N
         jButton1.setText(AppLocal.getIntString("button.clean")); // NOI18N
         jButton1.setToolTipText("Clear Filter");
@@ -473,6 +492,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         });
         jPanel6.add(jButton1);
 
+        jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         jButton3.setText(AppLocal.getIntString("button.executefilter")); // NOI18N
         jButton3.setToolTipText("Execute Filter");
@@ -493,6 +513,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
+        jListTickets.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jListTickets.setFocusable(false);
         jListTickets.setRequestFocusEnabled(false);
         jListTickets.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -513,20 +534,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
 
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
-        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
-        jcmdOK.setEnabled(false);
-        jcmdOK.setFocusPainted(false);
-        jcmdOK.setFocusable(false);
-        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.setRequestFocusEnabled(false);
-        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcmdOKActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jcmdOK);
-
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.setFocusPainted(false);
@@ -539,6 +547,24 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
             }
         });
         jPanel1.add(jcmdCancel);
+
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
+        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
+        jcmdOK.setEnabled(false);
+        jcmdOK.setFocusPainted(false);
+        jcmdOK.setFocusable(false);
+        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setMinimumSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setPreferredSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setRequestFocusEnabled(false);
+        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmdOKActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcmdOK);
 
         jPanel8.add(jPanel1, java.awt.BorderLayout.LINE_END);
 
@@ -559,7 +585,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
         getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_END);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-695)/2, (screenSize.height-527)/2, 695, 527);
+        setBounds((screenSize.width-695)/2, (screenSize.height-522)/2, 695, 522);
     }// </editor-fold>//GEN-END:initComponents
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
         selectedTicket = (FindTicketsInfo) jListTickets.getSelectedValue();
@@ -635,11 +661,11 @@ private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void m_jKeysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeysActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_m_jKeysActionPerformed
 
     private void jcboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboUserActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jcboUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

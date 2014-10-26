@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -58,27 +58,29 @@ import javax.swing.JPanel;
  */
 public class StockManagement extends JPanel implements JPanelView {
     
-    private AppView m_App;
-    private DataLogicSystem m_dlSystem;
-    private DataLogicSales m_dlSales;
-    private TicketParser m_TTP;
+    private final AppView m_App;
+    private final DataLogicSystem m_dlSystem;
+    private final DataLogicSales m_dlSales;
+    private final TicketParser m_TTP;
 
-    private CatalogSelector m_cat;
-    private ComboBoxValModel m_ReasonModel;
+    private final CatalogSelector m_cat;
+    private final ComboBoxValModel m_ReasonModel;
     
-    private SentenceList m_sentlocations;
+    private final SentenceList m_sentlocations;
     private ComboBoxValModel m_LocationsModel;   
     private ComboBoxValModel m_LocationsModelDes;     
     
-    private JInventoryLines m_invlines;
+    private final JInventoryLines m_invlines;
     
     private int NUMBER_STATE = 0;
     private int MULTIPLY = 0;
-    private static int DEFAULT = 0;
-    private static int ACTIVE = 1;
-    private static int DECIMAL = 2;
+    private static final int DEFAULT = 0;
+    private static final int ACTIVE = 1;
+    private static final int DECIMAL = 2;
+    private final String user;
     
-    /** Creates new form StockManagement */
+    /** Creates new form StockManagement
+     * @param app */
     public StockManagement(AppView app) {
         
         m_App = app;
@@ -87,6 +89,9 @@ public class StockManagement extends JPanel implements JPanelView {
         m_TTP = new TicketParser(m_App.getDeviceTicket(), m_dlSystem);
 
         initComponents();
+        
+        user = m_App.getAppUserView().getUser().getName();
+
         
         btnDownloadProducts.setEnabled(m_App.getDeviceScanner() != null);
 
@@ -118,16 +123,28 @@ public class StockManagement extends JPanel implements JPanelView {
         jPanel5.add(m_invlines, BorderLayout.CENTER);
     }
      
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.StockMovement");
-    }         
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getComponent() {
         return this;
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         m_cat.loadCatalog();
@@ -146,9 +163,11 @@ public class StockManagement extends JPanel implements JPanelView {
                 jTextField1.requestFocus();
             }
         });        
-    }   
-    
-    
+    }
+
+    /**
+     *
+     */
     public void stateToInsert() {
         // Inicializamos las cajas de texto
         m_jdate.setText(Formats.TIMESTAMP.formatValue(DateUtils.getTodayMinutes()));
@@ -159,6 +178,10 @@ public class StockManagement extends JPanel implements JPanelView {
         m_jcodebar.setText(null);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
 
@@ -167,11 +190,7 @@ public class StockManagement extends JPanel implements JPanelView {
             if (res == JOptionPane.YES_OPTION) {
                 saveData();
                 return true;
-            } else if (res == JOptionPane.NO_OPTION) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return res == JOptionPane.NO_OPTION;
         } else {
             return true;
         }        
@@ -309,11 +328,13 @@ public class StockManagement extends JPanel implements JPanelView {
                 saveData(new InventoryRecord(
                         d, MovementReason.OUT_MOVEMENT,
                         (LocationInfo) m_LocationsModel.getSelectedItem(),
+                        m_App.getAppUserView().getUser().getName(),
                         m_invlines.getLines()
                     ));
                 saveData(new InventoryRecord(
                         d, MovementReason.IN_MOVEMENT,
                         (LocationInfo) m_LocationsModelDes.getSelectedItem(),
+                        m_App.getAppUserView().getUser().getName(),
                         m_invlines.getLines()
                     ));                
             } else {  
@@ -321,6 +342,7 @@ public class StockManagement extends JPanel implements JPanelView {
                 saveData(new InventoryRecord(
                         d, reason,
                         (LocationInfo) m_LocationsModel.getSelectedItem(),
+                        m_App.getAppUserView().getUser().getName(),
                         m_invlines.getLines()
                     ));
             }
@@ -348,7 +370,9 @@ public class StockManagement extends JPanel implements JPanelView {
                 inv.getProductID(),
                 inv.getProductAttSetInstId(),
                 rec.getReason().samesignum(inv.getMultiply()),
-                inv.getPrice()
+                inv.getPrice(),
+                rec.getUser()
+                
             });
         }
 
@@ -367,7 +391,7 @@ public class StockManagement extends JPanel implements JPanelView {
                 ScriptEngine script = ScriptFactory.getScriptEngine(ScriptFactory.VELOCITY);
                 script.put("inventoryrecord", invrec);
                 m_TTP.printTicket(script.eval(sresource).toString());
-// JG 16 May 2012 use multicatch
+// JG 16 May 2013 use multicatch
             } catch (    ScriptException | TicketPrinterException e) {
                 MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotprintticket"), e);
                 msg.show(this);
@@ -397,50 +421,215 @@ public class StockManagement extends JPanel implements JPanelView {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jNumberKeys = new com.openbravo.beans.JNumberKeys();
-        jPanel4 = new javax.swing.JPanel();
-        m_jEnter = new javax.swing.JButton();
-        m_jcodebar = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        catcontainer = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         m_jdate = new javax.swing.JTextField();
         m_jbtndate = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         m_jreason = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        m_jLocationDes = new javax.swing.JComboBox();
         m_jLocation = new javax.swing.JComboBox();
-        m_jDelete = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         m_jUp = new javax.swing.JButton();
         m_jDown = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        m_jLocationDes = new javax.swing.JComboBox();
+        m_jDelete = new javax.swing.JButton();
         jEditAttributes = new javax.swing.JButton();
         btnDownloadProducts = new javax.swing.JButton();
-        catcontainer = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jNumberKeys = new com.openbravo.beans.JNumberKeys();
+        m_jEnter = new javax.swing.JButton();
+        m_jcodebar = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(550, 250));
+        setPreferredSize(new java.awt.Dimension(550, 250));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        catcontainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        catcontainer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        catcontainer.setMinimumSize(new java.awt.Dimension(100, 100));
+        catcontainer.setPreferredSize(new java.awt.Dimension(470, 270));
+        catcontainer.setRequestFocusEnabled(false);
+        catcontainer.setLayout(new java.awt.BorderLayout());
+        add(catcontainer, java.awt.BorderLayout.SOUTH);
+
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setText(AppLocal.getIntString("label.stockdate")); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(40, 25));
+        jLabel1.setMinimumSize(new java.awt.Dimension(40, 25));
+        jLabel1.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 10, -1, -1));
+
+        m_jdate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jdate.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(m_jdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 200, 25));
+
+        m_jbtndate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
+        m_jbtndate.setToolTipText("Open Calendar");
+        m_jbtndate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jbtndateActionPerformed(evt);
+            }
+        });
+        jPanel8.add(m_jbtndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 8, 40, 30));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText(AppLocal.getIntString("label.stockreason")); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(40, 25));
+        jLabel2.setMinimumSize(new java.awt.Dimension(40, 25));
+        jLabel2.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 40, 90, -1));
+
+        m_jreason.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jreason.setPreferredSize(new java.awt.Dimension(90, 25));
+        m_jreason.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jreasonActionPerformed(evt);
+            }
+        });
+        jPanel8.add(m_jreason, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 200, 25));
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText(AppLocal.getIntString("label.warehouse")); // NOI18N
+        jLabel8.setMaximumSize(new java.awt.Dimension(40, 25));
+        jLabel8.setMinimumSize(new java.awt.Dimension(40, 25));
+        jLabel8.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 70, -1, -1));
+
+        m_jLocationDes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jLocationDes.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(m_jLocationDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 200, 25));
+
+        m_jLocation.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jLocation.setPreferredSize(new java.awt.Dimension(90, 25));
+        jPanel8.add(m_jLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 200, 25));
+
+        jPanel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel5.setPreferredSize(new java.awt.Dimension(400, 140));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel8.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 110, 400, 130));
+
+        m_jUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1uparrow.png"))); // NOI18N
+        m_jUp.setToolTipText("Scroll Up a Line");
+        m_jUp.setFocusPainted(false);
+        m_jUp.setFocusable(false);
+        m_jUp.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jUp.setRequestFocusEnabled(false);
+        m_jUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jUpActionPerformed(evt);
+            }
+        });
+        jPanel8.add(m_jUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, -1, -1));
+
+        m_jDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png"))); // NOI18N
+        m_jDown.setToolTipText("Scroll Down a Line");
+        m_jDown.setFocusPainted(false);
+        m_jDown.setFocusable(false);
+        m_jDown.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jDown.setRequestFocusEnabled(false);
+        m_jDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jDownActionPerformed(evt);
+            }
+        });
+        jPanel8.add(m_jDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
+
+        m_jDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/editdelete.png"))); // NOI18N
+        m_jDelete.setToolTipText("Remove Line");
+        m_jDelete.setFocusPainted(false);
+        m_jDelete.setFocusable(false);
+        m_jDelete.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jDelete.setRequestFocusEnabled(false);
+        m_jDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jDeleteActionPerformed(evt);
+            }
+        });
+        jPanel8.add(m_jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
+
+        jEditAttributes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/attributes.png"))); // NOI18N
+        jEditAttributes.setToolTipText("Attrubutes");
+        jEditAttributes.setFocusPainted(false);
+        jEditAttributes.setFocusable(false);
+        jEditAttributes.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        jEditAttributes.setMaximumSize(new java.awt.Dimension(56, 44));
+        jEditAttributes.setMinimumSize(new java.awt.Dimension(56, 44));
+        jEditAttributes.setPreferredSize(new java.awt.Dimension(56, 44));
+        jEditAttributes.setRequestFocusEnabled(false);
+        jEditAttributes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditAttributesActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jEditAttributes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
+
+        btnDownloadProducts.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnDownloadProducts.setText("ScanPal");
+        btnDownloadProducts.setToolTipText("Download from Mobile Device");
+        btnDownloadProducts.setPreferredSize(new java.awt.Dimension(115, 33));
+        btnDownloadProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadProductsActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnDownloadProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, -1, -1));
+
+        jTextField1.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
+        jTextField1.setForeground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
+        jTextField1.setCaretColor(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
+        jTextField1.setPreferredSize(new java.awt.Dimension(1, 1));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+        jPanel8.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, -1));
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+        jPanel2.add(jPanel6);
 
+        jPanel8.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(150, 250));
+        jPanel1.setPreferredSize(new java.awt.Dimension(220, 250));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        jNumberKeys.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jNumberKeys.setMinimumSize(new java.awt.Dimension(150, 150));
-        jNumberKeys.setPreferredSize(new java.awt.Dimension(220, 220));
+        jNumberKeys.setPreferredSize(new java.awt.Dimension(220, 225));
         jNumberKeys.addJNumberEventListener(new com.openbravo.beans.JNumberEventListener() {
             public void keyPerformed(com.openbravo.beans.JNumberEvent evt) {
                 jNumberKeysKeyPerformed(evt);
             }
         });
-        jPanel2.add(jNumberKeys);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        jPanel4.setLayout(new java.awt.GridBagLayout());
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jNumberKeys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jNumberKeys, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         m_jEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/barcode.png"))); // NOI18N
         m_jEnter.setFocusPainted(false);
@@ -451,14 +640,6 @@ public class StockManagement extends JPanel implements JPanelView {
                 m_jEnterActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        jPanel4.add(m_jEnter, gridBagConstraints);
 
         m_jcodebar.setBackground(java.awt.Color.white);
         m_jcodebar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -472,149 +653,62 @@ public class StockManagement extends JPanel implements JPanelView {
                 m_jcodebarMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        jPanel4.add(m_jcodebar, gridBagConstraints);
 
-        jTextField1.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        jTextField1.setForeground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        jTextField1.setCaretColor(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        jTextField1.setPreferredSize(new java.awt.Dimension(1, 1));
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel4.add(jTextField1, gridBagConstraints);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(m_jcodebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(m_jEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(m_jcodebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jEnter))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
 
-        jPanel2.add(jPanel4);
-        jPanel2.add(jPanel6);
+        jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 240, 260));
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.NORTH);
-
-        add(jPanel1, java.awt.BorderLayout.EAST);
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText(AppLocal.getIntString("label.stockdate")); // NOI18N
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 80, 25));
-
-        m_jdate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel3.add(m_jdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 200, 25));
-
-        m_jbtndate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
-        m_jbtndate.setToolTipText("Open Calendar");
-        m_jbtndate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jbtndateActionPerformed(evt);
-            }
-        });
-        jPanel3.add(m_jbtndate, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 25, 40, 30));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText(AppLocal.getIntString("label.stockreason")); // NOI18N
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 25));
-
-        m_jreason.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        m_jreason.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jreasonActionPerformed(evt);
-            }
-        });
-        jPanel3.add(m_jreason, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 200, 25));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText(AppLocal.getIntString("label.warehouse")); // NOI18N
-        jLabel8.setMaximumSize(new java.awt.Dimension(40, 20));
-        jLabel8.setMinimumSize(new java.awt.Dimension(40, 20));
-        jLabel8.setPreferredSize(new java.awt.Dimension(40, 20));
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, 25));
-
-        m_jLocation.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel3.add(m_jLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 200, 25));
-
-        m_jDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/editdelete.png"))); // NOI18N
-        m_jDelete.setToolTipText("Remove Line");
-        m_jDelete.setFocusPainted(false);
-        m_jDelete.setFocusable(false);
-        m_jDelete.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jDelete.setRequestFocusEnabled(false);
-        m_jDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jDeleteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(m_jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
-
-        m_jUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1uparrow.png"))); // NOI18N
-        m_jUp.setToolTipText("Scroll Up a Line");
-        m_jUp.setFocusPainted(false);
-        m_jUp.setFocusable(false);
-        m_jUp.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jUp.setRequestFocusEnabled(false);
-        m_jUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jUpActionPerformed(evt);
-            }
-        });
-        jPanel3.add(m_jUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
-
-        m_jDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png"))); // NOI18N
-        m_jDown.setToolTipText("Scroll Down a Line");
-        m_jDown.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jDownActionPerformed(evt);
-            }
-        });
-        jPanel3.add(m_jDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
-
-        jPanel5.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 410, 140));
-
-        m_jLocationDes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel3.add(m_jLocationDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 200, 25));
-
-        jEditAttributes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/attributes.png"))); // NOI18N
-        jEditAttributes.setToolTipText("Attrubutes");
-        jEditAttributes.setFocusPainted(false);
-        jEditAttributes.setFocusable(false);
-        jEditAttributes.setMaximumSize(new java.awt.Dimension(56, 44));
-        jEditAttributes.setMinimumSize(new java.awt.Dimension(56, 44));
-        jEditAttributes.setPreferredSize(new java.awt.Dimension(56, 44));
-        jEditAttributes.setRequestFocusEnabled(false);
-        jEditAttributes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEditAttributesActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jEditAttributes, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
-
-        btnDownloadProducts.setText("ScanPal");
-        btnDownloadProducts.setToolTipText("Download from Mobile Device");
-        btnDownloadProducts.setPreferredSize(new java.awt.Dimension(69, 33));
-        btnDownloadProducts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDownloadProductsActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnDownloadProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 250, -1, 40));
-
-        add(jPanel3, java.awt.BorderLayout.CENTER);
-
-        catcontainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        catcontainer.setMinimumSize(new java.awt.Dimension(100, 100));
-        catcontainer.setPreferredSize(new java.awt.Dimension(470, 170));
-        catcontainer.setRequestFocusEnabled(false);
-        catcontainer.setLayout(new java.awt.BorderLayout());
-        add(catcontainer, java.awt.BorderLayout.PAGE_END);
+        add(jPanel8, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        jTextField1.setText(null);
+        stateTransition(evt.getKeyChar());
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jNumberKeysKeyPerformed(com.openbravo.beans.JNumberEvent evt) {//GEN-FIRST:event_jNumberKeysKeyPerformed
+
+        stateTransition(evt.getKey());
+
+    }//GEN-LAST:event_jNumberKeysKeyPerformed
+
+    private void m_jcodebarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_jcodebarMouseClicked
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                jTextField1.requestFocus();
+            }
+        });
+    }//GEN-LAST:event_m_jcodebarMouseClicked
 
     private void btnDownloadProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadProductsActionPerformed
 
@@ -623,56 +717,72 @@ public class StockManagement extends JPanel implements JPanelView {
         try {
             s.connectDevice();
             s.startDownloadProduct();
-            
+
             ProductDownloaded p = s.recieveProduct();
             while (p != null) {
                 incProductByCode(p.getCode(), p.getQuantity());
                 p = s.recieveProduct();
             }
             // MessageInf msg = new MessageInf(MessageInf.SGN_SUCCESS, "Se ha subido con exito la lista de productos al ScanPal.");
-            // msg.show(this);            
+            // msg.show(this);
         } catch (DeviceScannerException e) {
             MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.scannerfail2"), e);
-            msg.show(this);            
+            msg.show(this);
         } finally {
             s.disconnectDevice();
-        }        
-        
+        }
+
     }//GEN-LAST:event_btnDownloadProductsActionPerformed
 
-    private void m_jreasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jreasonActionPerformed
+    private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditAttributesActionPerformed
 
-        m_jLocationDes.setEnabled(m_ReasonModel.getSelectedItem() == MovementReason.OUT_CROSSING); 
-        
-    }//GEN-LAST:event_m_jreasonActionPerformed
+        int i = m_invlines.getSelectedRow();
+        if (i < 0) {
+            Toolkit.getDefaultToolkit().beep(); // no line selected
+        } else {
+            try {
+                InventoryLine line = m_invlines.getLine(i);
+                JProductAttEdit attedit = JProductAttEdit.getAttributesEditor(this, m_App.getSession());
+                attedit.editAttributes(line.getProductAttSetId(), line.getProductAttSetInstId());
+                attedit.setVisible(true);
+                if (attedit.isOK()) {
+                    // The user pressed OK
+                    line.setProductAttSetInstId(attedit.getAttributeSetInst());
+                    line.setProductAttSetInstDesc(attedit.getAttributeSetInstDescription());
+                    m_invlines.setLine(i, line);
+                }
+            } catch (BasicException ex) {
+                MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindattributes"), ex);
+                msg.show(this);
+            }
+        }
+    }//GEN-LAST:event_jEditAttributesActionPerformed
+
+    private void m_jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDeleteActionPerformed
+
+        deleteLine(m_invlines.getSelectedRow());
+    }//GEN-LAST:event_m_jDeleteActionPerformed
 
     private void m_jDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDownActionPerformed
-        
+
         m_invlines.goDown();
-        
+
     }//GEN-LAST:event_m_jDownActionPerformed
 
     private void m_jUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jUpActionPerformed
 
         m_invlines.goUp();
-        
+
     }//GEN-LAST:event_m_jUpActionPerformed
 
-    private void m_jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jDeleteActionPerformed
-        
-        deleteLine(m_invlines.getSelectedRow());
+    private void m_jreasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jreasonActionPerformed
 
-    }//GEN-LAST:event_m_jDeleteActionPerformed
+        m_jLocationDes.setEnabled(m_ReasonModel.getSelectedItem() == MovementReason.OUT_CROSSING);
 
-    private void m_jEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEnterActionPerformed
-        
-        incProductByCode(m_jcodebar.getText());
-        m_jcodebar.setText(null);
-        
-    }//GEN-LAST:event_m_jEnterActionPerformed
+    }//GEN-LAST:event_m_jreasonActionPerformed
 
     private void m_jbtndateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtndateActionPerformed
-        
+
         Date date;
         try {
             date = (Date) Formats.TIMESTAMP.parseValue(m_jdate.getText());
@@ -685,49 +795,11 @@ public class StockManagement extends JPanel implements JPanelView {
         }
     }//GEN-LAST:event_m_jbtndateActionPerformed
 
-    private void jNumberKeysKeyPerformed(com.openbravo.beans.JNumberEvent evt) {//GEN-FIRST:event_jNumberKeysKeyPerformed
-        
-        stateTransition(evt.getKey());
-        
-    }//GEN-LAST:event_jNumberKeysKeyPerformed
+    private void m_jEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEnterActionPerformed
 
-private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-    jTextField1.setText(null);
-    stateTransition(evt.getKeyChar());
-}//GEN-LAST:event_jTextField1KeyTyped
-
-private void m_jcodebarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m_jcodebarMouseClicked
-    java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                jTextField1.requestFocus();
-            }
-    });
-}//GEN-LAST:event_m_jcodebarMouseClicked
-
-private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditAttributesActionPerformed
-
-    int i = m_invlines.getSelectedRow();
-    if (i < 0) {
-        Toolkit.getDefaultToolkit().beep(); // no line selected
-    } else {
-        try {
-            InventoryLine line = m_invlines.getLine(i);
-            JProductAttEdit attedit = JProductAttEdit.getAttributesEditor(this, m_App.getSession());
-            attedit.editAttributes(line.getProductAttSetId(), line.getProductAttSetInstId());
-            attedit.setVisible(true);
-            if (attedit.isOK()) {
-                // The user pressed OK
-                line.setProductAttSetInstId(attedit.getAttributeSetInst());
-                line.setProductAttSetInstDesc(attedit.getAttributeSetInstDescription());
-                m_invlines.setLine(i, line);
-            }
-        } catch (BasicException ex) {
-            MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindattributes"), ex);
-            msg.show(this);
-        }
-    }
-}//GEN-LAST:event_jEditAttributesActionPerformed
+        incProductByCode(m_jcodebar.getText());
+        m_jcodebar.setText(null);
+    }//GEN-LAST:event_m_jEnterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -740,10 +812,10 @@ private void jEditAttributesActionPerformed(java.awt.event.ActionEvent evt) {//G
     private com.openbravo.beans.JNumberKeys jNumberKeys;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton m_jDelete;
     private javax.swing.JButton m_jDown;

@@ -26,6 +26,9 @@ public class JPanelPromo extends JPanelTable {
     public JPanelPromo() {
     }
     
+    /**
+     *
+     */
     protected void init() {
         DataLogicSales dlSales = null;
         dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
@@ -47,32 +50,60 @@ public class JPanelPromo extends JPanelTable {
         jeditor = new PromoEditor(app, dlSales, dirty); 
     }
         
+    /**
+     *
+     * @return
+     */
     public ListProvider getListProvider() {
         return new ListProviderCreator(tpromo);
     }
     
+    /**
+     *
+     * @return
+     */
     public SaveProvider getSaveProvider() {
         return new SaveProvider(tpromo);      
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vectorer getVectorer() {
         return tpromo.getVectorerBasic(new int[]{1});
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public ListCellRenderer getListCellRenderer() {
         return new ListCellRendererBasic(tpromo.getRenderStringBasic(new int[]{1}));
     }
     
+    /**
+     *
+     * @return
+     */
     public EditorRecord getEditor() {
         return jeditor;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return AppLocal.getIntString("Menu.Promo");
-    }      
-    
+    }
+
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         jeditor.activate(); // primero activo el editor 

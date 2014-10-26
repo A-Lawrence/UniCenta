@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,12 +28,21 @@ import com.openbravo.basic.BasicException;
 
 public class SerializerReadDate implements SerializerRead {
 
+    /**
+     *
+     */
     public static final SerializerRead INSTANCE = new SerializerReadDate();
 
     /** Creates a new instance of SerializerReadImage */
     private SerializerReadDate() {
     }
 
+    /**
+     *
+     * @param dr
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object readValues(DataRead dr) throws BasicException {
         return Datas.TIMESTAMP.getValue(dr, 1);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -54,8 +54,11 @@ public class PaymentGatewayCaixa implements PaymentGateway {
     private String sCommerceSign;
     private boolean bSha;
     private boolean m_bTestMode;
-    
-    
+
+    /**
+     *
+     * @param props
+     */
     public PaymentGatewayCaixa (AppProperties props) {
         AltEncrypter cypher = new AltEncrypter("cypherkey");
         this.sCommerceSign = cypher.decrypt(props.getProperty("payment.commercesign").substring(6));
@@ -77,6 +80,9 @@ public class PaymentGatewayCaixa implements PaymentGateway {
         
     }
     
+    /**
+     *
+     */
     public PaymentGatewayCaixa(){
         
     }
@@ -88,6 +94,10 @@ public class PaymentGatewayCaixa implements PaymentGateway {
         return nf.format( Math.abs(r.nextInt()) + (Math.abs(System.currentTimeMillis()) % 1000000) );
     }
     
+    /**
+     *
+     * @param payinfo
+     */
     @Override
     public void execute(PaymentInfoMagcard payinfo) {
         //merchantCode = "999008881";
@@ -264,6 +274,11 @@ public class PaymentGatewayCaixa implements PaymentGateway {
         
     }
         
+    /**
+     *
+     * @param input
+     * @return
+     */
     public String getSHA1(String input){
         byte[] output = null;
         try {
@@ -271,11 +286,14 @@ public class PaymentGatewayCaixa implements PaymentGateway {
             md.update(input.getBytes()); 
             output = md.digest();
         } catch (Exception e) {
-            System.out.println("Exception: "+e);
+//            System.out.println("Exception: "+e);
         }
         return StringUtils.byte2hex(output);
     }
 
+    /**
+     *
+     */
     public class LaCaixaParser extends DefaultHandler {
     
     private SAXParser m_sp = null;
@@ -283,12 +301,20 @@ public class PaymentGatewayCaixa implements PaymentGateway {
     private String text;
     private InputStream is;
     private String result;
-    
-    public LaCaixaParser(String in) {
+
+        /**
+         *
+         * @param in
+         */
+        public LaCaixaParser(String in) {
         is = new ByteArrayInputStream(in.getBytes());
     }
-    
-    public Map splitXML(){
+
+        /**
+         *
+         * @return
+         */
+        public Map splitXML(){
         try {
             if (m_sp == null) {
                 SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -389,10 +415,14 @@ public class PaymentGatewayCaixa implements PaymentGateway {
             text = new String(ch, start, length);
         }
     }
-    
-    public String getResult(){
+
+        /**
+         *
+         * @return
+         */
+        public String getResult(){
         return this.result;
     }
-}
+    }
     
 }

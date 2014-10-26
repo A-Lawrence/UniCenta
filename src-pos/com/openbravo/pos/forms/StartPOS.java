@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2012 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (C) 2008-2013 Openbravo, S.L.
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,7 +32,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 
-// JG 16 May 2012 deprecated for pushingpixels
+// JG 16 May 2013 deprecated for pushingpixels
 // import org.jvnet.substance.SubstanceLookAndFeel;
 // import org.jvnet.substance.api.SubstanceSkin;
 
@@ -44,11 +44,15 @@ public class StartPOS {
 
     private static final Logger logger = Logger.getLogger("com.openbravo.pos.forms.StartPOS");
     
+    
     /** Creates a new instance of StartPOS */
     private StartPOS() {
     }
-    
-    
+
+    /**
+     *
+     * @return
+     */
     public static boolean registerApp() {
                        
         // vemos si existe alguna instancia        
@@ -57,12 +61,16 @@ public class StartPOS {
             i = new InstanceQuery();
             i.getAppMessage().restoreWindow();
             return false;
-// JG 6 May 2012 to Multicatch
+// JG 6 May 2013 to Multicatch
         } catch (RemoteException | NotBoundException e) {
             return true;
         }  
     }
     
+    /**
+     *
+     * @param args
+     */
     public static void main (final String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -102,7 +110,7 @@ public class StartPOS {
                     } else if (laf instanceof SubstanceSkin) {                      
                         SubstanceLookAndFeel.setSkin((SubstanceSkin) laf);                   
                     }
-// JG 6 May 2012 to multicatch
+// JG 6 May 2013 to multicatch
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
                     logger.log(Level.WARNING, "Cannot set Look and Feel", e);
                 }

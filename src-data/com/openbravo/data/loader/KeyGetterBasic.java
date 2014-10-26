@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,11 +28,17 @@ public class KeyGetterBasic implements IKeyGetter {
     
     private int [] m_aElems;
     
-    /** Creates a new instance of KeyGetterBasic */
+    /** Creates a new instance of KeyGetterBasic
+     * @param aElems */
     public KeyGetterBasic(int[] aElems) {
         m_aElems = aElems;
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public Object getKey(Object value) {
         if (value == null) {
             return null;

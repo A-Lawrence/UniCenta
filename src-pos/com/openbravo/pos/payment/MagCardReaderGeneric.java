@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,6 +24,10 @@ import com.openbravo.pos.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public final class MagCardReaderGeneric implements MagCardReader {
     
     private String m_sHolderName;
@@ -54,11 +58,18 @@ public final class MagCardReaderGeneric implements MagCardReader {
         reset();
     }
  
+    /**
+     *
+     * @return
+     */
     @Override
     public String getReaderName() {
         return "Generic magnetic card reader";
     }
     
+    /**
+     *
+     */
     @Override
     public void reset() {
         m_aTrack1 = null;
@@ -73,6 +84,10 @@ public final class MagCardReaderGeneric implements MagCardReader {
         m_iAutomState = READING_STARTSENTINEL1;
     }
     
+    /**
+     *
+     * @param c
+     */
     @Override
     public void appendChar(char c) {
         // Mastercard
@@ -148,7 +163,9 @@ public final class MagCardReaderGeneric implements MagCardReader {
     private void checkTracks() {
         
         // Test del tipo de tarjeta
-        if (m_cCardType != 'B') return;
+        if (m_cCardType != 'B') {
+            return;
+        }
         
         // Lectura de los valores
         String sCardNumber1 = (m_aTrack1 == null || m_aTrack1.size() < 1) ? null : (String) m_aTrack1.get(0);
@@ -158,11 +175,17 @@ public final class MagCardReaderGeneric implements MagCardReader {
         String sExpDate2 =  (m_aTrack2 == null || m_aTrack2.size() < 2) ? null : ((String) m_aTrack2.get(1)).substring(0, 4);
             
         // Test del numero de tarjeta
-        if (!checkCardNumber(sCardNumber1) || (sCardNumber2 != null && !sCardNumber1.equals(sCardNumber2))) return;
+        if (!checkCardNumber(sCardNumber1) || (sCardNumber2 != null && !sCardNumber1.equals(sCardNumber2))) {
+            return;
+        }
         // Test del nombre del propietario
-        if (sHolderName == null) return;
+        if (sHolderName == null) {
+            return;
+        }
         // Test de la fecha de expiracion
-        if ((sExpDate1 != null || !checkExpDate(sExpDate2)) && (!checkExpDate(sExpDate1) || !sExpDate1.equals(sExpDate2))) return;
+        if ((sExpDate1 != null || !checkExpDate(sExpDate2)) && (!checkExpDate(sExpDate1) || !sExpDate1.equals(sExpDate2))) {
+            return;
+        }
 
         m_sCardNumber = sCardNumber1;
         m_sHolderName = formatHolderName(sHolderName);
@@ -188,30 +211,64 @@ public final class MagCardReaderGeneric implements MagCardReader {
         } 
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isComplete() {
         return m_sCardNumber != null;
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getHolderName() {
         return m_sHolderName;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getCardNumber() {
         return m_sCardNumber;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getExpirationDate() {
         return m_sExpirationDate;
     }   
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack1() {
         return track1 == null ? null : track1.toString();
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack2() {
         return track2 == null ? null : track2.toString();
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTrack3() {
         return track3 == null ? null : track3.toString();

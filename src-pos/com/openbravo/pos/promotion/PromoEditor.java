@@ -22,6 +22,7 @@ import com.openbravo.pos.ticket.CategoryInfo;
 import com.openbravo.pos.ticket.ProductInfoExt;
 import com.openbravo.pos.util.PropertyUtils;
 import java.awt.Component;
+import java.math.BigInteger;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,11 +52,14 @@ public class PromoEditor extends JPanel implements EditorRecord {
     private DataLogicSales m_dlSales;
     private Session s;
 
-    /** Creates new form PlacesEditor */
+    /** Creates new form PlacesEditor
+     * @param app
+     * @param dlSales
+     * @param dirty */
     public PromoEditor(AppView app, DataLogicSales dlSales, DirtyManager dirty) {
         m_dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
         initComponents();
-        jLabel13.setText("%");
+//        jLabel13.setText("%");
         jLabel1.setText("Name");
         jLabel2.setText("Date");
         dls = dlSales;
@@ -84,6 +88,7 @@ public class PromoEditor extends JPanel implements EditorRecord {
         m_jType.addActionListener(dirty);
         m_jType.addActionListener(new java.awt.event.ActionListener() {
  
+            @Override
         public void actionPerformed(java.awt.event.ActionEvent evt) {
                 onSelectPromoType(evt);
             }
@@ -104,6 +109,10 @@ public class PromoEditor extends JPanel implements EditorRecord {
         writeValueEOF();
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     public void activate() throws BasicException {
         m_jCatModel = new ComboBoxValModel(m_dlSales.getCategoriesList().list());
         m_jCatName.setModel(m_jCatModel);
@@ -112,9 +121,17 @@ public class PromoEditor extends JPanel implements EditorRecord {
         onSelectPromoType(null);
     }
 
+    /**
+     *
+     */
+    @Override
     public void refresh() {
     }
 
+    /**
+     *
+     */
+    @Override
     public void writeValueEOF() {
 
 
@@ -148,20 +165,12 @@ public class PromoEditor extends JPanel implements EditorRecord {
         //m_jStepQty.setEnabled(false);
         m_jBonusArticle.setEnabled(false);*/
         
-        m_jPanName.setVisible(false);
-        m_jPanDate.setVisible(false);
-        m_jPanTime.setVisible(false);
-        m_jPanDiscount.setVisible(false);
-        m_jPanProduct.setVisible(false);
-        m_jPanCat.setVisible(false);
-        m_jPanAmount.setVisible(false);
-        m_jPanMinMax.setVisible(false);
-        m_jPanSAmount.setVisible(false);
-        m_jPanQuan.setVisible(false);
-        m_jPanBonus.setVisible(false);
-
     }
 
+    /**
+     *
+     */
+    @Override
     public void writeValueInsert() {
 
         m_sID = UUID.randomUUID().toString();
@@ -182,18 +191,6 @@ public class PromoEditor extends JPanel implements EditorRecord {
         m_jProdName.setText(null);
         m_jBonusProd.setText(null);
         
-        m_jPanName.setVisible(false);
-        m_jPanDate.setVisible(false);
-        m_jPanTime.setVisible(false);
-        m_jPanDiscount.setVisible(true);
-        m_jPanProduct.setVisible(false);
-        m_jPanCat.setVisible(false);
-        m_jPanAmount.setVisible(false);
-        m_jPanMinMax.setVisible(false);
-        m_jPanSAmount.setVisible(false);
-        m_jPanQuan.setVisible(false);
-        m_jPanBonus.setVisible(false);
-
 /*        m_jName.setEnabled(false);
         m_jStartDate.setEnabled(false);
         m_jEndDate.setEnabled(false);
@@ -213,6 +210,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
 
     }
 
+    /**
+     *
+     * @param value
+     */
+    @Override
     public void writeValueDelete(Object value) {
 
         Object[] promo = (Object[]) value;
@@ -265,20 +267,13 @@ public class PromoEditor extends JPanel implements EditorRecord {
         m_jBonusArticle.setEnabled(false);
         m_jType.setEnabled(true);*/
         
-        m_jPanName.setVisible(true);
-        m_jPanDate.setVisible(true);
-        m_jPanTime.setVisible(true);
-        m_jPanDiscount.setVisible(true);
-        m_jPanProduct.setVisible(true);
-        m_jPanCat.setVisible(false);
-        m_jPanAmount.setVisible(true);
-        m_jPanMinMax.setVisible(false);
-        m_jPanSAmount.setVisible(false);
-        m_jPanQuan.setVisible(false);
-        m_jPanBonus.setVisible(false);
-
     }
 
+    /**
+     *
+     * @param value
+     */
+    @Override
     public void writeValueEdit(Object value) {
         
         Object[] promo = (Object[]) value;
@@ -328,18 +323,6 @@ public class PromoEditor extends JPanel implements EditorRecord {
         m_jStepAmount.setEnabled(false);
         //m_jStepQty.setEnabled(false);
         m_jType.setEnabled(true);*/
-        
-        m_jPanName.setVisible(true);
-        m_jPanDate.setVisible(true);
-        m_jPanTime.setVisible(true);
-        m_jPanDiscount.setVisible(true);
-        m_jPanProduct.setVisible(true);
-        m_jPanCat.setVisible(true);
-        m_jPanAmount.setVisible(true);
-        m_jPanMinMax.setVisible(true);
-        m_jPanSAmount.setVisible(true);
-        m_jPanQuan.setVisible(true);
-        m_jPanBonus.setVisible(true);
 
         Integer _type = new Integer(promo[8].toString());
         
@@ -347,7 +330,7 @@ public class PromoEditor extends JPanel implements EditorRecord {
 
             // discount in %
             case 1:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -365,22 +348,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 //m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             // discount in $
             case 2:
-                jLabel13.setText("$");
+//                jLabel13.setText("$");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -398,22 +370,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             // Gift / Coupon
             case 3:
-                jLabel13.setText("");
+//                jLabel13.setText("");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -431,22 +392,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 //m_jBonusArticle.setText(null);
                 //m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(false);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(true);
-                m_jPanQuan.setVisible(true);
-                m_jPanBonus.setVisible(true);
                 break;
 
             //Get X% of discount on the cheapest article of a category
             case 4:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -464,22 +414,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(false);
-                m_jPanCat.setVisible(true);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             //Mix'n'Match (Buy 2 get 3)  
             case 5:
-                jLabel13.setText("");
+//                jLabel13.setText("");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -497,22 +436,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(false);
-                m_jPanMinMax.setVisible(true);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(true);
-                m_jPanBonus.setVisible(false);
                 break;
                 
             // discount in % by category
             case 6:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -530,23 +458,18 @@ public class PromoEditor extends JPanel implements EditorRecord {
                 //m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(false);
-                m_jPanCat.setVisible(true);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
         }
 
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
+    @Override
     public Object createValue() throws BasicException {
 
 
@@ -685,6 +608,11 @@ public class PromoEditor extends JPanel implements EditorRecord {
 
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public Component getComponent() {
         return this;
     }
@@ -715,7 +643,7 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
 
             // discount in %
             case 1:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -733,22 +661,11 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             // discount value
             case 2:
-                jLabel13.setText("Value");
+//                jLabel13.setText("Value");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -766,22 +683,11 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             // Gift / Coupon
             case 3:
-                jLabel13.setText("");
+//                jLabel13.setText("");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -799,22 +705,11 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 //m_jBonusArticle.setText(null);
                 //m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(false);
-                m_jPanMinMax.setVisible(true);
-                m_jPanSAmount.setVisible(true);
-                m_jPanQuan.setVisible(true);
-                m_jPanBonus.setVisible(true);
                 break;
 
             //Get X% of discount on the cheapest article of a category
             case 4:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -832,22 +727,11 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(false);
-                m_jPanCat.setVisible(true);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(true);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
             //Mix'n'Match (Buy 2 get 3)  
             case 5:
-                jLabel13.setText("");
+//                jLabel13.setText("");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -865,22 +749,11 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(true);
-                m_jPanCat.setVisible(false);
-                m_jPanAmount.setVisible(false);
-                m_jPanMinMax.setVisible(true);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(true);
-                m_jPanBonus.setVisible(false);
                 break;
                 
             // discount in % by category
             case 6:
-                jLabel13.setText("%");
+//                jLabel13.setText("%");
                 
                 //m_jName.setText(null);
                 //m_jStartDate.setText(null);
@@ -898,17 +771,6 @@ private void onSelectPromoType(java.awt.event.ActionEvent evt) {
                 //m_jBonusArticle.setText(null);
                 m_jBonusProd.setText(null);
                 
-                m_jPanName.setVisible(true);
-                m_jPanDate.setVisible(true);
-                m_jPanTime.setVisible(true);
-                m_jPanDiscount.setVisible(true);
-                m_jPanProduct.setVisible(false);
-                m_jPanCat.setVisible(true);
-                m_jPanAmount.setVisible(true);
-                m_jPanMinMax.setVisible(false);
-                m_jPanSAmount.setVisible(false);
-                m_jPanQuan.setVisible(false);
-                m_jPanBonus.setVisible(false);
                 break;
 
         }
@@ -943,7 +805,6 @@ private void OnCheckMin(java.awt.event.FocusEvent evt) {
         if (_min > _max) {
             JOptionPane.showConfirmDialog(this, "The minimum can't be greater than the maximum", AppLocal.getIntString("Invalid Entry"), JOptionPane.WARNING_MESSAGE);
             m_jMin.setText(null);
-            return;
         }
     }
 
@@ -966,7 +827,6 @@ private void OnCheckMax(java.awt.event.FocusEvent evt) {
         if (_max < _min) {
             JOptionPane.showConfirmDialog(this, "The minimum can't be greater than the maximum", AppLocal.getIntString("Invalid Entry"), JOptionPane.WARNING_MESSAGE);
             m_jMin.setText(null);
-            return;
         }
     }
 
@@ -979,7 +839,6 @@ private void OnCheckQuantityStep(java.awt.event.FocusEvent evt) {
         if (!isNumeric(m_jStepAmount.getText())) {
             JOptionPane.showConfirmDialog(this, "The step is not correct", AppLocal.getIntString("Invalid Entry"), JOptionPane.WARNING_MESSAGE);
             m_jStepAmount.setText(null);
-            return;
         }
     }
 
@@ -992,7 +851,6 @@ private void OnCheckDiscountStep(java.awt.event.FocusEvent evt) {
         if (!isNumeric(m_jStepQty.getText())) {
             JOptionPane.showConfirmDialog(this, "The step is not correct", AppLocal.getIntString("Invalid Entry"), JOptionPane.WARNING_MESSAGE);
             m_jStepQty.setText(null);
-            return;
         }
     }
 
@@ -1052,7 +910,7 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
 
     private boolean isNumeric(String test) {
         try {
-            new java.math.BigInteger(test);
+            BigInteger bigInteger = new java.math.BigInteger(test);
         } catch (NumberFormatException ex) {
             return false;
         }
@@ -1069,138 +927,130 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        m_jArticle = new javax.swing.JTextField();
-        m_jPanName = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         m_jName = new javax.swing.JTextField();
-        m_jPanProduct = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        m_jSearch = new javax.swing.JButton();
-        m_jProdName = new javax.swing.JTextField();
-        m_jPanDate = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        m_jEndDate = new javax.swing.JTextField();
-        m_jStartDate = new javax.swing.JTextField();
-        btnValidFrom = new javax.swing.JButton();
-        btnValidTo = new javax.swing.JButton();
-        m_jPanCat = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        m_jCatName = new javax.swing.JComboBox();
-        m_jPanDiscount = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        m_jType = new javax.swing.JComboBox();
-        m_jPanTime = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        m_jStartHour = new javax.swing.JTextField();
-        m_jEndHour = new javax.swing.JTextField();
-        m_jPanAmount = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        m_jAmount = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        m_jPanMinMax = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        m_jMax = new javax.swing.JTextField();
-        m_jMin = new javax.swing.JTextField();
-        m_jPanSAmount = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        m_jStepAmount = new javax.swing.JTextField();
-        m_jPanQuan = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        m_jStepQty = new javax.swing.JTextField();
-        m_jPanBonus = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        m_jBonusProd = new javax.swing.JTextField();
-        m_jSearch1 = new javax.swing.JButton();
+        m_jArticle = new javax.swing.JTextField();
         m_jBonusArticle = new javax.swing.JTextField();
         m_jCategory = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        m_jStartDate = new javax.swing.JTextField();
+        m_jStartHour = new javax.swing.JTextField();
+        m_jType = new javax.swing.JComboBox();
+        m_jProdName = new javax.swing.JTextField();
+        m_jCatName = new javax.swing.JComboBox();
+        m_jAmount = new javax.swing.JTextField();
+        m_jMin = new javax.swing.JTextField();
+        m_jStepAmount = new javax.swing.JTextField();
+        m_jStepQty = new javax.swing.JTextField();
+        m_jBonusProd = new javax.swing.JTextField();
+        btnValidTo = new javax.swing.JButton();
+        m_jEndDate = new javax.swing.JTextField();
+        btnValidFrom = new javax.swing.JButton();
+        m_jEndHour = new javax.swing.JTextField();
+        m_jSearch = new javax.swing.JButton();
+        m_jMax = new javax.swing.JTextField();
+        m_jSearch1 = new javax.swing.JButton();
 
-        setLayout(new java.awt.BorderLayout());
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        m_jArticle.setPreferredSize(new java.awt.Dimension(110, 28));
-        jPanel1.add(m_jArticle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, 28));
-
-        m_jPanName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel1.setText("<html><b>Name</b>");
-        jLabel1.setPreferredSize(new java.awt.Dimension(150, 28));
-
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         m_jName.setMaximumSize(new java.awt.Dimension(110, 28));
         m_jName.setMinimumSize(new java.awt.Dimension(110, 28));
         m_jName.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        javax.swing.GroupLayout m_jPanNameLayout = new javax.swing.GroupLayout(m_jPanName);
-        m_jPanName.setLayout(m_jPanNameLayout);
-        m_jPanNameLayout.setHorizontalGroup(
-            m_jPanNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanNameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
-        );
-        m_jPanNameLayout.setVerticalGroup(
-            m_jPanNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanNameLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        m_jArticle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jArticle.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        jPanel1.add(m_jPanName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, -1));
+        m_jBonusArticle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jBonusArticle.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        m_jPanProduct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        m_jCategory.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jCategory.setPreferredSize(new java.awt.Dimension(110, 28));
+        m_jCategory.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                m_jCategoryPropertyChange(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setText("<html><b>Name</b>");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel1.setPreferredSize(new java.awt.Dimension(150, 28));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText("Date");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setText("Time");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setText("Discount");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Product");
 
-        m_jSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search24.png"))); // NOI18N
-        m_jSearch.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setText("Product Category");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("Amount");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText("Min / Max");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setText("Step Amount");
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setText("Quantity");
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setText("Bonus Article");
+        jLabel11.setMaximumSize(new java.awt.Dimension(62, 18));
+        jLabel11.setMinimumSize(new java.awt.Dimension(62, 18));
+        jLabel11.setPreferredSize(new java.awt.Dimension(62, 18));
+
+        m_jStartDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        m_jStartHour.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jStartHour.setPreferredSize(new java.awt.Dimension(110, 28));
+
+        m_jType.setPreferredSize(new java.awt.Dimension(210, 25));
+
+        m_jProdName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        m_jCatName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        m_jCatName.setPreferredSize(new java.awt.Dimension(56, 25));
+        m_jCatName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jSearchActionPerformed(evt);
+                m_jCatNameActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout m_jPanProductLayout = new javax.swing.GroupLayout(m_jPanProduct);
-        m_jPanProduct.setLayout(m_jPanProductLayout);
-        m_jPanProductLayout.setHorizontalGroup(
-            m_jPanProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(m_jProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(m_jSearch)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        m_jPanProductLayout.setVerticalGroup(
-            m_jPanProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanProductLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        m_jAmount.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jAmount.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        jPanel1.add(m_jPanProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 500, -1));
+        m_jMin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jMin.setPreferredSize(new java.awt.Dimension(68, 28));
 
-        m_jPanDate.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        m_jPanDate.setPreferredSize(new java.awt.Dimension(500, 37));
+        m_jStepAmount.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jStepAmount.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        jLabel2.setText("Date");
+        m_jStepQty.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jStepQty.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        btnValidFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
-        btnValidFrom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidFromActionPerformed(evt);
-            }
-        });
+        m_jBonusProd.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         btnValidTo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
         btnValidTo.addActionListener(new java.awt.event.ActionListener() {
@@ -1209,263 +1059,26 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             }
         });
 
-        javax.swing.GroupLayout m_jPanDateLayout = new javax.swing.GroupLayout(m_jPanDate);
-        m_jPanDate.setLayout(m_jPanDateLayout);
-        m_jPanDateLayout.setHorizontalGroup(
-            m_jPanDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanDateLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(m_jStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnValidFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(m_jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnValidTo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
-        );
-        m_jPanDateLayout.setVerticalGroup(
-            m_jPanDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanDateLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnValidFrom)
-                    .addComponent(m_jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnValidTo)))
-        );
+        m_jEndDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jPanel1.add(m_jPanDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 500, -1));
-
-        m_jPanCat.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel6.setText("Product Category");
-
-        m_jCatName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        m_jCatName.addActionListener(new java.awt.event.ActionListener() {
+        btnValidFrom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
+        btnValidFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jCatNameActionPerformed(evt);
+                btnValidFromActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout m_jPanCatLayout = new javax.swing.GroupLayout(m_jPanCat);
-        m_jPanCat.setLayout(m_jPanCatLayout);
-        m_jPanCatLayout.setHorizontalGroup(
-            m_jPanCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanCatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(m_jCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
-        );
-        m_jPanCatLayout.setVerticalGroup(
-            m_jPanCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanCatLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jCatName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 500, 32));
-
-        m_jPanDiscount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel4.setText("Discount");
-
-        m_jType.setPreferredSize(new java.awt.Dimension(210, 28));
-
-        javax.swing.GroupLayout m_jPanDiscountLayout = new javax.swing.GroupLayout(m_jPanDiscount);
-        m_jPanDiscount.setLayout(m_jPanDiscountLayout);
-        m_jPanDiscountLayout.setHorizontalGroup(
-            m_jPanDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanDiscountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(m_jType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
-        );
-        m_jPanDiscountLayout.setVerticalGroup(
-            m_jPanDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanDiscountLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 500, -1));
-
-        m_jPanTime.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel3.setText("Time");
-
-        m_jStartHour.setPreferredSize(new java.awt.Dimension(110, 28));
-
+        m_jEndHour.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jEndHour.setPreferredSize(new java.awt.Dimension(110, 28));
 
-        javax.swing.GroupLayout m_jPanTimeLayout = new javax.swing.GroupLayout(m_jPanTime);
-        m_jPanTime.setLayout(m_jPanTimeLayout);
-        m_jPanTimeLayout.setHorizontalGroup(
-            m_jPanTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanTimeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(m_jStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(m_jEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
-        );
-        m_jPanTimeLayout.setVerticalGroup(
-            m_jPanTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanTimeLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        m_jSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search24.png"))); // NOI18N
+        m_jSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jSearchActionPerformed(evt);
+            }
+        });
 
-        jPanel1.add(m_jPanTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 500, -1));
-
-        m_jPanAmount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel7.setText("Amount");
-
-        m_jAmount.setPreferredSize(new java.awt.Dimension(110, 28));
-
-        javax.swing.GroupLayout m_jPanAmountLayout = new javax.swing.GroupLayout(m_jPanAmount);
-        m_jPanAmount.setLayout(m_jPanAmountLayout);
-        m_jPanAmountLayout.setHorizontalGroup(
-            m_jPanAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanAmountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(m_jPanAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(m_jPanAmountLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(m_jAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
-        );
-        m_jPanAmountLayout.setVerticalGroup(
-            m_jPanAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanAmountLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 500, -1));
-
-        m_jPanMinMax.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel8.setText("Min / Max");
-
-        m_jMin.setPreferredSize(new java.awt.Dimension(68, 28));
-
-        javax.swing.GroupLayout m_jPanMinMaxLayout = new javax.swing.GroupLayout(m_jPanMinMax);
-        m_jPanMinMax.setLayout(m_jPanMinMaxLayout);
-        m_jPanMinMaxLayout.setHorizontalGroup(
-            m_jPanMinMaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanMinMaxLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(m_jPanMinMaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(m_jPanMinMaxLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(m_jMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21)
-                .addComponent(m_jMax, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(181, Short.MAX_VALUE))
-        );
-        m_jPanMinMaxLayout.setVerticalGroup(
-            m_jPanMinMaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanMinMaxLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanMinMaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jMax, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanMinMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 500, -1));
-
-        m_jPanSAmount.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel9.setText("Step Amount");
-
-        m_jStepAmount.setPreferredSize(new java.awt.Dimension(110, 28));
-
-        javax.swing.GroupLayout m_jPanSAmountLayout = new javax.swing.GroupLayout(m_jPanSAmount);
-        m_jPanSAmount.setLayout(m_jPanSAmountLayout);
-        m_jPanSAmountLayout.setHorizontalGroup(
-            m_jPanSAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanSAmountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(m_jPanSAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(m_jPanSAmountLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(m_jStepAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
-        );
-        m_jPanSAmountLayout.setVerticalGroup(
-            m_jPanSAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanSAmountLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanSAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(m_jStepAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanSAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 500, -1));
-
-        m_jPanQuan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel10.setText("Quantity");
-
-        m_jStepQty.setPreferredSize(new java.awt.Dimension(110, 28));
-
-        javax.swing.GroupLayout m_jPanQuanLayout = new javax.swing.GroupLayout(m_jPanQuan);
-        m_jPanQuan.setLayout(m_jPanQuanLayout);
-        m_jPanQuanLayout.setHorizontalGroup(
-            m_jPanQuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanQuanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(m_jPanQuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(m_jPanQuanLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(m_jStepQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(228, Short.MAX_VALUE))
-        );
-        m_jPanQuanLayout.setVerticalGroup(
-            m_jPanQuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanQuanLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanQuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(m_jStepQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        jPanel1.add(m_jPanQuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 500, -1));
-
-        m_jPanBonus.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel11.setText("Bonus Article");
-        jLabel11.setMaximumSize(new java.awt.Dimension(62, 18));
-        jLabel11.setMinimumSize(new java.awt.Dimension(62, 18));
-        jLabel11.setPreferredSize(new java.awt.Dimension(62, 18));
+        m_jMax.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         m_jSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search24.png"))); // NOI18N
         m_jSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -1474,44 +1087,142 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             }
         });
 
-        javax.swing.GroupLayout m_jPanBonusLayout = new javax.swing.GroupLayout(m_jPanBonus);
-        m_jPanBonus.setLayout(m_jPanBonusLayout);
-        m_jPanBonusLayout.setHorizontalGroup(
-            m_jPanBonusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanBonusLayout.createSequentialGroup()
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(m_jBonusProd, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(m_jSearch1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(m_jArticle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(m_jBonusArticle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(m_jCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(m_jAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(m_jMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(m_jMax, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(m_jStepAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(m_jStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(m_jEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(m_jStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(116, 116, 116)
+                                        .addComponent(btnValidFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(m_jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(m_jProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(m_jCatName, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(m_jType, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(m_jSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnValidTo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(m_jStepQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(m_jBonusProd, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(m_jSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(m_jName, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 19, Short.MAX_VALUE))))
         );
-        m_jPanBonusLayout.setVerticalGroup(
-            m_jPanBonusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(m_jPanBonusLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(m_jPanBonusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, m_jPanBonusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(m_jBonusProd, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(m_jSearch1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnValidFrom))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(m_jEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnValidTo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(m_jSearch)
+                            .addComponent(m_jProdName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(m_jCatName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(m_jAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jMin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jMax, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jStepAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(m_jStepQty, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(m_jBonusProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(m_jSearch1))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(m_jArticle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jBonusArticle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(m_jCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
-
-        jPanel1.add(m_jPanBonus, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 500, -1));
-
-        m_jBonusArticle.setPreferredSize(new java.awt.Dimension(110, 28));
-        jPanel1.add(m_jBonusArticle, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, -1, -1));
-
-        m_jCategory.setPreferredSize(new java.awt.Dimension(110, 28));
-        m_jCategory.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                m_jCategoryPropertyChange(evt);
-            }
-        });
-        jPanel1.add(m_jCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
-
-        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnValidFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidFromActionPerformed
@@ -1662,7 +1373,7 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             // Could not find the database driver
         } catch (SQLException e) {
             // Could not connect to the database
-            System.out.println(e);
+//            System.out.println(e);
 
 
         }
@@ -1710,7 +1421,7 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             // Could not find the database driver
         } catch (SQLException e) {
             // Could not connect to the database
-            System.out.println(e);
+//            System.out.println(e);
 
 
         }
@@ -1748,7 +1459,7 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             // Could not find the database driver
         } catch (SQLException e) {
             // Could not connect to the database
-            System.out.println(e);
+//            System.out.println(e);
 
 
         }
@@ -1786,7 +1497,7 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
             // Could not find the database driver
         } catch (SQLException e) {
             // Could not connect to the database
-            System.out.println(e);
+//            System.out.println(e);
 
 
         }
@@ -1798,7 +1509,6 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1807,7 +1517,6 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField m_jAmount;
     private javax.swing.JTextField m_jArticle;
     private javax.swing.JTextField m_jBonusArticle;
@@ -1819,17 +1528,6 @@ private void OnCheckCategory(java.awt.event.FocusEvent evt) {
     private javax.swing.JTextField m_jMax;
     private javax.swing.JTextField m_jMin;
     private javax.swing.JTextField m_jName;
-    private javax.swing.JPanel m_jPanAmount;
-    private javax.swing.JPanel m_jPanBonus;
-    private javax.swing.JPanel m_jPanCat;
-    private javax.swing.JPanel m_jPanDate;
-    private javax.swing.JPanel m_jPanDiscount;
-    private javax.swing.JPanel m_jPanMinMax;
-    private javax.swing.JPanel m_jPanName;
-    private javax.swing.JPanel m_jPanProduct;
-    private javax.swing.JPanel m_jPanQuan;
-    private javax.swing.JPanel m_jPanSAmount;
-    private javax.swing.JPanel m_jPanTime;
     private javax.swing.JTextField m_jProdName;
     private javax.swing.JButton m_jSearch;
     private javax.swing.JButton m_jSearch1;

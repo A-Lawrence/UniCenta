@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,13 +36,17 @@ public class JNumberDialog extends javax.swing.JDialog {
     
     private Double m_value;
     
-    /** Creates new form JNumberDialog */
+    /** Creates new form JNumberDialog
+     * @param parent
+     * @param modal */
     public JNumberDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         init();
     }
     
-    /** Creates new form JNumberDialog */
+    /** Creates new form JNumberDialog
+     * @param parent
+     * @param modal */
     public JNumberDialog(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         init();
@@ -74,12 +78,35 @@ public class JNumberDialog extends javax.swing.JDialog {
         m_lblMessage.setIcon(icon);
     }
     
+    /**
+     *
+     * @param parent
+     * @param title
+     * @return
+     */
     public static Double showEditNumber(Component parent, String title) {
         return showEditNumber(parent, title, null, null);
     }
+
+    /**
+     *
+     * @param parent
+     * @param title
+     * @param message
+     * @return
+     */
     public static Double showEditNumber(Component parent, String title, String message) {
         return showEditNumber(parent, title, message, null);
     }
+
+    /**
+     *
+     * @param parent
+     * @param title
+     * @param message
+     * @param icon
+     * @return
+     */
     public static Double showEditNumber(Component parent, String title, String message, Icon icon) {
         
         Window window = SwingUtilities.windowForComponent(parent);
@@ -125,7 +152,7 @@ public class JNumberDialog extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jcmdOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
         jcmdOK.setText(m_resources.getString("button.ok")); // NOI18N
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -136,7 +163,7 @@ public class JNumberDialog extends javax.swing.JDialog {
         });
         jPanel1.add(jcmdOK);
 
-        jcmdCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(m_resources.getString("button.cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -164,7 +191,7 @@ public class JNumberDialog extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        m_jnumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jnumber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel4.add(m_jnumber, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel4);
@@ -211,7 +238,7 @@ public class JNumberDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void m_jKeysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeysActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_m_jKeysActionPerformed
     
     

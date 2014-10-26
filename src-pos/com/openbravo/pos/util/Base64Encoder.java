@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,8 +22,17 @@ package com.openbravo.pos.util;
 import java.io.UnsupportedEncodingException;
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class Base64Encoder {
     
+    /**
+     *
+     * @param base64
+     * @return
+     */
     public static byte[] decode(String base64) {
 
         try {
@@ -33,6 +42,11 @@ public class Base64Encoder {
         }
     }
 
+    /**
+     *
+     * @param raw
+     * @return
+     */
     public static String encode(byte[] raw) {
         try {
             return new String(Base64.encodeBase64(raw), "ASCII");
@@ -41,6 +55,11 @@ public class Base64Encoder {
         }
     }
     
+    /**
+     *
+     * @param raw
+     * @return
+     */
     public static String encodeChunked(byte[] raw) {
         try {
             return new String(Base64.encodeBase64Chunked(raw), "ASCII");

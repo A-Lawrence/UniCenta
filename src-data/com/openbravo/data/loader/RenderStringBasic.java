@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,11 +30,19 @@ public class RenderStringBasic implements IRenderString {
     private Formats[] m_aFormats;
     private int[] m_aiIndex;
     
-    /** Creates a new instance of StringnizerBasic */
+    /** Creates a new instance of StringnizerBasic
+     * @param fmts
+     * @param aiIndex */
     public RenderStringBasic(Formats[] fmts, int[] aiIndex) {
         m_aFormats = fmts; 
         m_aiIndex = aiIndex;
     }
+
+    /**
+     *
+     * @param value
+     * @return
+     */
     public String getRenderString(Object value) {
         
         if (value == null) {

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,7 +21,10 @@ package com.openbravo.pos.ticket;
 
 import com.openbravo.format.Formats;
 
-
+/**
+ *
+ * @author JG uniCenta
+ */
 public class TicketTaxInfo {
     
     private TaxInfo tax;
@@ -29,7 +32,8 @@ public class TicketTaxInfo {
     private double subtotal;
     private double taxtotal;
             
-    /** Creates a new instance of TicketTaxInfo */
+    /** Creates a new instance of TicketTaxInfo
+     * @param tax */
     public TicketTaxInfo(TaxInfo tax) {
         this.tax = tax;
         
@@ -37,33 +41,67 @@ public class TicketTaxInfo {
         taxtotal = 0.0;
     }
     
+    /**
+     *
+     * @return
+     */
     public TaxInfo getTaxInfo() {
         return tax;
     }
     
+    /**
+     *
+     * @param dValue
+     */
     public void add(double dValue) {
         subtotal += dValue;
         taxtotal = subtotal * tax.getRate();
     }
     
+    /**
+     *
+     * @return
+     */
     public double getSubTotal() {    
         return subtotal;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getTax() {       
         return taxtotal;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getTotal() {         
         return subtotal + taxtotal;
     }
     
+    /**
+     *
+     * @return
+     */
     public String printSubTotal() {
         return Formats.CURRENCY.formatValue(new Double(getSubTotal()));
     }
+
+    /**
+     *
+     * @return
+     */
     public String printTax() {
         return Formats.CURRENCY.formatValue(new Double(getTax()));
     }    
+
+    /**
+     *
+     * @return
+     */
     public String printTotal() {
         return Formats.CURRENCY.formatValue(new Double(getTotal()));
     }    

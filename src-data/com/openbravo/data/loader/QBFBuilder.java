@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -51,7 +51,13 @@ public class QBFBuilder implements ISQLBuilderStatic {
 //        m_sSentEndPart = "";
 //        m_asFindFields = asFindFields;
 //    }
-    public QBFBuilder(String sSentence, String[] asFindFields) {
+
+    /**
+     *
+     * @param sSentence
+     * @param asFindFields
+     */
+        public QBFBuilder(String sSentence, String[] asFindFields) {
         int iPos = sSentence.indexOf("?(QBF_FILTER)");
         if (iPos < 0) {
             m_sSentBeginPart = sSentence;
@@ -65,6 +71,13 @@ public class QBFBuilder implements ISQLBuilderStatic {
         m_asFindFields = asFindFields;
     }
 
+    /**
+     *
+     * @param sw
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     @Override
     public String getSQL(SerializerWrite sw, Object params) throws BasicException {
         

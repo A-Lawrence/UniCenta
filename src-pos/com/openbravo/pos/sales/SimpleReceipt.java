@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -37,15 +37,30 @@ import java.util.List;
  */
 public class SimpleReceipt extends javax.swing.JPanel {
     
+    /**
+     *
+     */
     protected DataLogicCustomers dlCustomers;
+
+    /**
+     *
+     */
     protected DataLogicSales dlSales;
+
+    /**
+     *
+     */
     protected TaxesLogic taxeslogic;
         
     private JTicketLines ticketlines;
     private TicketInfo ticket;
     private Object ticketext;
     
-    /** Creates new form SimpleReceipt */
+    /** Creates new form SimpleReceipt
+     * @param ticketline
+     * @param dlSales
+     * @param taxeslogic
+     * @param dlCustomers */
     public SimpleReceipt(String ticketline, DataLogicSales dlSales, DataLogicCustomers dlCustomers, TaxesLogic taxeslogic) {        
         
         initComponents();
@@ -59,10 +74,19 @@ public class SimpleReceipt extends javax.swing.JPanel {
         jPanel2.add(ticketlines, BorderLayout.CENTER);
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setCustomerEnabled(boolean value) {
         btnCustomer.setEnabled(value);
     }
     
+    /**
+     *
+     * @param ticket
+     * @param ticketext
+     */
     public void setTicket(TicketInfo ticket, Object ticketext) {
         
         this.ticket = ticket;
@@ -104,6 +128,10 @@ public class SimpleReceipt extends javax.swing.JPanel {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public TicketInfo getTicket()  {
         return ticket;
     }
@@ -117,6 +145,10 @@ public class SimpleReceipt extends javax.swing.JPanel {
         return i;
     }
     
+    /**
+     *
+     * @return
+     */
     public TicketLineInfo[] getSelectedLines() {
         
         // never returns an empty array, or null, or an array with at least one element.
@@ -125,7 +157,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
        
         if (i >= 0) {
 
-            List<TicketLineInfo> l = new ArrayList<TicketLineInfo>();
+            List<TicketLineInfo> l = new ArrayList<>();
             
             TicketLineInfo line = ticket.getLine(i);
             l.add(line);
@@ -145,6 +177,10 @@ public class SimpleReceipt extends javax.swing.JPanel {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public TicketLineInfo[] getSelectedLinesUnit() {
 
        // never returns an empty array, or null, or an array with at least one element.
@@ -157,7 +193,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
             
             if (line.getMultiply() >= 1.0) {
                 
-                List<TicketLineInfo> l = new ArrayList<TicketLineInfo>();
+                List<TicketLineInfo> l = new ArrayList<>();
                 
                 if (line.getMultiply() > 1.0) {
                     line.setMultiply(line.getMultiply() -1.0);
@@ -188,6 +224,10 @@ public class SimpleReceipt extends javax.swing.JPanel {
         }
     }
 
+    /**
+     *
+     * @param lines
+     */
     public void addSelectedLines(TicketLineInfo[] lines) {
         
         int i = findFirstNonAuxiliarLine();         
@@ -251,7 +291,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
         m_jPanTotals.setLayout(new java.awt.GridBagLayout());
 
-        m_jTotalEuros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        m_jTotalEuros.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jTotalEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jTotalEuros.setOpaque(true);
@@ -267,7 +307,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         m_jPanTotals.add(m_jTotalEuros, gridBagConstraints);
 
-        m_jLblTotalEuros1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jLblTotalEuros1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jLblTotalEuros1.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -276,7 +316,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         m_jPanTotals.add(m_jLblTotalEuros1, gridBagConstraints);
 
-        m_jSubtotalEuros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jSubtotalEuros.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jSubtotalEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jSubtotalEuros.setOpaque(true);
@@ -292,6 +332,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         m_jPanTotals.add(m_jSubtotalEuros, gridBagConstraints);
 
+        m_jTaxesEuros.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jTaxesEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jTaxesEuros.setOpaque(true);
@@ -307,7 +348,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         m_jPanTotals.add(m_jTaxesEuros, gridBagConstraints);
 
-        m_jLblTotalEuros2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jLblTotalEuros2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jLblTotalEuros2.setText(AppLocal.getIntString("label.taxcash")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -316,7 +357,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         m_jPanTotals.add(m_jLblTotalEuros2, gridBagConstraints);
 
-        m_jLblTotalEuros3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jLblTotalEuros3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jLblTotalEuros3.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -330,7 +371,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
         m_jButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        m_jTicketId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jTicketId.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jTicketId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTicketId.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jTicketId.setOpaque(true);
@@ -343,6 +384,9 @@ public class SimpleReceipt extends javax.swing.JPanel {
         btnCustomer.setFocusPainted(false);
         btnCustomer.setFocusable(false);
         btnCustomer.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        btnCustomer.setMaximumSize(new java.awt.Dimension(50, 40));
+        btnCustomer.setMinimumSize(new java.awt.Dimension(50, 40));
+        btnCustomer.setPreferredSize(new java.awt.Dimension(50, 40));
         btnCustomer.setRequestFocusEnabled(false);
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

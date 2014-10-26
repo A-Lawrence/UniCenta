@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,10 +32,19 @@ public class ScaleDialog implements Scale {
 
     private Component parent;
 
+    /**
+     *
+     * @param parent
+     */
     public ScaleDialog(Component parent) {
         this.parent = parent;
     }
 
+    /**
+     *
+     * @return
+     * @throws ScaleException
+     */
     @Override
     public Double readWeight() throws ScaleException {
         

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,12 +30,22 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTicketCatalogLines extends javax.swing.JPanel {
     
     private JRefundLines m_reflines;
     private CatalogSelector m_catalog;
     
-    /** Creates new form JTicketCatalogLines */
+    /** Creates new form JTicketCatalogLines
+     * @param app
+     * @param jTicketEdit
+     * @param pricevisible
+     * @param taxesincluded
+     * @param width
+     * @param height */
     public JTicketCatalogLines(AppView app, JPanelTicketEdits jTicketEdit, boolean pricevisible, boolean taxesincluded, int width, int height) {
         
         DataLogicSystem dlSystem = null;
@@ -54,21 +64,41 @@ public class JTicketCatalogLines extends javax.swing.JPanel {
         add(m_catalog.getComponent(), "catalog");
     }
     
+    /**
+     *
+     */
     public void showCatalog() {
         showView("catalog");
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void loadCatalog() throws BasicException {
         m_catalog.loadCatalog();
     }
     
+    /**
+     *
+     * @param l
+     */
     public void addActionListener(ActionListener l) {
         m_catalog.addActionListener(l);
     }
+
+    /**
+     *
+     * @param l
+     */
     public void removeActionListener(ActionListener l) {
         m_catalog.addActionListener(l);
     }
     
+    /**
+     *
+     * @param aRefundLines
+     */
     public void showRefundLines(List aRefundLines) {
         // anado las lineas de refund
         m_reflines.setLines(aRefundLines);
@@ -88,7 +118,7 @@ public class JTicketCatalogLines extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.CardLayout());
     }// </editor-fold>//GEN-END:initComponents
     

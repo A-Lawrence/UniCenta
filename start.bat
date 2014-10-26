@@ -1,6 +1,6 @@
 @echo off
 REM    uniCenta oPOS Touch Friendly Point of Sales designed for Touch Screen
-REM    Copyright (c) 2009-2012 uniCenta
+REM    Copyright (c) 2009-20143 uniCenta
 REM    http://sourceforge.net/projects/unicentaopos
 REM
 REM    This file is part of uniCenta oPOS
@@ -51,4 +51,4 @@ set CP=%CP%;"%DIRNAME%lib/commons-logging-1.1.jar"
 set CP=%CP%;"%DIRNAME%locales/"
 set CP=%CP%;"%DIRNAME%reports/"
 
-start /B javaw -cp %CP% -Djava.library.path="%DIRNAME%lib/Windows/i368-mingw32" -Ddirname.path="%DIRNAME%./" com.openbravo.pos.forms.StartPOS %1
+start /B javaw -cp %CP% -Djava.library.path="%DIRNAME%lib/Windows/i368-mingw32" -Ddirname.path="%DIRNAME%./" -splash:unicenta_splash_dark.png com.openbravo.pos.forms.StartPOS %1

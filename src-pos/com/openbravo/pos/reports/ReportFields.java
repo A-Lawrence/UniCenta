@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,7 +19,18 @@
 
 package com.openbravo.pos.reports;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface ReportFields {
     
+    /**
+     *
+     * @param record
+     * @param field
+     * @return
+     * @throws ReportException
+     */
     public Object getField(Object record, String field) throws ReportException;   
 }

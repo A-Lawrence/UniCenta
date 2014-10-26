@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,6 +21,10 @@ package com.openbravo.pos.printer;
 
 import com.openbravo.pos.forms.AppLocal;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class DevicePrinterNull implements DevicePrinter {
     
     private String m_sName;
@@ -31,50 +35,115 @@ public class DevicePrinterNull implements DevicePrinter {
         this(null);
     }
     
-    /** Creates a new instance of DevicePrinterNull */
+    /** Creates a new instance of DevicePrinterNull
+     * @param desc */
     public DevicePrinterNull(String desc) {
         m_sName = AppLocal.getIntString("Printer.Null");
         m_sDescription = desc;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterName() {
         return m_sName;
     }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getPrinterDescription() {
         return m_sDescription;
     }        
+
+    /**
+     *
+     * @return
+     */
     @Override
     public javax.swing.JComponent getPrinterComponent() {
         return null;
     }
+
+    /**
+     *
+     */
     @Override
     public void reset() {
     }
     
+    /**
+     *
+     */
     @Override
     public void beginReceipt() {
     }
+
+    /**
+     *
+     * @param type
+     * @param position
+     * @param code
+     */
     @Override
     public void printBarCode(String type, String position, String code) {        
     }    
+
+    /**
+     *
+     * @param image
+     */
     @Override
     public void printImage(java.awt.image.BufferedImage image) {
     }
+
+    /**
+     *
+     * @param iTextSize
+     */
     @Override
     public void beginLine(int iTextSize) {
     }   
+
+    /**
+     *
+     * @param iStyle
+     * @param sText
+     */
     @Override
     public void printText(int iStyle, String sText) {
     }   
+
+    /**
+     *
+     */
     @Override
     public void endLine() {
     }
+
+    /**
+     *
+     */
     @Override
     public void endReceipt() {
     }
+
+    /**
+     *
+     */
     @Override
     public void openDrawer() {
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void printLogo() {
+        
     }
 }

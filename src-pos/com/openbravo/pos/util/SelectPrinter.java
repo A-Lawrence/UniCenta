@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -45,6 +45,12 @@ public class SelectPrinter extends javax.swing.JDialog {
         super(parent, modal);
     }
 
+    /**
+     *
+     * @param parent
+     * @param printers
+     * @return
+     */
     public static SelectPrinter getSelectPrinter(Component parent, String[] printers) {
 
         Window window = SwingUtilities.windowForComponent(parent);
@@ -78,10 +84,18 @@ public class SelectPrinter extends javax.swing.JDialog {
         printservice = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOK() {
         return ok;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPrintService() {
         return printservice;
     }
@@ -97,8 +111,8 @@ public class SelectPrinter extends javax.swing.JDialog {
 
         jPanel8 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jcmdOK = new javax.swing.JButton();
         jcmdCancel = new javax.swing.JButton();
+        jcmdOK = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPrinters = new javax.swing.JComboBox();
@@ -108,16 +122,7 @@ public class SelectPrinter extends javax.swing.JDialog {
 
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
-        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
-        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcmdOKActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jcmdOK);
-
+        jcmdCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
@@ -128,11 +133,26 @@ public class SelectPrinter extends javax.swing.JDialog {
         });
         jPanel1.add(jcmdCancel);
 
+        jcmdOK.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jcmdOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
+        jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
+        jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
+        jcmdOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmdOKActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcmdOK);
+
         jPanel8.add(jPanel1, java.awt.BorderLayout.LINE_END);
 
         getContentPane().add(jPanel8, java.awt.BorderLayout.SOUTH);
 
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText(AppLocal.getIntString("Label.MachinePrinter")); // NOI18N
+
+        jPrinters.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jPrinters.setPreferredSize(new java.awt.Dimension(32, 25));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,8 +27,15 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class BrowsableData implements ListModel {
     
+    /**
+     *
+     */
     protected EventListenerList listeners = new EventListenerList();
     private boolean m_bIsAdjusting;
     
@@ -39,7 +46,10 @@ public class BrowsableData implements ListModel {
     
     private Comparator m_comparer;
     
-    /** Creates a new instance of BrowsableData */
+    /** Creates a new instance of BrowsableData
+     * @param dataprov
+     * @param saveprov
+     * @param c */
     public BrowsableData(ListProvider dataprov, SaveProvider saveprov, Comparator c) {
         m_dataprov = dataprov;
         m_saveprov = saveprov;
@@ -48,9 +58,20 @@ public class BrowsableData implements ListModel {
         
         m_aData = new ArrayList();
     }
+
+    /**
+     *
+     * @param dataprov
+     * @param saveprov
+     */
     public BrowsableData(ListProvider dataprov, SaveProvider saveprov) {
         this(dataprov, saveprov, null);
     }
+
+    /**
+     *
+     * @param dataprov
+     */
     public BrowsableData(ListProvider dataprov) {
         this(dataprov, null, null);
     }    
@@ -71,10 +92,19 @@ public class BrowsableData implements ListModel {
         return m_aData.size();
     }   
 
+    /**
+     *
+     * @return
+     */
     public final boolean isAdjusting() {
         return m_bIsAdjusting;
     }
     
+    /**
+     *
+     * @param index0
+     * @param index1
+     */
     protected void fireDataIntervalAdded(int index0, int index1) {
         m_bIsAdjusting = true;
         EventListener[] l = listeners.getListeners(ListDataListener.class);
@@ -87,6 +117,12 @@ public class BrowsableData implements ListModel {
         }
         m_bIsAdjusting = false;
     }
+
+    /**
+     *
+     * @param index0
+     * @param index1
+     */
     protected void fireDataContentsChanged(int index0, int index1) {
         m_bIsAdjusting = true;
         EventListener[] l = listeners.getListeners(ListDataListener.class);
@@ -99,6 +135,12 @@ public class BrowsableData implements ListModel {
         }
         m_bIsAdjusting = false;
     }
+
+    /**
+     *
+     * @param index0
+     * @param index1
+     */
     protected void fireDataIntervalRemoved(int index0, int index1) {
         m_bIsAdjusting = true;
         EventListener[] l = listeners.getListeners(ListDataListener.class);
@@ -112,47 +154,94 @@ public class BrowsableData implements ListModel {
         m_bIsAdjusting = false;
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void refreshData() throws BasicException {
         
         putNewData(m_dataprov == null
                 ? null 
                 : m_dataprov.refreshData());
     }    
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void loadData() throws BasicException {
         
         putNewData(m_dataprov == null
                 ? null 
                 : m_dataprov.loadData());
     }
+
+    /**
+     *
+     * @throws BasicException
+     */
     public void unloadData() throws BasicException {
         putNewData(null);
     }    
+
+    /**
+     *
+     * @param l
+     */
     public void loadList(List l) {
         putNewData(l);
     }
     
+    /**
+     *
+     * @param c
+     * @throws BasicException
+     */
     public void sort(Comparator c) throws BasicException {
         
         Collections.sort(m_aData, c);
         putNewData(m_aData);
     }
     
+    /**
+     *
+     * @return
+     */
     public final boolean canLoadData() {
         return m_dataprov != null;
-    }  
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public boolean canInsertData() {
         return m_saveprov != null && m_saveprov.canInsert();          
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean canDeleteData() {
         return m_saveprov != null && m_saveprov.canDelete();      
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean canUpdateData() {
         return m_saveprov != null && m_saveprov.canUpdate();      
     }
     
+    /**
+     *
+     * @param index
+     * @param f
+     * @return
+     * @throws BasicException
+     */
     public final int findNext(int index, Finder f) throws BasicException {
         int i = index + 1;
         
@@ -174,8 +263,14 @@ public class BrowsableData implements ListModel {
         
         // No se ha encontrado
         return -1;
-    }    
-    
+    }
+
+    /**
+     *
+     * @param index
+     * @return
+     * @throws BasicException
+     */
     public final int removeRecord(int index) throws BasicException {
         if (canDeleteData() && index >= 0 && index < m_aData.size()) {
             if (m_saveprov.deleteData(getElementAt(index)) > 0) { 
@@ -200,6 +295,13 @@ public class BrowsableData implements ListModel {
         }
     }
     
+    /**
+     *
+     * @param index
+     * @param value
+     * @return
+     * @throws BasicException
+     */
     public final int updateRecord(int index, Object value) throws BasicException {
                 
         if (canUpdateData() && index >= 0 && index < m_aData.size()) {
@@ -240,6 +342,13 @@ public class BrowsableData implements ListModel {
             throw new BasicException(LocalRes.getIntString("exception.noupdate"));
         }
     }
+
+    /**
+     *
+     * @param value
+     * @return
+     * @throws BasicException
+     */
     public final int insertRecord(Object value) throws BasicException {   
         
         if (canInsertData() && m_saveprov.insertData(value) > 0) { 

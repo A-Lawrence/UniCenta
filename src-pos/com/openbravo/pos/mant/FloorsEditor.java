@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -39,7 +39,8 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
 //    private DirtyManager m_Dirty = new DirtyManager();    
     private String m_sID;
     
-    /** Creates new form FloorsEditor */
+    /** Creates new form FloorsEditor
+     * @param dirty */
     public FloorsEditor(DirtyManager dirty) {
         initComponents();
          
@@ -49,6 +50,9 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         writeValueEOF();
     }
 
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         
@@ -59,6 +63,10 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         m_jName.setEnabled(false);
         m_jImage.setEnabled(false);
     }  
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         
@@ -69,6 +77,11 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         m_jName.setEnabled(true);
         m_jImage.setEnabled(true);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
         
@@ -80,6 +93,11 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         m_jName.setEnabled(false);
         m_jImage.setEnabled(false);
     }    
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
         
@@ -92,6 +110,11 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         m_jImage.setEnabled(true);
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -101,13 +124,20 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         floor[1] = m_jName.getText();
         floor[2] = m_jImage.getImage();
         return floor;
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -133,12 +163,12 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
         jPanel1.setPreferredSize(new java.awt.Dimension(150, 100));
         jPanel1.setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("Label.Name")); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(20, 20, 90, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.add(m_jName);
         m_jName.setBounds(110, 20, 180, 25);
 
@@ -146,6 +176,8 @@ public final class FloorsEditor extends JPanel implements EditorRecord {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 0));
         jPanel3.setLayout(new java.awt.BorderLayout());
+
+        m_jImage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel3.add(m_jImage, java.awt.BorderLayout.CENTER);
 
         add(jPanel3, java.awt.BorderLayout.CENTER);

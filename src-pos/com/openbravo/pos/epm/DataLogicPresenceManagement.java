@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -34,6 +34,9 @@ import java.util.UUID;
  */
 public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
 
+    /**
+     *
+     */
     protected Session s;
 
     private SentenceExec m_checkin;
@@ -59,9 +62,16 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
     private TableDefinition tbreaks;
     private TableDefinition tleaves;
 
+    /**
+     *
+     */
     public DataLogicPresenceManagement() {
     }
     
+    /**
+     *
+     * @param s
+     */
     @Override
     public void init(Session s){
 
@@ -163,6 +173,10 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
             , SerializerReadString.INSTANCE);
     }
 
+    /**
+     *
+     * @return
+     */
     public final SentenceList getBreaksList() {
         return new StaticSentence(s
             , "SELECT ID, NAME FROM BREAKS ORDER BY NAME"
@@ -173,6 +187,10 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
             }});
     }
 
+    /**
+     *
+     * @return
+     */
     public final SentenceList getLeavesList() {
         return new StaticSentence(s
             , "SELECT ID, PPLID, NAME, STARTDATE, ENDDATE, NOTES FROM LEAVES ORDER BY NAME"
@@ -183,20 +201,41 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
             }});
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public final List listBreaksVisible()throws BasicException {
         return m_breaksvisible.list();
     }      
 
+    /**
+     *
+     * @param user
+     * @throws BasicException
+     */
     public final void CheckIn(String user) throws BasicException {
         Object[] value = new Object[] {UUID.randomUUID().toString(), new Date(), user};
         m_checkin.exec(value);
     }
 
+    /**
+     *
+     * @param user
+     * @throws BasicException
+     */
     public final void CheckOut(String user) throws BasicException {
         Object[] value = new Object[] {new Date(), user};
         m_checkout.exec(value);
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final boolean IsCheckedIn(String user) throws BasicException {
         String Data = (String) m_checkdate.find(user);
         // "0" rows shows user is not checked in
@@ -206,18 +245,35 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
         return true;
     }
 
+    /**
+     *
+     * @param UserID
+     * @param BreakID
+     * @throws BasicException
+     */
     public final void StartBreak(String UserID,  String BreakID) throws BasicException {
         String ShiftID = GetShiftID(UserID);
         Object[] value = new Object[] {UUID.randomUUID().toString(), ShiftID, BreakID, new Date()};
         m_startbreak.exec(value);
     }
 
+    /**
+     *
+     * @param UserID
+     * @throws BasicException
+     */
     public final void EndBreak(String UserID) throws BasicException {
         String ShiftID = GetShiftID(UserID);
         Object[] value = new Object[] {new Date(), ShiftID};
         m_endbreak.exec(value);
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final boolean IsOnBreak(String user) throws BasicException {
         String ShiftID = GetShiftID(user);
         String Data = (String) m_isonbreak.find(ShiftID);
@@ -228,31 +284,73 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
         return true;
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final String GetShiftID(String user) throws BasicException {
         return (String) m_shiftid.find(user);
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final Date GetLastCheckIn(String user) throws BasicException {
         return (Date) m_lastcheckin.find(user);
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final Date GetLastCheckOut(String user) throws BasicException {
         return (Date) m_lastcheckout.find(user);
     }
 
+    /**
+     *
+     * @param ShiftID
+     * @return
+     * @throws BasicException
+     */
     public final Date GetStartBreakTime(String ShiftID) throws BasicException {
         return (Date) m_startbreaktime.find(ShiftID);
     }
 
+    /**
+     *
+     * @param ShiftID
+     * @return
+     * @throws BasicException
+     */
     public final String GetLastBreakID(String ShiftID) throws BasicException {
         return (String) m_lastbreakid.find(ShiftID);
     }
 
+    /**
+     *
+     * @param ShiftID
+     * @return
+     * @throws BasicException
+     */
     public final String GetLastBreakName(String ShiftID) throws BasicException {
         String BreakID = GetLastBreakID(ShiftID);
         return (String) m_breakname.find(BreakID);
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final Object [] GetLastBreak(String user) throws BasicException {
         String ShiftID = GetShiftID(user);
         Date StartBreakTime = GetStartBreakTime(ShiftID);
@@ -260,6 +358,12 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
         return new Object[] {BreakName, StartBreakTime};
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     * @throws BasicException
+     */
     public final boolean IsOnLeave(String user) throws BasicException {
         Object[] value = new Object[] {new Date(), new Date(), user};
         String Data = (String) m_isonleave.find(value);
@@ -272,7 +376,12 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
 
     // EmployeeList list
     // Changed ='4' to !='0' --it lists all the users except admin who doesn´t clock in
-    public SentenceList getEmployeeList() {
+
+    /**
+     *
+     * @return
+     */
+        public SentenceList getEmployeeList() {
         return new StaticSentence(s
             , new QBFBuilder("SELECT ID, NAME FROM PEOPLE WHERE ROLE != '0' AND VISIBLE = " + s.DB.TRUE() + " AND ?(QBF_FILTER) ORDER BY NAME", new String[] {"NAME"})
             , new SerializerWriteBasic(new Datas[] {Datas.OBJECT, Datas.STRING})
@@ -286,6 +395,11 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
                 });
     }
 
+    /**
+     *
+     * @param user
+     * @throws BasicException
+     */
     public void BlockEmployee(String user) throws BasicException {
         boolean isOnBreak = IsOnBreak(user);
         if (isOnBreak) {
@@ -302,6 +416,12 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
         return tleaves;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws BasicException
+     */
     public EmployeeInfoExt loadEmployeeExt(String id) throws BasicException {
         return (EmployeeInfoExt) new PreparedSentence(s
                 , "SELECT ID, NAME FROM PEOPLE WHERE ID = ?"
@@ -309,7 +429,17 @@ public class DataLogicPresenceManagement extends BeanFactoryDataSingle {
                 , new EmployeeExtRead()).find(id);
     }
 
+    /**
+     *
+     */
     protected static class EmployeeExtRead implements SerializerRead {
+
+        /**
+         *
+         * @param dr
+         * @return
+         * @throws BasicException
+         */
         @Override
         public Object readValues(DataRead dr) throws BasicException {
             EmployeeInfoExt c = new EmployeeInfoExt(dr.getString(1));

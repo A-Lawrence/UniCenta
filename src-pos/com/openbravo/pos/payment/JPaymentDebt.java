@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -37,7 +37,8 @@ public class JPaymentDebt extends javax.swing.JPanel implements JPaymentInterfac
     private double m_dPaid;
     private double m_dTotal;
 
-    /** Creates new form JPaymentDebt */
+    /** Creates new form JPaymentDebt
+     * @param notifier */
     public JPaymentDebt(JPaymentNotifier notifier) {
 
         this.notifier = notifier;
@@ -49,6 +50,12 @@ public class JPaymentDebt extends javax.swing.JPanel implements JPaymentInterfac
 
     }
 
+    /**
+     *
+     * @param customerext
+     * @param dTotal
+     * @param transID
+     */
     @Override
     public void activate(CustomerInfoExt customerext, double dTotal, String transID) {
 
@@ -90,11 +97,19 @@ public class JPaymentDebt extends javax.swing.JPanel implements JPaymentInterfac
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public PaymentInfo executePayment() {
         return new PaymentInfoTicket(m_dPaid, "debt");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
@@ -175,85 +190,85 @@ public class JPaymentDebt extends javax.swing.JPanel implements JPaymentInterfac
 
         jPanel4.setLayout(null);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText(AppLocal.getIntString("label.debt")); // NOI18N
         jPanel4.add(jLabel8);
         jLabel8.setBounds(20, 20, 100, 25);
 
-        m_jMoneyEuros.setBackground(new java.awt.Color(153, 153, 255));
-        m_jMoneyEuros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jMoneyEuros.setBackground(new java.awt.Color(204, 255, 51));
+        m_jMoneyEuros.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         m_jMoneyEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jMoneyEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jMoneyEuros.setOpaque(true);
-        m_jMoneyEuros.setPreferredSize(new java.awt.Dimension(150, 25));
+        m_jMoneyEuros.setPreferredSize(new java.awt.Dimension(200, 30));
         jPanel4.add(m_jMoneyEuros);
-        m_jMoneyEuros.setBounds(120, 20, 150, 25);
+        m_jMoneyEuros.setBounds(120, 20, 200, 30);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.name")); // NOI18N
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(20, 70, 100, 25);
+        jLabel3.setBounds(20, 60, 100, 25);
 
         m_jName.setEditable(false);
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel4.add(m_jName);
-        m_jName.setBounds(120, 70, 200, 25);
+        m_jName.setBounds(120, 60, 200, 25);
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText(AppLocal.getIntString("label.notes")); // NOI18N
         jPanel4.add(jLabel12);
-        jLabel12.setBounds(20, 100, 100, 25);
+        jLabel12.setBounds(20, 90, 100, 25);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.maxdebt")); // NOI18N
         jPanel4.add(jLabel2);
-        jLabel2.setBounds(20, 180, 100, 25);
+        jLabel2.setBounds(20, 150, 100, 25);
 
         txtMaxdebt.setEditable(false);
-        txtMaxdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtMaxdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtMaxdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel4.add(txtMaxdebt);
-        txtMaxdebt.setBounds(120, 180, 130, 25);
+        txtMaxdebt.setBounds(120, 150, 130, 25);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("label.curdebt")); // NOI18N
         jPanel4.add(jLabel4);
-        jLabel4.setBounds(20, 210, 100, 25);
+        jLabel4.setBounds(20, 180, 100, 25);
 
         txtCurdebt.setEditable(false);
-        txtCurdebt.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdebt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdebt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel4.add(txtCurdebt);
-        txtCurdebt.setBounds(120, 210, 130, 25);
+        txtCurdebt.setBounds(120, 180, 130, 25);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("label.curdate")); // NOI18N
         jPanel4.add(jLabel6);
-        jLabel6.setBounds(20, 240, 100, 25);
+        jLabel6.setBounds(20, 210, 100, 25);
 
         txtCurdate.setEditable(false);
-        txtCurdate.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtCurdate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCurdate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel4.add(txtCurdate);
-        txtCurdate.setBounds(120, 240, 130, 25);
+        txtCurdate.setBounds(120, 210, 130, 25);
 
         m_jNotes.setEditable(false);
         m_jNotes.setBackground(new java.awt.Color(240, 240, 240));
-        m_jNotes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jNotes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jNotes.setEnabled(false);
         jScrollPane1.setViewportView(m_jNotes);
 
         jPanel4.add(jScrollPane1);
-        jScrollPane1.setBounds(120, 100, 200, 70);
+        jScrollPane1.setBounds(120, 90, 200, 50);
 
         jPanel5.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         jlblMessage.setEditable(false);
-        jlblMessage.setBackground(new java.awt.Color(240, 240, 240));
-        jlblMessage.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jlblMessage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlblMessage.setForeground(new java.awt.Color(255, 0, 51));
         jlblMessage.setLineWrap(true);
         jlblMessage.setWrapStyleWord(true);
+        jlblMessage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jlblMessage.setFocusable(false);
         jlblMessage.setPreferredSize(new java.awt.Dimension(300, 72));
         jlblMessage.setRequestFocusEnabled(false);

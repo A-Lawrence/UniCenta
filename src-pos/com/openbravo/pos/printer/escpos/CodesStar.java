@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,10 +23,18 @@ import com.openbravo.pos.printer.DevicePrinter;
 import com.openbravo.pos.printer.DeviceTicket;
 import java.awt.image.BufferedImage;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class CodesStar extends Codes {
 
     // set line interspacing to 4mm
-    public static final byte[] INITSEQUENCE = {0x1B, 0x7A, 0x01};
+
+    /**
+     *
+     */
+        public static final byte[] INITSEQUENCE = {0x1B, 0x7A, 0x01};
 
     private static final byte[] CHAR_SIZE_0 = {0x1B, 0x69, 0x00, 0x00};
     private static final byte[] CHAR_SIZE_1 = {0x1B, 0x69, 0x01, 0x00};
@@ -44,44 +52,124 @@ public class CodesStar extends Codes {
     private static final byte[] IMAGE_BEGIN = {0x1B, 0x30};
     private static final byte[] IMAGE_END = {0x1B, 0x7A, 0x01};
     private static final byte[] IMAGE_HEADER = {0x1B, 0x4B};
+    private static final byte[] IMAGE_LOGO = {0x1B, 0x1C, 0x70,0x01, 0x00};
     private static final byte[] NEW_LINE = {0x0D, 0x0A}; // Print and carriage return
+
     
     /** Creates a new instance of CodesStar */
     public CodesStar() {
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getInitSequence() { return INITSEQUENCE; }
      
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getSize0() { return CHAR_SIZE_0; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getSize1() { return CHAR_SIZE_1; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getSize2() { return CHAR_SIZE_2; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getSize3() { return CHAR_SIZE_3; }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getBoldSet() { return BOLD_SET; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getBoldReset() { return BOLD_RESET; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getUnderlineSet() { return UNDERLINE_SET; }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getUnderlineReset() { return UNDERLINE_RESET; }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getOpenDrawer() { return OPEN_DRAWER; }    
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getCutReceipt() { return PARTIAL_CUT; }   
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getNewLine() { return NEW_LINE; } 
+
+    /**
+     *
+     * @return
+     */
     @Override
     public byte[] getImageHeader() { return IMAGE_HEADER; }     
+
+    /**
+     *
+     * @return
+     */
     @Override
     public int getImageWidth() { return 192; }
     
+    /**
+     *
+     * @return
+     */
+    @Override
+    public byte[] getImageLogo(){ return IMAGE_LOGO; }
+
+    /**
+     *
+     * @param image
+     * @return
+     */
     @Override
     public byte[] transImage(BufferedImage image) {
 
@@ -136,6 +224,13 @@ public class CodesStar extends Codes {
         return bData;
     }
 
+    /**
+     *
+     * @param out
+     * @param type
+     * @param position
+     * @param code
+     */
     @Override
     public void printBarcode(PrinterWritter out, String type, String position, String code) {
 

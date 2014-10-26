@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,15 +21,25 @@ package com.openbravo.data.user;
 
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class EditorCreatorComposed implements EditorCreator{
     
     private EditorCreator[] m_editors;
     
-    /** Creates a new instance of EditorCreatorComposed */
+    /** Creates a new instance of EditorCreatorComposed
+     * @param editors */
     public EditorCreatorComposed(EditorCreator... editors) {
         m_editors = editors;
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public Object createValue() throws BasicException {
         
         Object[] value = new Object[m_editors.length];

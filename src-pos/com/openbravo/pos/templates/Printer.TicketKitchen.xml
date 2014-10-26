@@ -60,12 +60,13 @@
         </line>
     #end
 
-       #if (${tickettext.place} != ${place})
+
+        #if (${tickettext.place} != ${place})
         <line>
            <text align="left" length="15">Table:</text>
            <text>${place}</text>
         </line>
-       #end
+        #end
         
         <line></line>
         <line>
@@ -85,20 +86,21 @@
                     <text align ="left" length="37">${ticketline.printName()}</text>
                 #end
             </line>
-        #end
-<!-- Add the following lines only for 2.30 Attributes -->
-        #if ($ticketline.productAttSetInstId)
-            <line>
-                <text align ="left" length="42">    ${ticketline.productAttSetInstDesc}</text>
-            </line>
-        #end
-<!-- Add the previous lines only for 2.30 Attributes -->
+            <!-- Add the following lines only for 2.30 Attributes -->
+              #if ($ticketline.productAttSetInstId)
+                <line>
+                    <text align ="left" length="42">    ${ticketline.productAttSetInstDesc}</text>
+                </line>
+                <line></line>
+            #end
+         #end
+
     #end
         <line>
             <text>------------------------------------------</text>
         </line>
         <line>
-            <text align="left" length="15">Cashier:</text>
+            <text align="left" length="15">Server:</text>
             <text>${ticket.printUser()}</text>
         </line>
     </ticket>

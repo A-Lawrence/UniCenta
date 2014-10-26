@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,14 +28,35 @@ import com.openbravo.data.user.BrowseListener;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.StateListener;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JNavigator extends javax.swing.JPanel implements BrowseListener, StateListener {
     
+    /**
+     *
+     */
     public final static int BUTTONS_ALL = 0;
+
+    /**
+     *
+     */
     public final static int BUTTONS_NONAVIGATE = 1;
     
+    /**
+     *
+     */
     protected BrowsableEditableData m_bd;
+
+    /**
+     *
+     */
     protected ComparatorCreator m_cc;
     
+    /**
+     *
+     */
     protected FindInfo m_LastFindInfo;  
 
     private javax.swing.JButton jbtnFind = null;
@@ -47,7 +68,11 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
     private javax.swing.JButton jbtnRefresh = null;
     private javax.swing.JButton jbtnReload = null;    
     
-    /** Creates new form JNavigator */
+    /** Creates new form JNavigator
+     * @param bd
+     * @param vec
+     * @param cc
+     * @param iButtons */
     public JNavigator(BrowsableEditableData bd, Vectorer vec, ComparatorCreator cc, int iButtons) {
 
         initComponents();
@@ -181,15 +206,30 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
         m_bd = bd;
         bd.addBrowseListener(this);
         bd.addStateListener(this);
-    }   
-    
+    }
+
+    /**
+     *
+     * @param bd
+     */
     public JNavigator(BrowsableEditableData bd) {
         this(bd, null, null, BUTTONS_ALL);
     }
+
+    /**
+     *
+     * @param bd
+     * @param vec
+     * @param cc
+     */
     public JNavigator(BrowsableEditableData bd, Vectorer vec, ComparatorCreator cc) {
         this(bd, vec, cc, BUTTONS_ALL);
     }
 
+    /**
+     *
+     * @param iState
+     */
     public void updateState(int iState) {
         if (iState == BrowsableEditableData.ST_INSERT || iState == BrowsableEditableData.ST_DELETE) {
              // Insert o Delete
@@ -199,8 +239,13 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
             if (jbtnLast != null) jbtnLast.setEnabled(false);
             if (jbtnRefresh != null) jbtnRefresh.setEnabled(true);
         }
-    }  
-    
+    }
+
+    /**
+     *
+     * @param iIndex
+     * @param iCounter
+     */
     public void updateIndex(int iIndex, int iCounter) {
         
         if (iIndex >= 0 && iIndex < iCounter) {
@@ -309,7 +354,7 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
     }// </editor-fold>//GEN-END:initComponents
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

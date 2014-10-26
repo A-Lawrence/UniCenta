@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,15 +27,26 @@ import java.awt.*;
  */
 public class JPaymentSelectCustomer extends JPaymentSelect {
     
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param modal
+     * @param o */
     protected JPaymentSelectCustomer(java.awt.Frame parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
     }
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param modal
+     * @param o */
     protected JPaymentSelectCustomer(java.awt.Dialog parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
-    } 
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @return
+     */
     public static JPaymentSelect getDialog(Component parent) {
 
         Window window = getWindow(parent);
@@ -45,8 +56,11 @@ public class JPaymentSelectCustomer extends JPaymentSelect {
         } else {
             return new JPaymentSelectCustomer((Dialog) window, true, parent.getComponentOrientation());
         } 
-    } 
-    
+    }
+
+    /**
+     *
+     */
     @Override
     protected void addTabs() {
 // Bank Payment Receipt - Thanks Steve Clough! August 2011
@@ -58,6 +72,11 @@ public class JPaymentSelectCustomer extends JPaymentSelect {
         setHeaderVisible(true);
     }
     
+    /**
+     *
+     * @param isPositive
+     * @param isComplete
+     */
     @Override
     protected void setStatusPanel(boolean isPositive, boolean isComplete) {
         
@@ -65,6 +84,11 @@ public class JPaymentSelectCustomer extends JPaymentSelect {
         setOKEnabled(isPositive);
     }
     
+    /**
+     *
+     * @param total
+     * @return
+     */
     @Override
     protected PaymentInfo getDefaultPayment(double total) {
         return new PaymentInfoCash_original(total, total);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,29 +21,50 @@ package com.openbravo.format;
 
 import java.text.ParseException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class FormatsValidate extends Formats {
     
     private Formats m_fmt;
     private FormatsConstrain[] m_aConstrains;
     
-    /** Creates a new instance of FormatsValidate */
+    /** Creates a new instance of FormatsValidate
+     * @param fmt
+     * @param constrains */
     public FormatsValidate(Formats fmt, FormatsConstrain[] constrains) {
         m_fmt = fmt;
         m_aConstrains = constrains;
     }
-    /** Creates a new instance of FormatsValidate */
+    /** Creates a new instance of FormatsValidate
+     * @param fmt */
     public FormatsValidate(Formats fmt) {
         this(fmt, new FormatsConstrain[0]);
     }
-    /** Creates a new instance of FormatsValidate */
+    /** Creates a new instance of FormatsValidate
+     * @param fmt
+     * @param constrain */
     public FormatsValidate(Formats fmt, FormatsConstrain constrain) {
         this(fmt, new FormatsConstrain[]{constrain});
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     @Override
     protected String formatValueInt(Object value) {
         return m_fmt.formatValueInt(value);
     }
+
+    /**
+     *
+     * @param value
+     * @return
+     * @throws ParseException
+     */
     @Override
     protected Object parseValueInt(String value) throws ParseException {
         // Primero obtenemos el valor        
@@ -54,6 +75,11 @@ public class FormatsValidate extends Formats {
         
         return val;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public int getAlignment() {
         return m_fmt.getAlignment();

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,7 +36,13 @@ public class LeavesInfo implements IKeyed {
     private String m_sNotes;
 
 
-    /** Creates new LeavesInfo */
+    /** Creates new LeavesInfo
+     * @param id
+     * @param name
+     * @param notes
+     * @param startdate
+     * @param employeeid
+     * @param enddate */
     public LeavesInfo(String id, String name, String employeeid, String startdate, String enddate, String notes) {
         m_sID = id;
         m_sName = name;
@@ -46,23 +52,43 @@ public class LeavesInfo implements IKeyed {
         m_sNotes = notes;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getKey() {
         return m_sID;
     }
 
+    /**
+     *
+     * @param sID
+     */
     public void setID(String sID) {
         m_sID = sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
 
+    /**
+     *
+     * @param sName
+     */
     public void setName(String sName) {
         m_sName = sName;
     }
@@ -72,34 +98,66 @@ public class LeavesInfo implements IKeyed {
         return m_sName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmployeeID() {
         return m_sEmployeeID;
     }
 
+    /**
+     *
+     * @param EmployeeID
+     */
     public void setEmployeeID(String EmployeeID) {
         this.m_sEmployeeID = EmployeeID;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStartDate() {
         return m_sStartDate;
     }
 
+    /**
+     *
+     * @param StartDate
+     */
     public void setStartDate(String StartDate) {
         this.m_sStartDate = StartDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEndDate() {
         return m_sEndDate;
     }
 
+    /**
+     *
+     * @param EndDate
+     */
     public void setEndDate(String EndDate) {
         this.m_sEndDate = EndDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNotes() {
         return m_sNotes;
     }
 
+    /**
+     *
+     * @param Notes
+     */
     public void setNotes(String Notes) {
         this.m_sNotes = Notes;
     }

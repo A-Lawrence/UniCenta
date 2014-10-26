@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,6 +19,10 @@
 
 package com.openbravo.editor;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JEditorString extends JEditorText {
     
     /** Creates a new instance of JEditorString */
@@ -26,11 +30,19 @@ public class JEditorString extends JEditorText {
         super();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     protected final int getMode() {
         return EditorKeys.MODE_STRING;
     }
         
+    /**
+     *
+     * @return
+     */
     @Override
     protected int getStartMode() {
         return MODE_Abc1;

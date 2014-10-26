@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,19 +30,35 @@ public class BasicSentenceEnum implements SentenceEnum {
     BaseSentence sent;
     DataResultSet SRS;
     
-    /** Creates a new instance of AbstractSentenceEnum */
+    /** Creates a new instance of AbstractSentenceEnum
+     * @param sent */
     public BasicSentenceEnum(BaseSentence sent) {
         this.sent = sent;
         this.SRS = null;
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
     public void load() throws BasicException {
         load(null);
     }
+
+    /**
+     *
+     * @param params
+     * @throws BasicException
+     */
     public void load(Object params) throws BasicException {
         SRS = sent.openExec(params);
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public Object getCurrent() throws BasicException {
         if (SRS == null) {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));
@@ -51,6 +67,11 @@ public class BasicSentenceEnum implements SentenceEnum {
         return SRS.getCurrent();  
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public boolean next() throws BasicException {
         if (SRS == null) {
             throw new BasicException(LocalRes.getIntString("exception.nodataset"));

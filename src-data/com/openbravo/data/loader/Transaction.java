@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,24 +19,31 @@
 
 package com.openbravo.data.loader;
 
-import java.sql.SQLException;
 import com.openbravo.basic.BasicException;
+import java.sql.SQLException;
 
 /**
  *
  * @author adrianromero
  * Created on 26 de febrero de 2007, 21:50
+ * @param <T>
  *
  */
 public abstract class Transaction<T> {
     
     private Session s;
     
-    /** Creates a new instance of Transaction */
+    /** Creates a new instance of Transaction
+     * @param s */
     public Transaction(Session s) {
         this.s = s;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public final T execute() throws BasicException {
         
         if (s.isTransaction()) {
@@ -58,5 +65,10 @@ public abstract class Transaction<T> {
         }
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected abstract T transact() throws BasicException;
 }

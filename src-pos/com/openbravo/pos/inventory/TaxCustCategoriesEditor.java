@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,11 +29,16 @@ import java.awt.Component;
 import java.util.UUID;
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public final class TaxCustCategoriesEditor extends JPanel implements EditorRecord {
     
     private Object m_oId;
     
-    /** Creates new form taxEditor */
+    /** Creates new form taxEditor
+     * @param dirty */
     public TaxCustCategoriesEditor(DirtyManager dirty) {
         initComponents();
 
@@ -41,18 +46,31 @@ public final class TaxCustCategoriesEditor extends JPanel implements EditorRecor
         
         writeValueEOF();
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         m_oId = null;
         m_jName.setText(null);
         m_jName.setEnabled(false);
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         m_oId = UUID.randomUUID().toString();
         m_jName.setText(null);
         m_jName.setEnabled(true);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
 
@@ -61,6 +79,11 @@ public final class TaxCustCategoriesEditor extends JPanel implements EditorRecor
         m_jName.setText(Formats.STRING.formatValue(taxcustcat[1]));
         m_jName.setEnabled(false);
     }    
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
 
@@ -70,6 +93,11 @@ public final class TaxCustCategoriesEditor extends JPanel implements EditorRecor
         m_jName.setEnabled(true);
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
         
@@ -79,13 +107,20 @@ public final class TaxCustCategoriesEditor extends JPanel implements EditorRecor
         taxcustcat[1] = m_jName.getText();
 
         return taxcustcat;
-    }    
-     
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
     
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -104,12 +139,12 @@ public final class TaxCustCategoriesEditor extends JPanel implements EditorRecor
 
         setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("Label.Name")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(20, 20, 80, 25);
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         add(m_jName);
         m_jName.setBounds(100, 20, 200, 25);
     }// </editor-fold>//GEN-END:initComponents

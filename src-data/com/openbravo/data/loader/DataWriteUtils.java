@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,6 +35,11 @@ public class DataWriteUtils {
     public DataWriteUtils() {
     }
     
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public static String getSQLValue(Object obj) {
         if (obj == null) {
             return "NULL";
@@ -53,6 +58,11 @@ public class DataWriteUtils {
         }            
     }
     
+    /**
+     *
+     * @param iValue
+     * @return
+     */
     public static String getSQLValue(Integer iValue) {
         if (iValue == null) {
             return "NULL";
@@ -61,6 +71,11 @@ public class DataWriteUtils {
         }
     }
     
+    /**
+     *
+     * @param dValue
+     * @return
+     */
     public static String getSQLValue(Double dValue) {
         if (dValue == null) {
             return "NULL";
@@ -69,6 +84,11 @@ public class DataWriteUtils {
         }
     }
     
+    /**
+     *
+     * @param bValue
+     * @return
+     */
     public static String getSQLValue(Boolean bValue) {
         if (bValue == null) {
             return "NULL";
@@ -77,6 +97,11 @@ public class DataWriteUtils {
         }
     }
     
+    /**
+     *
+     * @param sValue
+     * @return
+     */
     public static String getSQLValue(String sValue) {
         if (sValue == null) {
             return "NULL";
@@ -85,6 +110,11 @@ public class DataWriteUtils {
         }
     }
     
+    /**
+     *
+     * @param dValue
+     * @return
+     */
     public static String getSQLValue(Date dValue) {
         if (dValue == null) {
             return "NULL";
@@ -93,6 +123,11 @@ public class DataWriteUtils {
         }
     }
     
+    /**
+     *
+     * @param sValue
+     * @return
+     */
     public static String getEscaped(String sValue) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < sValue.length(); i++) {

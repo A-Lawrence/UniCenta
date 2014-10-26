@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,8 +28,27 @@ import javax.swing.JComponent;
  */
 public interface JPanelView {
        
+    /**
+     *
+     * @return
+     */
     public abstract String getTitle();
+
+    /**
+     *
+     * @throws BasicException
+     */
     public abstract void activate() throws BasicException;
+
+    /**
+     *
+     * @return
+     */
     public abstract boolean deactivate();
+
+    /**
+     *
+     * @return
+     */
     public abstract JComponent getComponent();
 }

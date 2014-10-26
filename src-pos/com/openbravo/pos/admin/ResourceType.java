@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,8 +29,19 @@ import com.openbravo.pos.panels.ComboItemLocal;
  */
 public class ResourceType extends ComboItemLocal {
     
+    /**
+     *
+     */
     public static final ResourceType TEXT = new ResourceType(0, "resource.text");
+
+    /**
+     *
+     */
     public static final ResourceType IMAGE = new ResourceType(1, "resource.image");
+
+    /**
+     *
+     */
     public static final ResourceType BINARY = new ResourceType(2, "resource.binary");
     
     private ResourceType(Integer iKey, String sKeyValue) {

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,7 +35,10 @@ public class StockModel extends AbstractTableModel {
     private Formats[] m_formats;
     private boolean[] m_bedit;
     
-    /** Creates a new instance of StockModel */
+    /** Creates a new instance of StockModel
+     * @param bd
+     * @param f
+     * @param bedit */
     public StockModel(BrowsableData bd, Formats[] f, boolean[] bedit) {
         m_bd = bd;
         m_formats = f;

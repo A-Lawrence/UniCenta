@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,15 +27,26 @@ import java.awt.*;
  */
 public class JPaymentSelectRefund extends JPaymentSelect {
       
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param modal
+     * @param o */
     protected JPaymentSelectRefund(java.awt.Frame parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
     }
-    /** Creates new form JPaymentSelect */
+    /** Creates new form JPaymentSelect
+     * @param parent
+     * @param modal
+     * @param o */
     protected JPaymentSelectRefund(java.awt.Dialog parent, boolean modal, ComponentOrientation o) {
         super(parent, modal, o);
-    } 
-    
+    }
+
+    /**
+     *
+     * @param parent
+     * @return
+     */
     public static JPaymentSelect getDialog(Component parent) {
          
         Window window = getWindow(parent);
@@ -45,8 +56,11 @@ public class JPaymentSelectRefund extends JPaymentSelect {
         } else {
             return new JPaymentSelectRefund((Dialog) window, true, parent.getComponentOrientation());
         }
-    } 
-    
+    }
+
+    /**
+     *
+     */
     @Override
     protected void addTabs() {
         
@@ -57,13 +71,23 @@ public class JPaymentSelectRefund extends JPaymentSelect {
         setHeaderVisible(false);
     }
     
+    /**
+     *
+     * @param isPositive
+     * @param isComplete
+     */
     @Override
     protected void setStatusPanel(boolean isPositive, boolean isComplete) {
         
         setAddEnabled(isPositive && !isComplete);
         setOKEnabled(isComplete);
-    }    
-    
+    }
+
+    /**
+     *
+     * @param total
+     * @return
+     */
     @Override
     protected PaymentInfo getDefaultPayment(double total) {
         return new PaymentInfoTicket(total, "cashrefund");

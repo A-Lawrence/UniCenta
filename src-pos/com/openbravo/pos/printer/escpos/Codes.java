@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,30 +23,113 @@ import com.openbravo.pos.printer.DevicePrinter;
 import com.openbravo.pos.printer.DeviceTicket;
 import java.awt.image.BufferedImage;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class Codes {
 
     /** Creates a new instance of Codes */
     public Codes() {
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getInitSequence();
     
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getSize0();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getSize1();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getSize2();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getSize3();
 
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getBoldSet();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getBoldReset();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getUnderlineSet();
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getUnderlineReset();
     
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getOpenDrawer();    
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getCutReceipt();   
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getNewLine();    
+
+    /**
+     *
+     * @return
+     */
     public abstract byte[] getImageHeader();
+
+    /**
+     *
+     * @return
+     */
     public abstract int getImageWidth();
 
+    /**
+     *
+     * @return
+     */
+    public abstract byte[] getImageLogo();
+
+    /**
+     *
+     * @param out
+     * @param type
+     * @param position
+     * @param code
+     */
     public void printBarcode(PrinterWritter out, String type, String position, String code) {
 
         if (DevicePrinter.BARCODE_EAN13.equals(type)) {
@@ -68,6 +151,11 @@ public abstract class Codes {
         }
     }
    
+    /**
+     *
+     * @param image
+     * @return
+     */
     public byte[] transImage(BufferedImage image) {
         
             CenteredImage centeredimage = new CenteredImage(image, getImageWidth());
@@ -111,24 +199,46 @@ public abstract class Codes {
         return bData;
     }
 
+    /**
+     *
+     */
     protected class CenteredImage {
 
         private BufferedImage image;
         private int width;
 
+        /**
+         *
+         * @param image
+         * @param width
+         */
         public CenteredImage(BufferedImage image, int width) {
             this.image = image;
             this.width = width;
         }
 
+        /**
+         *
+         * @return
+         */
         public int getHeight() {
             return image.getHeight();
         }
 
+        /**
+         *
+         * @return
+         */
         public int getWidth() {
             return width;
         }
 
+        /**
+         *
+         * @param x
+         * @param y
+         * @return
+         */
         public boolean isBlack(int x, int y) {
 
             int centeredx = x + (image.getWidth() - width) / 2;

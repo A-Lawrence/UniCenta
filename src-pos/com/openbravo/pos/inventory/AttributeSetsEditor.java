@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -35,7 +35,8 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
 
     private Object id;
 
-    /** Creates new form AttributesEditor */
+    /** Creates new form AttributesEditor
+     * @param dirty */
     public AttributeSetsEditor(DirtyManager dirty) {
         initComponents();
 
@@ -43,18 +44,31 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
 
         writeValueEOF();
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueEOF() {
         id = null;
         m_jName.setText(null);
         m_jName.setEnabled(false);
     }
+
+    /**
+     *
+     */
     @Override
     public void writeValueInsert() {
         id = UUID.randomUUID().toString();
         m_jName.setText(null);
         m_jName.setEnabled(true);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueDelete(Object value) {
 
@@ -63,6 +77,11 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
         m_jName.setText(Formats.STRING.formatValue(attrset[1]));
         m_jName.setEnabled(false);
     }
+
+    /**
+     *
+     * @param value
+     */
     @Override
     public void writeValueEdit(Object value) {
 
@@ -72,6 +91,11 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
         m_jName.setEnabled(true);
     }
 
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object createValue() throws BasicException {
 
@@ -83,11 +107,18 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
         return attrset;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
     }
 
+    /**
+     *
+     */
     @Override
     public void refresh() {
     }
@@ -104,10 +135,10 @@ public final class AttributeSetsEditor extends javax.swing.JPanel implements Edi
         jLabel2 = new javax.swing.JLabel();
         m_jName = new javax.swing.JTextField();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("Label.Name")); // NOI18N
 
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

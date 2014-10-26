@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,26 +25,57 @@ package com.openbravo.pos.printer;
  */
 public abstract class BaseAnimator implements DisplayAnimator {
     
+    /**
+     *
+     */
     protected String baseLine1;
+
+    /**
+     *
+     */
     protected String baseLine2;
+
+    /**
+     *
+     */
     protected String currentLine1;
-    protected String currentLine2; 
-    
+
+    /**
+     *
+     */
+    protected String currentLine2;
+
+    /**
+     *
+     */
     public BaseAnimator() {
         baseLine1 = null;
         baseLine2 = null;
     }
 
+    /**
+     *
+     * @param line1
+     * @param line2
+     */
     public BaseAnimator(String line1, String line2) {
         baseLine1 = line1;
         baseLine2 = line2;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getLine1() {
         return currentLine1;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getLine2() {
         return currentLine2;

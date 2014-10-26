@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -34,6 +34,9 @@ public class FindTicketsRenderer extends DefaultListCellRenderer {
     private Icon icoTicketNormal;
     private Icon icoTicketRefund;
 
+    /**
+     *
+     */
     public static final int RECEIPT_NORMAL = 0;
     
     /** Creates a new instance of ProductRenderer */

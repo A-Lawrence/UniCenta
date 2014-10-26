@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,14 +21,42 @@ package com.openbravo.data.user;
 
 import java.awt.Component;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface EditorRecord extends EditorCreator {
        
+    /**
+     *
+     */
     public void writeValueEOF();
+
+    /**
+     *
+     */
     public void writeValueInsert(); 
+
+    /**
+     *
+     * @param value
+     */
     public void writeValueEdit(Object value); // not null por definicion.
+
+    /**
+     *
+     * @param value
+     */
     public void writeValueDelete(Object value); // not null por definicion.
     
+    /**
+     *
+     */
     public void refresh();
     
+    /**
+     *
+     * @return
+     */
     public Component getComponent(); 
 }

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,15 +30,28 @@ import com.openbravo.data.user.BrowsableData;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.BrowseListener;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JListNavigator extends javax.swing.JPanel implements BrowseListener, ListSelectionListener {
     
+    /**
+     *
+     */
     protected BrowsableEditableData m_bd;
     
-    /** Creates new form JListBrowse */
+    /** Creates new form JListBrowse
+     * @param bd */
     public JListNavigator(BrowsableEditableData bd) {
         this(bd, false);
     }
     
+    /**
+     *
+     * @param bd
+     * @param bTouchable
+     */
     public JListNavigator(BrowsableEditableData bd, boolean bTouchable) {
         
         m_bd = bd;
@@ -58,10 +71,20 @@ public class JListNavigator extends javax.swing.JPanel implements BrowseListener
         m_bd.addBrowseListener(this);
     }
 
+    /**
+     *
+     * @param cellRenderer
+     */
     public void setCellRenderer(ListCellRenderer cellRenderer) {
         m_jlist.setCellRenderer(cellRenderer);
     }
     
+    /**
+     *
+     * @param iIndex
+     * @param iCounter
+     */
+    @Override
     public void updateIndex(int iIndex, int iCounter) {
         
         if (iIndex >= 0 && iIndex < iCounter) {
@@ -71,6 +94,7 @@ public class JListNavigator extends javax.swing.JPanel implements BrowseListener
         }
     } 
     
+    @Override
     public void valueChanged(ListSelectionEvent evt) {
         
         if (!evt.getValueIsAdjusting()) {
@@ -106,7 +130,7 @@ public class JListNavigator extends javax.swing.JPanel implements BrowseListener
         setPreferredSize(new java.awt.Dimension(200, 2));
         setLayout(new java.awt.BorderLayout());
 
-        m_jlist.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jlist.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jlist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         m_jlist.setFocusable(false);
         m_jlist.setRequestFocusEnabled(false);

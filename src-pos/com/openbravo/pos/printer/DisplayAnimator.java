@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,7 +25,21 @@ package com.openbravo.pos.printer;
  */
 public interface DisplayAnimator {
     
+    /**
+     *
+     * @param i
+     */
     public void setTiming(int i);
+
+    /**
+     *
+     * @return
+     */
     public String getLine1();
+
+    /**
+     *
+     * @return
+     */
     public String getLine2();
 }

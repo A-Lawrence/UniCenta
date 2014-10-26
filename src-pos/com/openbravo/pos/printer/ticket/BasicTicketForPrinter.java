@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,16 +36,28 @@ public class BasicTicketForPrinter extends BasicTicket {
         private static int FONTHEIGHT = 12;
         private static double IMAGE_SCALE = 0.65;
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected Font getBaseFont() {
         return BASEFONT;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected int getFontHeight() {
         return FONTHEIGHT;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override    protected double getImageScale() {
         return IMAGE_SCALE;
       }

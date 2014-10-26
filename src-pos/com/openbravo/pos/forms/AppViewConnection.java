@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -40,6 +40,12 @@ public class AppViewConnection {
     private AppViewConnection() {
     }
     
+    /**
+     *
+     * @param props
+     * @return
+     * @throws BasicException
+     */
     public static Session createSession(AppProperties props) throws BasicException {
                
         try{
@@ -59,7 +65,6 @@ public class AppViewConnection {
                 AltEncrypter cypher = new AltEncrypter("cypherkey" + sDBUser);
                 sDBPassword = cypher.decrypt(sDBPassword.substring(6));
             }   
-
              return new Session(props.getProperty("db.URL"), sDBUser,sDBPassword);     
 
 // JG 16 May use multicatch

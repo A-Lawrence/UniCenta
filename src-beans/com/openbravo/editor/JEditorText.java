@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,18 +24,55 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public abstract class JEditorText extends JEditorAbstract {
     
+    /**
+     *
+     */
     protected String m_svalue;
     
+    /**
+     *
+     */
     public static final int MODE_Abc1 = 0;
+
+    /**
+     *
+     */
     public static final int MODE_abc1 = 1;
+
+    /**
+     *
+     */
     public static final int MODE_ABC1 = 2;
+
+    /**
+     *
+     */
     public static final int MODE_123 = 3;    
+
+    /**
+     *
+     */
     public int m_iMode;
     
+    /**
+     *
+     */
     protected int m_iTicks;
+
+    /**
+     *
+     */
     protected char m_cLastChar;
+
+    /**
+     *
+     */
     protected long m_lcount;
     
     private Timer m_jtimer;
@@ -74,9 +111,15 @@ public abstract class JEditorText extends JEditorAbstract {
         m_jtimer.start();
     }
     
+    /**
+     *
+     * @return
+     */
     protected abstract int getStartMode();
 
-    
+    /**
+     *
+     */
     public final void reset() {
         
         String sOldText = getText();
@@ -90,8 +133,12 @@ public abstract class JEditorText extends JEditorAbstract {
         reprintText();
         
         firePropertyChange("Text", sOldText, getText());
-    } 
-    
+    }
+
+    /**
+     *
+     * @param sText
+     */
     public final void setText(String sText) {
         
         String sOldText = getText();
@@ -105,6 +152,10 @@ public abstract class JEditorText extends JEditorAbstract {
         firePropertyChange("Text", sOldText, getText());
     }
     
+    /**
+     *
+     * @param iMode
+     */
     public final void setEditModeEnum(int iMode) {
         
         m_iMode = iMode;
@@ -112,8 +163,12 @@ public abstract class JEditorText extends JEditorAbstract {
         m_cLastChar = '\u0000';  
         
         reprintText();
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public final String getText() {
         if (m_cLastChar == '\u0000') {
             return m_svalue;
@@ -122,10 +177,18 @@ public abstract class JEditorText extends JEditorAbstract {
         }        
     }
       
+    /**
+     *
+     * @return
+     */
     protected final int getAlignment() {
         return javax.swing.SwingConstants.LEFT;
     }
        
+    /**
+     *
+     * @return
+     */
     protected final String getEditMode() {
         switch (m_iMode) {
         case MODE_Abc1: return "Abc1";
@@ -136,6 +199,10 @@ public abstract class JEditorText extends JEditorAbstract {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     protected String getTextEdit() {
         
         StringBuilder s = new StringBuilder();
@@ -153,12 +220,21 @@ public abstract class JEditorText extends JEditorAbstract {
         return s.toString(); 
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     protected String getTextFormat() throws BasicException {
         return (m_svalue == null)
                 ? "<html>"
                 : "<html>" + m_svalue;
     }
     
+    /**
+     *
+     * @param c
+     */
     protected void typeCharInternal(char c) {
         
         String sOldText = getText();
@@ -196,6 +272,10 @@ public abstract class JEditorText extends JEditorAbstract {
         firePropertyChange("Text", sOldText, getText());
     }
     
+    /**
+     *
+     * @param c
+     */
     protected void transCharInternal(char c) {
         
         String sOldText = getText();
@@ -253,6 +333,10 @@ public abstract class JEditorText extends JEditorAbstract {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     protected char getKeyChar() {
         
         char[] clist = null;

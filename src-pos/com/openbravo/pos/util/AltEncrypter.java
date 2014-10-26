@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,12 +23,17 @@ import java.io.UnsupportedEncodingException;
 import java.security.*;
 import javax.crypto.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class AltEncrypter {
     
     private Cipher cipherDecrypt;
     private Cipher cipherEncrypt;
     
-    /** Creates a new instance of Encrypter */
+    /** Creates a new instance of Encrypter
+     * @param passPhrase */
     public AltEncrypter(String passPhrase) {
         
         try {
@@ -43,29 +48,42 @@ public class AltEncrypter {
             
             cipherDecrypt = Cipher.getInstance("DESEDE/ECB/PKCS5Padding");
             cipherDecrypt.init(Cipher.DECRYPT_MODE, key);
-        } catch (UnsupportedEncodingException e) {
-        } catch (NoSuchPaddingException e) {
-        } catch (NoSuchAlgorithmException e) {
-        } catch (InvalidKeyException e) {
+//        } catch (UnsupportedEncodingException e) {  // JG 1 Oct 13 - use multicatch
+//        } catch (NoSuchPaddingException e) {
+//        } catch (NoSuchAlgorithmException e) {
+//        } catch (InvalidKeyException e) {
+        } catch (UnsupportedEncodingException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException e) {
         }
     }
     
+    /**
+     *
+     * @param str
+     * @return
+     */
     public String encrypt(String str) {
         try {
             return StringUtils.byte2hex(cipherEncrypt.doFinal(str.getBytes("UTF8")));
-        } catch (UnsupportedEncodingException e) {
-        } catch (BadPaddingException e) {
-        } catch (IllegalBlockSizeException e) {
+        } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
+//        } catch (UnsupportedEncodingException e) { // JG 1 Oct 13 - use multicatch
+//        } catch (BadPaddingException e) {
+//        } catch (IllegalBlockSizeException e) {
         }
         return null;
     }
     
+    /**
+     *
+     * @param str
+     * @return
+     */
     public String decrypt(String str) {
         try {
             return new String(cipherDecrypt.doFinal(StringUtils.hex2byte(str)), "UTF8");
-        } catch (UnsupportedEncodingException e) {
-        } catch (BadPaddingException e) {
-        } catch (IllegalBlockSizeException e) {
+        } catch (UnsupportedEncodingException | BadPaddingException | IllegalBlockSizeException e) {
+//        } catch (UnsupportedEncodingException e) { // JG 1 Oct 13 - use multicatch
+//        } catch (BadPaddingException e) {
+//        } catch (IllegalBlockSizeException e) {            
         }
         return null;
     }    

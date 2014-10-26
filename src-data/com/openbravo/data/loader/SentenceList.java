@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,15 +19,54 @@
 
 package com.openbravo.data.loader;
 
-import java.util.List;
 import com.openbravo.basic.BasicException;
+import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public interface SentenceList {
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public List list() throws BasicException;
+
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public List list(Object... params) throws BasicException;
+
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public List list(Object params) throws BasicException;
     
+    /**
+     *
+     * @param offset
+     * @param length
+     * @return
+     * @throws BasicException
+     */
     public List listPage(int offset, int length) throws BasicException;
+
+    /**
+     *
+     * @param params
+     * @param offset
+     * @param length
+     * @return
+     * @throws BasicException
+     */
     public List listPage(Object params, int offset, int length) throws BasicException;    
 }

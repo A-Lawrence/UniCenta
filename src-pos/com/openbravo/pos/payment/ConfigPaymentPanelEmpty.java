@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -33,16 +33,28 @@ public class ConfigPaymentPanelEmpty extends javax.swing.JPanel implements Payme
         initComponents();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public JPanel getComponent() {  
         return this;
     }
     
+    /**
+     *
+     * @param config
+     */
     @Override
     public void loadProperties(AppConfig config) {
         
     }
     
+    /**
+     *
+     * @param config
+     */
     @Override
     public void saveProperties(AppConfig config) {
         
@@ -67,7 +79,7 @@ public class ConfigPaymentPanelEmpty extends javax.swing.JPanel implements Payme
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

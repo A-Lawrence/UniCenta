@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,14 +19,22 @@
 
 package com.openbravo.pos.printer;
 
+import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.LocalRes;
 import com.openbravo.pos.forms.DataLogicSystem;
+import com.openbravo.pos.ticket.TicketInfo;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -35,6 +43,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class TicketParser extends DefaultHandler {
     
     private static SAXParser m_sp = null;
@@ -64,19 +76,60 @@ public class TicketParser extends DefaultHandler {
     private static final int OUTPUT_DISPLAY = 1;
     private static final int OUTPUT_TICKET = 2;
     private static final int OUTPUT_FISCAL = 3;
-    private DevicePrinter m_oOutputPrinter;
+    private DevicePrinter m_oOutputPrinter;   
+    private DateFormat df= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private Date today;
+    private String cUser;
+    private String ticketId;
+    private String pickupId;
     
     
-    /** Creates a new instance of TicketParser */
+    /** Creates a new instance of TicketParser
+     * @param printer
+     * @param system */
     public TicketParser(DeviceTicket printer, DataLogicSystem system) {
         m_printer = printer;
         m_system = system;
+        today = Calendar.getInstance().getTime(); 
     }
     
-    public void printTicket(String sIn) throws TicketPrinterException {
+    /**
+     *
+     * @param sIn
+     * @param ticket
+     * @throws TicketPrinterException
+     */
+    public void printTicket(String sIn, TicketInfo ticket) throws TicketPrinterException {
+//       cUser=ticket.getUser().getName();
+       cUser=ticket.getName();        
+        ticketId=Integer.toString(ticket.getTicketId()); 
+        pickupId=Integer.toString(ticket.getPickupId());
+        
+        if (ticket.getTicketId()==0){
+            ticketId="No Sale";
+        }
+        if (ticket.getPickupId()==0){
+            pickupId="No PickupId";
+        }        
+        printTicket(new StringReader(sIn));
+        
+
+    }
+    
+    /**
+     *
+     * @param sIn
+     * @throws TicketPrinterException
+     */
+    public void printTicket(String sIn) throws TicketPrinterException { 
         printTicket(new StringReader(sIn));
     }
-    
+
+    /**
+     *
+     * @param in
+     * @throws TicketPrinterException
+     */
     public void printTicket(Reader in) throws TicketPrinterException  {
         
         try {
@@ -115,19 +168,31 @@ public class TicketParser extends DefaultHandler {
     }
     
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{       
+        String openDate = df.format(today);
+        Date dNow = new Date();
         
         switch (m_iOutputType) {
         case OUTPUT_NONE:
-            if ("opendrawer".equals(qName)) {
+        switch (qName) {
+            case "opendrawer":
                 m_printer.getDevicePrinter(readString(attributes.getValue("printer"), "1")).openDrawer();
-            } else if ("play".equals(qName)) {
-                 text = new StringBuilder();    
-            } else if ("ticket".equals(qName)) {
+                // Cashdrawer has been activated record the data in the table
+                try {
+                    m_system.execDrawerOpened(
+                            //new Object[] {df.format(dNow),cUser,ticketId});
+                             new Object[] {cUser,ticketId});
+                } catch (BasicException ex) {}
+                break;
+            case "play":
+                text = new StringBuilder();
+                break;
+            case "ticket":
                 m_iOutputType = OUTPUT_TICKET;
                 m_oOutputPrinter = m_printer.getDevicePrinter(readString(attributes.getValue("printer"), "1"));
                 m_oOutputPrinter.beginReceipt();
-            } else if ("display".equals(qName)) {
+                break;
+            case "display":
                 m_iOutputType = OUTPUT_DISPLAY;
                 String animation = attributes.getValue("animation");
                 if ("scroll".equals(animation)) {
@@ -144,18 +209,24 @@ public class TicketParser extends DefaultHandler {
                 m_sVisorLine1 = null;
                 m_sVisorLine2 = null;                
                 m_oOutputPrinter = null;
-            } else if ("fiscalreceipt".equals(qName)) {
+                break;
+            case "fiscalreceipt":
                 m_iOutputType = OUTPUT_FISCAL;
                 m_printer.getFiscalPrinter().beginReceipt();
-            } else if ("fiscalzreport".equals(qName)) {
+                break;
+            case "fiscalzreport":
                 m_printer.getFiscalPrinter().printZReport();
-            } else if ("fiscalxreport".equals(qName)) {
+                break;
+            case "fiscalxreport":
                 m_printer.getFiscalPrinter().printXReport();
-            }
+                break;
+        }
             break;
         case OUTPUT_TICKET:
-            if ("image".equals(qName)){
-                text = new StringBuilder();           
+            if ("logo".equals(qName)){
+                text = new StringBuilder(); 
+            } else if ("image".equals(qName)){
+                text = new StringBuilder();                  
             } else if ("barcode".equals(qName)) {
                 text = new StringBuilder();
                 bctype = attributes.getValue("type");
@@ -214,6 +285,7 @@ public class TicketParser extends DefaultHandler {
         }
     } 
     
+    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
         switch (m_iOutputType) {
@@ -227,9 +299,14 @@ public class TicketParser extends DefaultHandler {
                 }
                 text = null;
             } 
-            break;
+            break;    
+            
+// Added 23.05.13 used by star TSP700 to print stored logo image JDL            
         case OUTPUT_TICKET:
-            if ("image".equals(qName)){
+            if ("logo".equals(qName)){
+                    m_oOutputPrinter.printLogo();
+                  // }        
+            }else if ("image".equals(qName)){
                 try {
                     // BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream(m_sText.toString()));
                     BufferedImage image = m_system.getResourceAsImage(text.toString());
@@ -367,4 +444,8 @@ public class TicketParser extends DefaultHandler {
             return sValue;
         }
     }
+    
+    
+    
+    
 }

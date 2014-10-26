@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -42,6 +42,9 @@ public class AuxiliarPanel extends JPanelTable2 {
     private AuxiliarEditor editor;
     private AuxiliarFilter filter;
 
+    /**
+     *
+     */
     @Override
     protected void init() {  
         
@@ -72,6 +75,10 @@ public class AuxiliarPanel extends JPanelTable2 {
         editor = new AuxiliarEditor(app, dirty);
     }
 
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
         filter.activate();
@@ -81,16 +88,28 @@ public class AuxiliarPanel extends JPanelTable2 {
         reload(filter);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getFilter(){
         return filter.getComponent();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public EditorRecord getEditor() {
         return editor;
-    }  
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return AppLocal.getIntString("Menu.Auxiliar");

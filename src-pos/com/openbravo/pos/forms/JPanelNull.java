@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -29,7 +29,9 @@ import javax.swing.JPanel;
  */
 public class JPanelNull extends JPanel implements JPanelView {
 
-    /** Creates new form JPanelNull */
+    /** Creates new form JPanelNull
+     * @param oApp
+     * @param o */
     public JPanelNull(AppView oApp, Object o) {
        
         initComponents ();
@@ -38,17 +40,36 @@ public class JPanelNull extends JPanel implements JPanelView {
         jtxtException.setText(o.toString());
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getComponent() {
         return this;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public String getTitle() {
         return null;
     }
+
+    /**
+     *
+     * @throws BasicException
+     */
     @Override
     public void activate() throws BasicException {
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deactivate() {
         return true;
@@ -68,12 +89,13 @@ public class JPanelNull extends JPanel implements JPanelView {
 
         setLayout(null);
 
-        m_jLabelError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jLabelError.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jLabelError.setText(AppLocal.getIntString("Label.LoadError")); // NOI18N
         add(m_jLabelError);
         m_jLabelError.setBounds(30, 30, 490, 20);
 
         jtxtException.setEditable(false);
+        jtxtException.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtxtException.setLineWrap(true);
         jtxtException.setWrapStyleWord(true);
         jscrException.setViewportView(jtxtException);

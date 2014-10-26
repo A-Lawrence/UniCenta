@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2012 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (C) 2008-2013 Openbravo, S.L.
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,16 +32,28 @@ public class TaxesLogicElement {
     private TaxInfo tax;
     private List<TaxesLogicElement> taxsons;
     
+    /**
+     *
+     * @param tax
+     */
     public TaxesLogicElement(TaxInfo tax) {
         this.tax = tax;
-        // JG June 2012 use diamond inference
+        // JG June 2013 use diamond inference
         this.taxsons = new ArrayList<>();
     }
     
+    /**
+     *
+     * @return
+     */
     public TaxInfo getTax() {
         return tax;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<TaxesLogicElement> getSons() {
         return taxsons;
     }

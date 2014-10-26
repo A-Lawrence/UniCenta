@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class SerializerWriteComposed implements SerializerWrite {
     
     private List<SerializerWrite> serwrites = new ArrayList<SerializerWrite>();    
@@ -32,10 +36,20 @@ public class SerializerWriteComposed implements SerializerWrite {
     public SerializerWriteComposed() {
     }
     
+    /**
+     *
+     * @param sw
+     */
     public void add(SerializerWrite sw) {
         serwrites.add(sw);
     }
     
+    /**
+     *
+     * @param dp
+     * @param obj
+     * @throws BasicException
+     */
     public void writeValues(DataWrite dp, Object obj) throws BasicException {
         
         Object[] a = (Object[]) obj;

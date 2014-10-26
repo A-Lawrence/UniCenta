@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,11 +27,16 @@ public class BeanFactoryObj implements BeanFactory {
     
     private Object bean = null;
     
-    /** Creates a new instance of BeanFactoryObj */
+    /** Creates a new instance of BeanFactoryObj
+     * @param bean */
     public BeanFactoryObj(Object bean) {
         this.bean = bean;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getBean() {
         return bean;

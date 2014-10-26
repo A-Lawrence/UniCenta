@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,18 +31,39 @@ public abstract class SentenceExecTransaction implements SentenceExec {
     
     private Session m_s;
     
+    /**
+     *
+     * @param s
+     */
     public SentenceExecTransaction(Session s) {
         m_s = s;
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public final int exec() throws BasicException {
         return exec((Object) null);
     }
 
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public final int exec(Object... params) throws BasicException {
         return exec((Object) params);
     }
 
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     public final int exec(final Object params) throws BasicException {
         
         Transaction<Integer> t = new Transaction<Integer>(m_s) {
@@ -54,6 +75,12 @@ public abstract class SentenceExecTransaction implements SentenceExec {
         return t.execute();
     }
     
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     protected abstract int execInTransaction(Object params) throws BasicException; 
 }
 

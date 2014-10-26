@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,10 +25,28 @@ package com.openbravo.pos.forms;
  */
 public interface AppUserView {
     
+    /**
+     *
+     */
     public static final String ACTION_TASKNAME = "taskname";
     
     // Acciones de la aplicacion
-    public AppUser getUser(); // Usuario logado
+
+    /**
+     *
+     * @return
+     */
+        public AppUser getUser(); // Usuario logado
+
+    /**
+     *
+     * @param sTaskClass
+     */
     public void showTask(String sTaskClass);
+
+    /**
+     *
+     * @param sTaskClass
+     */
     public void executeTask(String sTaskClass);
 }

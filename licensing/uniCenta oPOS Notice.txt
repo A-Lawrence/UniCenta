@@ -1,6 +1,7 @@
 ﻿General Public License
 
 This file is part of uniCenta oPOS
+http://www.unicenta.com
 
 This license file applies to the uniCenta oPOS software 
 (the "uniCenta oPOS Software"), except as described in B) and C) below.
@@ -50,7 +51,7 @@ GNU Lesser Public License
 
 - hsqldb.jar - available at http://www.hsqldb.org/. 
 
-Copyright (c) 1995-2012 by the Hypersonic SQL Group and Copyright (c) 2001-2012, 
+Copyright (c) 1995-2012 by the Hypersonic SQL Group and Copyright (c) 2001-2014, 
 The HSQL Development Group. 
 Distributed under the http://www.hsqldb.org/web/hsqlLicense.html (similar to the BSD license).
 
@@ -59,11 +60,11 @@ Copyright 1999-2007 by Bruno Lowagie. Distributed under the MPL and LGPL.
 
 - jasperreports
 available from http://www.jasperforge.org/jaspersoft/opensource/business_intelligence/jasperreports/. 
-Copyright 2012 JasperSoft Corporation. 
+Copyright 2013 JasperSoft Corporation. 
 Distributed under the GNU LESSER GENERAL PUBLIC LICENSE Version 2.1, February 1999
 
 - jcommon (a dependency of jfreechart) 
-- jfreechart - available from http://www.jfree.org/jfreechart/. 2005-2008 Object Refinery Limited. 
+- jfreechart - available from http://www.jfree.org/jfreechart/. 2005-2013 Object Refinery Limited.
 Distributed under the GNU LESSER GENERAL PUBLIC LICENSE
 
 - RXTXcomm
@@ -100,4 +101,4 @@ All other libraries, licenses and portions of code are available in the public d
 and are acknowledged.
 
 If you have questions about the licensing terms for uniCenta oPOS Software
-please contact: info@unicenta.net
+please contact: info@unicenta.com

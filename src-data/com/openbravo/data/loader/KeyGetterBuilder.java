@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,12 +27,20 @@ package com.openbravo.data.loader;
  */
 public class KeyGetterBuilder implements IKeyGetter {
   
+    /**
+     *
+     */
     public final static IKeyGetter INSTANCE = new KeyGetterBuilder();
     
     /** Creates a new instance of KeyGetterBuilder */
     public KeyGetterBuilder() {
     }
     
+    /**
+     *
+     * @param value
+     * @return
+     */
     public Object getKey(Object value) {
         
         return (value == null) 

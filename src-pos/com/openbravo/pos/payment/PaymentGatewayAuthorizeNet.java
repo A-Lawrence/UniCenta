@@ -1,3 +1,21 @@
+//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
+//
+//    This file is part of uniCenta oPOS
+//
+//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * <p>Title: AIM Java Version 1.4.1_02-b06</p>
  * <p>Description: Advanced Integration Method</p>
@@ -33,6 +51,10 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PaymentGatewayAuthorizeNet implements PaymentGateway {
     
     private static String ENDPOINTADDRESS;
@@ -44,7 +66,8 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
     private String m_sCommercePassword;
     private boolean m_bTestMode;
 
-    /** Creates a new instance of PaymentGatewayAuthorizeNet */
+    /** Creates a new instance of PaymentGatewayAuthorizeNet
+     * @param props */
     public PaymentGatewayAuthorizeNet(AppProperties props) {
         // Grab some configuration variables
         m_sCommerceID = props.getProperty("payment.commerceid");
@@ -57,12 +80,19 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
         ENDPOINTADDRESS = (m_bTestMode) 
                 ? "https://test.authorize.net/gateway/transact.dll"
                 : "https://cardpresent.authorize.net/gateway/transact.dll";
-    }  
-    
+    }
+
+    /**
+     *
+     */
     public PaymentGatewayAuthorizeNet() {
         
     }
 
+    /**
+     *
+     * @param payinfo
+     */
     @Override
     public void execute(PaymentInfoMagcard payinfo) {
 
@@ -74,7 +104,8 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             
             sb.append("&x_market_type=2");
             
-            sb.append("&x_device_type=1");
+//            sb.append("&x_device_type=1");  // JG 1 Oct 13 - changed from 1 unknown to PC based 5
+            sb.append("&x_device_type=5");
             
             sb.append("&x_login=");        
             sb.append(URLEncoder.encode(m_sCommerceID, "UTF-8"));

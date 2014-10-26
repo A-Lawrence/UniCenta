@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,6 +25,11 @@ package com.openbravo.pos.forms;
  */
 public interface BeanFactoryApp extends BeanFactory {
 
+    /**
+     *
+     * @param app
+     * @throws BeanFactoryException
+     */
     public void init(AppView app) throws BeanFactoryException;
 
 }

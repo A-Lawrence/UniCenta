@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,6 +19,11 @@
 
 package com.openbravo.pos.sales.restaurant;
 
+import com.openbravo.basic.BasicException;
+import com.openbravo.data.loader.DataRead;
+import com.openbravo.data.loader.ImageUtils;
+import com.openbravo.data.loader.SerializableRead;
+import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -28,13 +33,11 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import com.openbravo.basic.BasicException;
-import com.openbravo.data.loader.DataRead;
-import com.openbravo.data.loader.ImageUtils;
-import com.openbravo.data.loader.SerializableRead;
-import com.openbravo.pos.util.ThumbNailBuilder;
-import java.awt.ComponentOrientation;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class Floor implements SerializableRead {
     
     private static final long serialVersionUID = 8694154682897L;
@@ -48,11 +51,18 @@ public class Floor implements SerializableRead {
     /** Creates a new instance of Floor */
     public Floor() {
         try {
-            defimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("com/openbravo/images/atlantikdesigner.png"));               
+//            defimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("com/openbravo/images/atlantikdesigner.png"));               
+            defimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("com/openbravo/images/floors.png"));               
         } catch (Exception fnfe) {
         }            
     }
 
+    /**
+     *
+     * @param dr
+     * @throws BasicException
+     */
+    @Override
     public void readValues(DataRead dr) throws BasicException {
         m_sID = dr.getString(1);
         m_sName = dr.getString(2);
@@ -60,17 +70,36 @@ public class Floor implements SerializableRead {
         ThumbNailBuilder tnbcat = new ThumbNailBuilder(32, 32, defimg);
         m_container = new JPanelDrawing(img);
         m_icon = new ImageIcon(tnbcat.getThumbNail(img));        
-    }    
-    
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getID() {
         return m_sID;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return m_sName;
     }
+
+    /**
+     *
+     * @return
+     */
     public Icon getIcon() {
         return m_icon;
     }    
+
+    /**
+     *
+     * @return
+     */
     public Container getContainer() {
         return m_container;
     }    
@@ -83,6 +112,7 @@ public class Floor implements SerializableRead {
             setLayout(null);
         }
         
+        @Override
         protected void paintComponent (Graphics g) { 
             super.paintComponent(g);
             if (img != null) {
@@ -90,14 +120,17 @@ public class Floor implements SerializableRead {
             }
         }
         
+        @Override
         public Dimension getPreferredSize() {
             return (img == null) 
                 ? new Dimension(640, 480) 
                 : new Dimension(img.getWidth(this), img.getHeight(this));
         }
+        @Override
         public Dimension getMinimumSize() {
             return getPreferredSize();
         }
+        @Override
         public Dimension getMaximumSize() {
             return getPreferredSize();
         }

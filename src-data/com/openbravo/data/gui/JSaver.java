@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -26,11 +26,19 @@ import com.openbravo.data.loader.LocalRes;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.StateListener;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JSaver extends JPanel implements StateListener {
     
+    /**
+     *
+     */
     protected BrowsableEditableData m_bd;
         
-    /** Creates new form JSaver */
+    /** Creates new form JSaver
+     * @param bd */
     public JSaver(BrowsableEditableData bd) {
 
         initComponents();
@@ -41,6 +49,11 @@ public class JSaver extends JPanel implements StateListener {
         m_bd.addStateListener(this);
     }
 
+    /**
+     *
+     * @param iState
+     */
+    @Override
     public void updateState(int iState) {
         switch  (iState) {
         case BrowsableEditableData.ST_INSERT:
@@ -123,9 +136,9 @@ public class JSaver extends JPanel implements StateListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
-        // Add your handling code here:
         try {
             m_bd.saveData();
+          
         } catch (BasicException eD) {
             MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), eD);
             msg.show(this);
@@ -133,7 +146,6 @@ public class JSaver extends JPanel implements StateListener {
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        // Add your handling code here:
         try {
             m_bd.actionDelete();
         } catch (BasicException eD) {
@@ -143,7 +155,6 @@ public class JSaver extends JPanel implements StateListener {
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewActionPerformed
-        // Add your handling code here:
         try {
             m_bd.actionInsert();
         } catch (BasicException eD) {

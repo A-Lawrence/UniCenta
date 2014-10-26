@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,15 +21,26 @@ package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class SerializerReadClass implements SerializerRead {
 
-    private Class m_clazz;
+    private final Class m_clazz;
     
-    /** Creates a new instance of DefaultSerializerRead */
+    /** Creates a new instance of DefaultSerializerRead
+     * @param clazz */
     public SerializerReadClass(Class clazz) {
         m_clazz = clazz;
     }
     
+    /**
+     *
+     * @param dr
+     * @return
+     * @throws BasicException
+     */
     @Override
     public Object readValues(DataRead dr) throws BasicException {
         try {

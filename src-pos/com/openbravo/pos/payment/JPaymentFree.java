@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,16 +23,28 @@ import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.AppLocal;
 import java.awt.Component;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JPaymentFree extends javax.swing.JPanel implements JPaymentInterface {
     
     private double m_dTotal;
     private JPaymentNotifier m_notifier;
     
-    /** Creates new form JPaymentFree */
+    /** Creates new form JPaymentFree
+     * @param notifier */
     public JPaymentFree(JPaymentNotifier notifier) {
         m_notifier = notifier;
         initComponents();
     }
+
+    /**
+     *
+     * @param customerext
+     * @param dTotal
+     * @param transID
+     */
     @Override
     public void activate(CustomerInfoExt customerext, double dTotal, String transID) {
         
@@ -43,10 +55,19 @@ public class JPaymentFree extends javax.swing.JPanel implements JPaymentInterfac
         m_notifier.setStatus(true, true);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public PaymentInfo executePayment() {
         return new PaymentInfoFree(m_dTotal);
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     public Component getComponent() {
         return this;
@@ -62,7 +83,8 @@ public class JPaymentFree extends javax.swing.JPanel implements JPaymentInterfac
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(AppLocal.getIntString("message.paymentfree")); // NOI18N
         add(jLabel1);
     }// </editor-fold>//GEN-END:initComponents

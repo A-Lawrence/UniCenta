@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -41,9 +41,21 @@ public class ProductVectorer implements Vectorer {
     public ProductVectorer() {
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
     public String[] getHeaders() throws BasicException {
         return m_sHeaders;
     }
+
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws BasicException
+     */
     public String[] getValues(Object obj) throws BasicException {   
         ProductInfoExt myprod = (ProductInfoExt) obj;
         String[] m_sValues = new String[5];

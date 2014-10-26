@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -47,6 +47,11 @@ public class JMessageDialog extends javax.swing.JDialog {
         }
     }
     
+    /**
+     *
+     * @param parent
+     * @param inf
+     */
     public static void showMessage(Component parent, MessageInf inf) {
         
         Window window = getWindow(parent);      
@@ -145,7 +150,7 @@ public class JMessageDialog extends javax.swing.JDialog {
         jlblErrorCode.setText("jlblErrorCode");
         jPanel4.add(jlblErrorCode);
 
-        jlblMessage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblMessage.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlblMessage.setText("jlblMessage");
         jlblMessage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jlblMessage.setMinimumSize(new java.awt.Dimension(200, 100));
@@ -203,7 +208,7 @@ public class JMessageDialog extends javax.swing.JDialog {
         jcmdMore.setEnabled(false);
         jscrException.setVisible(true);
         setSize(getWidth(), 310);
-// JG 25 May 2012 change for JDK 7
+// JG 25 May 2013 change for JDK 7
         validate();
 //        validateTree();
         

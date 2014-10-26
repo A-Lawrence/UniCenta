@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,15 +28,23 @@ import javax.swing.JOptionPane;
 import com.openbravo.beans.JPasswordDialog;
 import com.openbravo.pos.forms.AppLocal;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class Hashcypher {
     
     
     /** Creates a new instance of Hashcypher */
     public Hashcypher() {
     }
-    
-    
-    
+
+    /**
+     *
+     * @param sPassword
+     * @param sHashPassword
+     * @return
+     */
     public static boolean authenticate(String sPassword, String sHashPassword) {
         if (sHashPassword == null || sHashPassword.equals("") || sHashPassword.startsWith("empty:")) {
             return sPassword == null || sPassword.equals("");
@@ -49,6 +57,11 @@ public class Hashcypher {
         } 
     }
     
+    /**
+     *
+     * @param sPassword
+     * @return
+     */
     public static String hashString(String sPassword) {
         
         if (sPassword == null || sPassword.equals("")) {
@@ -67,6 +80,11 @@ public class Hashcypher {
         }
     }
     
+    /**
+     *
+     * @param parent
+     * @return
+     */
     public static String changePassword(Component parent) {
         // Show the changePassword dialogs but do not check the old password
         
@@ -91,7 +109,12 @@ public class Hashcypher {
         return null;
     }
 
-    
+    /**
+     *
+     * @param parent
+     * @param sOldPassword
+     * @return
+     */
     public static String changePassword(Component parent, String sOldPassword) {
         
         String sPassword = JPasswordDialog.showEditPassword(parent,                 

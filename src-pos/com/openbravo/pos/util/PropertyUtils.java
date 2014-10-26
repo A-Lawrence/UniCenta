@@ -15,12 +15,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PropertyUtils {
 
     private Properties m_propsconfig;
     private File configFile;
     private final String APP_ID = "upos-app";
 
+    /**
+     *
+     */
     public PropertyUtils() {
         init(getDefaultConfig());
     }
@@ -47,22 +54,43 @@ public class PropertyUtils {
         }
     }
 
+    /**
+     *
+     * @param sKey
+     * @return
+     */
     public String getProperty(String sKey) {
         return m_propsconfig.getProperty(sKey);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDriverName() {
         return m_propsconfig.getProperty("db.driver");
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUrl() {
         return m_propsconfig.getProperty("db.URL");
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDBUser() {
         return m_propsconfig.getProperty("db.user");
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDBPassword() {
         String m_password = "[color=#FF0000]YourDBPassword[/color]";
         return m_password;

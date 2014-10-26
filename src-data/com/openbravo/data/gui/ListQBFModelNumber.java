@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -32,7 +32,8 @@ public class ListQBFModelNumber extends AbstractListModel implements ComboBoxMod
 private Object[] m_items;
 private Object m_sel;
 
-/** Creates a new instance of ListQBFModelNumber */
+/** Creates a new instance of ListQBFModelNumber
+     * @param items */
 //    public ListQBFModelNumber() {
 //    private ListQBFModelNumber(Object... items) {
     public ListQBFModelNumber(Object... items) {
@@ -41,7 +42,12 @@ private Object m_sel;
     }
 
 //    m_items = new Object[] {
-    public static ListQBFModelNumber getMandatoryString() {
+
+    /**
+     *
+     * @return
+     */
+        public static ListQBFModelNumber getMandatoryString() {
         return new ListQBFModelNumber(
               QBFCompareEnum.COMP_NONE,
               QBFCompareEnum.COMP_EQUALS,
@@ -56,6 +62,10 @@ private Object m_sel;
         );
     }
 
+    /**
+     *
+     * @return
+     */
     public static ListQBFModelNumber getMandatoryNumber() {
         return new ListQBFModelNumber(
             QBFCompareEnum.COMP_NONE,
@@ -68,6 +78,10 @@ private Object m_sel;
         );
     }
 
+    /**
+     *
+     * @return
+     */
     public static ListQBFModelNumber getNonMandatoryString() {
         return new ListQBFModelNumber(
             QBFCompareEnum.COMP_NONE,
@@ -86,6 +100,10 @@ private Object m_sel;
         );
     }
 
+    /**
+     *
+     * @return
+     */
     public static ListQBFModelNumber getNonMandatoryNumber() {
         return new ListQBFModelNumber(
             QBFCompareEnum.COMP_NONE,

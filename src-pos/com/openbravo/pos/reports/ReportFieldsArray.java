@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -23,11 +23,16 @@ import java.util.HashMap;
 import java.util.Map;
 import com.openbravo.pos.forms.AppLocal;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ReportFieldsArray implements ReportFields {
     
     private Map m_keys = null;
     
-    /** Creates a new instance of ReportFieldsArray */
+    /** Creates a new instance of ReportFieldsArray
+     * @param afields */
     public ReportFieldsArray(String[] afields) {
                
         // Creo el mapa de claves
@@ -37,6 +42,13 @@ public class ReportFieldsArray implements ReportFields {
         }
     }
     
+    /**
+     *
+     * @param record
+     * @param field
+     * @return
+     * @throws ReportException
+     */
     public Object getField(Object record, String field) throws ReportException {
         
         Integer i = (Integer) m_keys.get(field);

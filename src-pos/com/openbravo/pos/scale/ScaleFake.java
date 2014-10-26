@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
 //    Copyright (C) 2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,12 +19,21 @@
 
 package com.openbravo.pos.scale;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class ScaleFake implements Scale {
     
     /** Creates a new instance of ScaleFake */
     public ScaleFake() {
     }
     
+    /**
+     *
+     * @return
+     * @throws ScaleException
+     */
     @Override
     public Double readWeight() throws ScaleException {
         return new Double(Math.random() * 2.0);

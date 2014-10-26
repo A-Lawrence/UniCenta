@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -52,13 +52,23 @@ public class JCatalogTab extends javax.swing.JPanel {
         flowpanel.setEnabled(value);
         super.setEnabled(value);
     }
-    
-    public void addButton(Icon ico, ActionListener al) {
+// ADDED JDL 09.04.13 TEXTTIP FUNCTION
+
+    /**
+     *
+     * @param ico
+     * @param al
+     * @param textTip
+     */
+        public void addButton(Icon ico, ActionListener al, String textTip) {
         JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
         btn.setIcon(ico);
         btn.setFocusPainted(false);
         btn.setFocusable(false);
+        if (textTip != null){
+        btn.setToolTipText(textTip);
+        }
         btn.setRequestFocusEnabled(false);
         btn.setHorizontalTextPosition(SwingConstants.CENTER);
         btn.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -75,7 +85,7 @@ public class JCatalogTab extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
     

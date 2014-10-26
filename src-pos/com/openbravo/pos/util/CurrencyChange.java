@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,16 +21,34 @@ package com.openbravo.pos.util;
 
 import java.text.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public final class CurrencyChange {
 
+    /**
+     *
+     */
     public final static double EUROS_CHANGE = 166.386;
 
     private CurrencyChange() {
     }
   
+    /**
+     *
+     * @param dEuros
+     * @return
+     */
     public static double changeEurosToPts(double dEuros) {        
         return Math.rint(dEuros * EUROS_CHANGE);
     }
+
+    /**
+     *
+     * @param dPts
+     * @return
+     */
     public static double changePtsToEuros(double dPts) {        
         return Math.rint(100.0 * dPts / EUROS_CHANGE) / 100.0;
     }   

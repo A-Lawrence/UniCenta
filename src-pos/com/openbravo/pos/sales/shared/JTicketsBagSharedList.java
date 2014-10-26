@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -28,6 +28,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JTicketsBagSharedList extends javax.swing.JDialog {
     
     private String m_sDialogTicket;
@@ -39,19 +43,29 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
     /** Creates new form JTicketsBagSharedList */
     private JTicketsBagSharedList(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
-    }  
-    
+    }
+
+    /**
+     *
+     * @param atickets
+     * @return
+     */
     public String showTicketsList(java.util.List<SharedTicketInfo> atickets) {
         
-        for (int i = 0; i < atickets.size(); i++) {
-            m_jtickets.add(new JButtonTicket(atickets.get(i)));                
+        for (SharedTicketInfo aticket : atickets) {
+            m_jtickets.add(new JButtonTicket(aticket));
         }  
      
         m_sDialogTicket = null;
         setVisible(true);
         return m_sDialogTicket;
-    }  
-        
+    }
+
+    /**
+     *
+     * @param ticketsbagshared
+     * @return
+     */
     public static JTicketsBagSharedList newJDialog(JTicketsBagShared ticketsbagshared) {
         
         Window window = getWindow(ticketsbagshared);
@@ -81,7 +95,7 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
 
     private class JButtonTicket extends JButton {
         
-        private SharedTicketInfo m_Ticket;
+        private final SharedTicketInfo m_Ticket;
         
         public JButtonTicket(SharedTicketInfo ticket){
             
@@ -92,22 +106,27 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
             setFocusable(false);
             setRequestFocusEnabled(false);
             setMargin(new Insets(8, 14, 8, 14));
-            //setFont(new java.awt.Font ("Dialog", 1, 24));    
-            //setBackground(new java.awt.Color (220, 220, 220));
-            addActionListener(new ActionListener() {
-        
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-                    
-                    // Selecciono el ticket
-                    m_sDialogTicket = m_Ticket.getId();
-   
-                    // y oculto la ventana
-                    JTicketsBagSharedList.this.setVisible(false);
-                }
-            });
+            setFont(new java.awt.Font ("Dialog", 1, 16));
+            setBackground(new java.awt.Color (220, 220, 220));
+            addActionListener(new ActionListenerImpl());
             
             setText(ticket.getName());
+        }
+
+        private class ActionListenerImpl implements ActionListener {
+
+            public ActionListenerImpl() {
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                        
+                        // Selecciono el ticket
+                        m_sDialogTicket = m_Ticket.getId();
+       
+                        // y oculto la ventana
+                        JTicketsBagSharedList.this.setVisible(false);
+                    }
         }
     }
     
@@ -133,7 +152,7 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         m_jtickets.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -149,6 +168,7 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
         jPanel3.add(jPanel4);
 
+        m_jButtonCancel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         m_jButtonCancel.setText(AppLocal.getIntString("Button.Close")); // NOI18N
         m_jButtonCancel.setFocusPainted(false);

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -21,14 +21,27 @@ package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class SerializerWriteBuilder implements SerializerWrite<SerializableWrite> {
     
+    /**
+     *
+     */
     public static final SerializerWrite INSTANCE = new SerializerWriteBuilder();
     
     /** Creates a new instance of SerializerWriteBuilder */
     private SerializerWriteBuilder() {
     }
     
+    /**
+     *
+     * @param dp
+     * @param obj
+     * @throws BasicException
+     */
     public void writeValues(DataWrite dp, SerializableWrite obj) throws BasicException {
         obj.writeValues(dp);
     }

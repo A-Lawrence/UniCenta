@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,8 +19,9 @@
 
 package com.openbravo.data.loader;
 
-import java.sql.*;
 import com.openbravo.basic.BasicException;
+import java.sql.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -32,13 +33,25 @@ public class StaticSentence extends JDBCSentence {
     private static final Logger logger = Logger.getLogger("com.openbravo.data.loader.StaticSentence");
     
     private ISQLBuilderStatic m_sentence;
+
+    /**
+     *
+     */
     protected SerializerWrite m_SerWrite = null;
+
+    /**
+     *
+     */
     protected SerializerRead m_SerRead = null;
 
     // Estado
     private Statement m_Stmt;
     
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence
+     * @param serread
+     * @param serwrite */
     public StaticSentence(Session s, ISQLBuilderStatic sentence, SerializerWrite serwrite, SerializerRead serread) {
         super(s);
         m_sentence = sentence;
@@ -46,27 +59,47 @@ public class StaticSentence extends JDBCSentence {
         m_SerRead = serread;
         m_Stmt = null;
     }    
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence */
     public StaticSentence(Session s, ISQLBuilderStatic sentence) {
         this(s, sentence, null, null);
     }     
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence
+     * @param serwrite */
     public StaticSentence(Session s, ISQLBuilderStatic sentence, SerializerWrite serwrite) {
         this(s, sentence, serwrite, null);
     }     
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence
+     * @param serread
+     * @param serwrite */
     public StaticSentence(Session s, String sentence, SerializerWrite serwrite, SerializerRead serread) {
         this(s, new NormalBuilder(sentence), serwrite, serread);
     }
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence
+     * @param serwrite */
     public StaticSentence(Session s, String sentence, SerializerWrite serwrite) {
         this(s, new NormalBuilder(sentence), serwrite, null);
     }
-    /** Creates a new instance of StaticSentence */
+    /** Creates a new instance of StaticSentence
+     * @param s
+     * @param sentence */
     public StaticSentence(Session s, String sentence) {
         this(s, new NormalBuilder(sentence), null, null);
     }
     
+    /**
+     *
+     * @param params
+     * @return
+     * @throws BasicException
+     */
     @Override
     public DataResultSet openExec(Object params) throws BasicException {
         // true -> un resultset
@@ -79,7 +112,7 @@ public class StaticSentence extends JDBCSentence {
 
             String sentence = m_sentence.getSQL(m_SerWrite, params);
             
-            logger.info("Executing static SQL: " + sentence);
+           logger.log(Level.INFO, "Executing static SQL: {0}", sentence);
 
             if (m_Stmt.execute(sentence)) {
                 return new JDBCDataResultSet(m_Stmt.getResultSet(), m_SerRead);
@@ -96,6 +129,11 @@ public class StaticSentence extends JDBCSentence {
         }
     }
     
+    /**
+     *
+     * @throws BasicException
+     */
+    @Override
     public void closeExec() throws BasicException {
         
         if (m_Stmt != null) {
@@ -109,6 +147,12 @@ public class StaticSentence extends JDBCSentence {
         }
     }
     
+    /**
+     *
+     * @return
+     * @throws BasicException
+     */
+    @Override
     public DataResultSet moreResults() throws BasicException {
 
         try {

@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -36,6 +36,15 @@ public class Field {
     private boolean comparable;
     private boolean title;
     
+    /**
+     *
+     * @param label
+     * @param data
+     * @param format
+     * @param title
+     * @param searchable
+     * @param comparable
+     */
     public Field(String label, Datas data, Formats format, boolean title, boolean searchable, boolean comparable) {
         this.label = label;
         this.data = data;
@@ -45,30 +54,60 @@ public class Field {
         this.comparable = comparable;             
     }
     
+    /**
+     *
+     * @param label
+     * @param data
+     * @param format
+     */
     public Field(String label, Datas data, Formats format) {
         this(label, data, format, false, false, false);
     }
     
+    /**
+     *
+     * @return
+     */
     public String getLabel() {
         return label;
     }
     
+    /**
+     *
+     * @return
+     */
     public Formats getFormat() {
         return format;
     }
     
+    /**
+     *
+     * @return
+     */
     public Datas getData() {
         return data;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isSearchable() {
         return searchable;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isComparable() {
         return comparable;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isTitle() {
         return title;
     }    

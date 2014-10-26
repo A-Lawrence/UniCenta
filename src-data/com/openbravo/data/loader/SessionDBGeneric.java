@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (C) 2008-2009 Openbravo, S.L.
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -27,28 +27,71 @@ public class SessionDBGeneric implements SessionDB {
 
     private String name;
 
+    /**
+     *
+     * @param name
+     */
     public SessionDBGeneric(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String TRUE() {
         return "TRUE";
     }
+
+    /**
+     *
+     * @return
+     */
     public String FALSE() {
         return "FALSE";
     }
+
+    /**
+     *
+     * @return
+     */
     public String INTEGER_NULL() {
         return "CAST(NULL AS INTEGER)";
     }
+
+    /**
+     *
+     * @return
+     */
     public String CHAR_NULL() {
         return "CAST(NULL AS CHAR)";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
     public SentenceFind getSequenceSentence(Session s, String sequence) {
         return new StaticSentence(s, "SELECT NEXTVAL('" + sequence + "')", null, SerializerReadInteger.INSTANCE);
     }
+    
+    /**
+     *
+     * @param s
+     * @param sequence
+     * @return
+     */
+    public SentenceFind resetSequenceSentence(Session s, String sequence){
+        return new StaticSentence(s, "ALTER SEQUENCE " + sequence + " RESTART WITH 0", null, SerializerReadInteger.INSTANCE);   
+}    
 }

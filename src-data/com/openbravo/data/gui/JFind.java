@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -19,12 +19,16 @@
 
 package com.openbravo.data.gui;
 
-import javax.swing.*;
-import java.awt.*;
 import com.openbravo.basic.BasicException;
-import com.openbravo.data.loader.Vectorer;
 import com.openbravo.data.loader.LocalRes;
+import com.openbravo.data.loader.Vectorer;
+import java.awt.*;
+import javax.swing.*;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class JFind extends JDialog {
     
     private FindInfo m_FindInfo;
@@ -83,6 +87,13 @@ public class JFind extends JDialog {
         }
     }
        
+    /**
+     *
+     * @param parent
+     * @param lastFindInfo
+     * @return
+     * @throws BasicException
+     */
     public static FindInfo showMessage(Component parent, FindInfo lastFindInfo) throws BasicException {
          
         Window window = getWindow(parent);      
@@ -122,34 +133,34 @@ public class JFind extends JDialog {
 
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText(LocalRes.getIntString("label.findwhat")); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 20, 100, 25);
 
-        m_jFind.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jFind.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.add(m_jFind);
         m_jFind.setBounds(110, 20, 230, 25);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(LocalRes.getIntString("label.where")); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(10, 50, 100, 25);
 
-        m_jWhere.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jWhere.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.add(m_jWhere);
         m_jWhere.setBounds(110, 50, 230, 25);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(LocalRes.getIntString("label.match")); // NOI18N
         jPanel1.add(jLabel3);
         jLabel3.setBounds(10, 80, 100, 25);
 
-        m_jMatch.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        m_jMatch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.add(m_jMatch);
         m_jMatch.setBounds(110, 80, 230, 25);
 
-        m_jMatchCase.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        m_jMatchCase.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jMatchCase.setText(LocalRes.getIntString("label.casesensitive")); // NOI18N
         jPanel1.add(m_jMatchCase);
         m_jMatchCase.setBounds(110, 110, 230, 25);
@@ -186,14 +197,12 @@ public class JFind extends JDialog {
 
     private void jcmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdCancelActionPerformed
         
-        // TODO add your handling code here:
         dispose();
         
     }//GEN-LAST:event_jcmdCancelActionPerformed
 
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
         
-        // TODO add your handling code here:
         m_FindInfo = new FindInfo(m_vec, m_jFind.getText(), m_jWhere.getSelectedIndex(), m_jMatchCase.isSelected(), m_jMatch.getSelectedIndex());
         
         dispose();

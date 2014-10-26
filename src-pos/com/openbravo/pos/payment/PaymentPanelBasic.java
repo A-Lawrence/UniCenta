@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -22,24 +22,38 @@ package com.openbravo.pos.payment;
 import com.openbravo.pos.forms.AppLocal;
 import javax.swing.JComponent;
 
+/**
+ *
+ * @author JG uniCenta
+ */
 public class PaymentPanelBasic extends javax.swing.JPanel implements PaymentPanel {
 
     private double m_dTotal;
     private String m_sTransactionID;
     private JPaymentNotifier m_notifier;
     
-    /** Creates new form PaymentPanelSimple */
+    /** Creates new form PaymentPanelSimple
+     * @param notifier */
     public PaymentPanelBasic(JPaymentNotifier notifier) {
         
         m_notifier = notifier;
         initComponents();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public JComponent getComponent(){
         return this;
     }
     
+    /**
+     *
+     * @param sTransaction
+     * @param dTotal
+     */
     @Override
     public void activate(String sTransaction, double dTotal) {
         
@@ -54,6 +68,10 @@ public class PaymentPanelBasic extends javax.swing.JPanel implements PaymentPane
         m_notifier.setStatus(true, true);            
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public PaymentInfoMagcard getPaymentInfoMagcard() {
 

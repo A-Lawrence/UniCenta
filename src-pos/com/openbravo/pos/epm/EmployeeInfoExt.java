@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -25,17 +25,29 @@ package com.openbravo.pos.epm;
  */
 public class EmployeeInfoExt extends EmployeeInfo {
     
+    /**
+     *
+     */
     protected boolean visible;
     
-    /** Creates a new instance of EmployeeInfoExt */
+    /** Creates a new instance of EmployeeInfoExt
+     * @param id */
     public EmployeeInfoExt(String id) {
         super(id);
     } 
 
+    /**
+     *
+     * @return
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     *
+     * @param visible
+     */
     public void setVisible(boolean visible) {
         this.visible = visible;
     }

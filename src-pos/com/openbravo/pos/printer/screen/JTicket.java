@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -30,8 +30,8 @@ class JTicket extends javax.swing.JPanel {
     private static final int COLUMNS = 42;
     private static final int LINEWIDTH = COLUMNS * 7;    
     
-    private BasicTicket basict;
-    private Map desktophints;
+    private final BasicTicket basict;
+    private final Map desktophints;
    
     /** Creates new form JTicket */
     public JTicket(BasicTicket t) {
@@ -88,7 +88,7 @@ class JTicket extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
     

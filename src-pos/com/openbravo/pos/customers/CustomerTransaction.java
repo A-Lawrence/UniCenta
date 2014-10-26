@@ -1,6 +1,6 @@
 //    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2012 uniCenta
-//    http://www.unicenta.net/unicentaopos
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
 //
 //    This file is part of uniCenta oPOS
 //
@@ -31,9 +31,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Jack Gerrard 1 Nov 12
- * for later release
- * Customer Tranx tab
+ * @author JG uniCenta Gerrard 1 Nov 12
+ * Used in Customer's transactions tab to display all this Customer's
+ * ticketline values
  */
 public class CustomerTransaction {
 
@@ -45,9 +45,22 @@ public class CustomerTransaction {
     Date transactionDate;
     String customerName;
 
+    /**
+     * Main method to return all customer's transactions 
+     */
     public CustomerTransaction() {
     }
 
+    /**
+     *
+     * @param ticketId
+     * @param productName
+     * @param unit
+     * @param amount
+     * @param total
+     * @param transactionDate
+     * @param name
+     */
     public CustomerTransaction(String ticketId, String productName, String unit, Double amount, Double total, Date transactionDate, String name) {
         this.ticketId = ticketId;
         this.productName = productName;
@@ -58,62 +71,122 @@ public class CustomerTransaction {
         this.customerName = name;
     }
 
+    /**
+     *
+     * @return ticket id string
+     */
     public String getTicketId() {
         return ticketId;
     }
 
+    /**
+     *
+     * @param ticketId
+     */
     public void setTicketId(String ticketId) {
         this.ticketId = ticketId;
     }
 
+    /**
+     *
+     * @return ticket amount value
+     */
     public Double getAmount() {
         return amount;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
+    /**
+     *
+     * @param total
+     */
     public void setTotal(Double  total) {
         this.total = total;
     }
 
+    /**
+     *
+     * @return ticketline value
+     */
     public Double getTotal() {
         return total;
     }
 
+    /**
+     *
+     * @return ticketline's product name string 
+     */
     public String getProductName() {
         return productName;
     }
 
+    /**
+     *
+     * @param productName
+     */
     public void setProductName(String productName) {
         this.productName = productName;
     }
 
+    /**
+     *
+     * @return ticket's transaction date
+     */
     public Date getTransactionDate() {
         return transactionDate;
     }
 
+    /**
+     *
+     * @param transactionDate
+     */
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
 
+    /**
+     *
+     * @return ticketline's quantity string value
+     */
     public String getUnit() {
         return unit;
     }
 
+    /**
+     *
+     * @param unit
+     */
     public void setUnit(String unit) {
         this.unit = unit;
     }
 
+    /**
+     *
+     * @return customer's account name string
+     */
     public String getCustomerName() {
         return customerName;
     }
 
+    /**
+     *
+     * @param customerName
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /**
+     *
+     * @return ticketlines for this customer
+     */
     public static SerializerRead getSerializerRead() {
         return new SerializerRead() {
 
